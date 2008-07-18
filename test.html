@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Timeago jQuery Plugin Tests</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>
+  <script src="jquery.timeago.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      // functional tests
+      $('abbr[class*=timeago]').timeago();
+
+      // unit tests
+      $('abbr[class*=todate]').each(function() {
+        var date = $.timeago.parse(this.title);
+        $(this).text(date.toString());
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Functional tests:</h1>
+
+  <h2>Long term</h2>
+  Jett was born <abbr class="timeago" title="2008-02-27T00:23:00Z">bleh</abbr> [from Z]<br />
+  Jett was born <abbr class="timeago" title="2008-02-26T19:23:00-0500">bleh</abbr> [from -0500]<br />
+  <br />
+  Logan was born <abbr class="timeago" title="2005-06-17T23:42:00Z">bleh</abbr> [from Z]<br />
+  Logan was born <abbr class="timeago" title="2005-06-17T19:42:00-0400">bleh</abbr> [from -0400]<br />
+  <br />
+  Ryan was born <abbr class="timeago" title="1978-12-18T17:17:00Z">bleh</abbr> [from Z]<br />
+  Ryan was born <abbr class="timeago" title="1978-12-18T12:17:00-05:00">bleh</abbr> [from -0500]<br />
+
+  <h1>Parsing unit tests:</h1>
+  <strong>Ryan was born...</strong><br />
+  <abbr class="todate" title="1978-12-18T17:17:00Z"></abbr> [from Z]<br />
+  <abbr class="todate" title="1978-12-18T17:17:00-00:00"></abbr> [from -00:00]<br />
+  <abbr class="todate" title="1978-12-18T12:17:00-05:00"></abbr> [from -05:00]<br />
+  <abbr class="todate" title="1978-12-18T12:17:00-0500"></abbr> [from -0500]<br />
+  <abbr class="todate" title="1978-12-19T02:17:00+09:00"></abbr> [from +09:00]<br />
+  <abbr class="todate" title="1978-12-19T02:17:00+0900"></abbr> [from +0900]<br />
+</body>
+</html>
