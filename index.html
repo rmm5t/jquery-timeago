@@ -54,7 +54,7 @@
       </p>
 
       <p class="example">
-        This page was last modified <abbr class="modified timeago">sometime before now <span class="help">(turn on javascript, loser)</span></abbr>.
+        This page was last modified <abbr class="modified timeago">sometime before now [browser might not support document.lastModified]</abbr>.
       </p>
 
       <p class="example">
@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
       </p>
 
       <pre>
-&lt;abbr class=&quot;timeago&quot; title=&quot;2008-07-17T09:24:17Z&quot;&gt;<em>6 hours ago</em>&lt;/abbr&gt;</pre>
+&lt;abbr class=&quot;timeago&quot; title=&quot;2008-07-17T09:24:17Z&quot;&gt;<em><abbr class="timeago" title="2008-07-17T09:24:17Z">time ago</abbr></em>&lt;/abbr&gt;</pre>
 
       <p class="how">
         As time passes, the timestamps will automatically update.
