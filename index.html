@@ -7,22 +7,9 @@
     <title>timeago jQuery plugin</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>
     <script src="jquery.timeago.js" type="text/javascript"></script>
-    <script>
-      var zeropad = function (num) { return ((num < 10) ? '0' : '') + num; };
-      var iso8601 = function (date) {
-        return date.getUTCFullYear() + "-" + zeropad(date.getUTCMonth()+1) + "-" + zeropad(date.getUTCDate())
-          + "T" + zeropad(date.getUTCHours()) + ":" + zeropad(date.getUTCMinutes()) + ":" + zeropad(date.getUTCSeconds()) + "Z";
-      };
-    </script>
+    <script src="test.js" type="text/javascript"></script>
     <script type="text/javascript">
       jQuery(document).ready(function($) {
-        $('abbr[class*=loaded]').each(function() {
-          this.title = iso8601(new Date());
-        });
-        $('abbr[class*=modified]').each(function() {
-          this.title = iso8601(new Date(document.lastModified));
-        });
-
         $('abbr[class*=timeago]').timeago();
       });
     </script>
@@ -38,9 +25,10 @@
       p.how, p.last { margin: 0; }
       ul { margin: 0 24px 24px; }
       li { line-height: 24px; }
-      pre { background-color: #333; color: #fff; margin: 12px 0; font-size: 12px; }
+      pre { background-color: #333; color: #fff; margin: 12px 0; font-size: 12px; padding: 0 6px; }
       pre em { font-style: normal; background-color: #554; }
       pre, tt { font-family: monaco,"courier new",mono; }
+      abbr { border-bottom: 1px dotted #333; }
       tt { font-size: 14px; }
       a { color: #06e; padding: 1px; }
       a:hover { background-color: #06c; color: #fff; text-decoration: none; }
@@ -79,17 +67,17 @@
       </p>
 
       <pre>
-  &lt;script src=&quot;jquery.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;jquery.timeago.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</pre>
+&lt;script src=&quot;jquery.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jquery.timeago.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</pre>
 
       <p class="how">
         Now, let's attach it to your timestamps on DOM ready:
       </p>
 
       <pre>
-  jQuery(document).ready(function() {
-    jQuery('abbr[class*=timeago]').timeago();
-  });</pre>
+jQuery(document).ready(function() {
+  jQuery('abbr[class*=timeago]').timeago();
+});</pre>
 
       <p class="how">
         This will turn all <tt>abbr</tt> elements with a class
@@ -97,14 +85,14 @@
       </p>
 
       <pre>
-  &lt;abbr class=&quot;<em>timeago</em>&quot; title=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/abbr&gt;</pre>
+&lt;abbr class=&quot;<em>timeago</em>&quot; title=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/abbr&gt;</pre>
 
       <p class="how">
         into something like this:
       </p>
 
       <pre>
-  &lt;abbr class=&quot;timeago&quot; title=&quot;2008-07-17T09:24:17Z&quot;&gt;<em>6 hours ago</em>&lt;/abbr&gt;</pre>
+&lt;abbr class=&quot;timeago&quot; title=&quot;2008-07-17T09:24:17Z&quot;&gt;<em>6 hours ago</em>&lt;/abbr&gt;</pre>
 
       <p class="how">
         As time passes, the timestamps will automatically update.
