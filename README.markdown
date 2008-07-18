@@ -29,13 +29,10 @@ into something like this:
 
 As time passes, the timestamps will automatically update.
 
-For more usage and examples, visit: http://timeago.yarp.com/
+**For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
 
-## License
+## Other
 
-Licensed under the MIT:
-http://www.opensource.org/licenses/mit-license.php
-
-## License
+[MIT License](http://www.opensource.org/licenses/mit-license.php)
 
 Copyright (c) 2008, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
