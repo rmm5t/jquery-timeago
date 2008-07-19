@@ -48,15 +48,12 @@
         timestamps (e.g. "4 minutes ago" or "about 1 day ago").  <a href="jquery.timeago.js">Download</a>, view
         the examples, and enjoy.
       </p>
-
       <p class="example">
         You opened this page <abbr class="loaded timeago">sometime before now <span class="help">(turn on javascript, loser)</span></abbr>. <span class="help">(This will update every minute. Wait for it.)</span>
       </p>
-
       <p class="example">
         This page was last modified <abbr class="modified timeago">sometime before now [browser might not support document.lastModified]</abbr>.
       </p>
-
       <p class="example">
         Ryan was born <abbr class="timeago" title="1978-12-18T17:17:00Z">Dec 18, 1978</abbr>.
       </p>
@@ -65,35 +62,27 @@
       <p class="how">
         First, load <a href="http://jquery.com/">jQuery</a> and the plugin:
       </p>
-
       <pre>
 &lt;script src=&quot;jquery.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;jquery.timeago.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</pre>
-
       <p class="how">
         Now, let's attach it to your timestamps on DOM ready:
       </p>
-
       <pre>
 jQuery(document).ready(function() {
   jQuery('abbr[class*=timeago]').timeago();
 });</pre>
-
       <p class="how">
         This will turn all <tt>abbr</tt> elements with a class
         of <tt>timeago</tt> and an <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp in the title:
       </p>
-
       <pre>
 &lt;abbr class=&quot;<em>timeago</em>&quot; title=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/abbr&gt;</pre>
-
       <p class="how">
         into something like this:
       </p>
-
       <pre>
 &lt;abbr class=&quot;timeago&quot; title=&quot;2008-07-17T09:24:17Z&quot;&gt;<em><abbr class="timeago" title="2008-07-17T09:24:17Z">time ago</abbr></em>&lt;/abbr&gt;</pre>
-
       <p>
         which yields: <abbr class="timeago" title="2008-07-17T09:24:17Z">July 17, 2008</abbr>.  As time passes, the timestamps will automatically update.
       </p>
@@ -106,6 +95,14 @@ jQuery(document).ready(function() {
         <li>You get to use <a href="http://microformats.org/">microformats</a> like the cool kids.</li>
       </ul>
 
+      <h3>Where?</h3>
+      <p><a href="jquery.timeago.js">Download the &quot;stable&quot; release</a>.</p>
+      <p>
+        The code is hosted on
+        GitHub: <a href="http://github.com/rmm5t/timeago">http://github.com/rmm5t/timeago</a>.
+        Go on, live on the edge.
+      </p>
+
       <h3>Who?</h3>
       <p>
         Timeago was built by <a href="http://ryan.mcgeary.org">Ryan McGeary</a>
@@ -116,18 +113,21 @@ jQuery(document).ready(function() {
         in <a href="http://rubyonrails.org">Ruby on Rails</a>.
       </p>
 
-      <h3>Where?</h3>
-      <p><a href="jquery.timeago.js">Download the &quot;stable&quot; release</a>.</p>
-      <p>
-        The code is hosted on
-        GitHub: <a href="http://github.com/rmm5t/timeago">http://github.com/rmm5t/timeago</a>.
-        Go on, live on the edge.
-      </p>
-
       <h3>When?</h3>
-      <p class="last">
+      <p>
         Timeago was conceived <abbr class="timeago" title="2008-07-17T02:30:00-0500">on July 17, 2008</abbr>.  <span class="help">(Yup, that's powered by timeago too)</span>
       </p>
+
+      <h3>What else?</h3>
+      <p class="last">
+        Need a Rails helper to make those fancy microformat <tt>abbr</tt> tags?  Fine, here ya go:
+      </p>
+      <pre>
+def timeago(time, options = {})
+  options[:class] ||= "timeago"
+  content_tag(:abbr, time.to_s, options.merge(:title => time.getutc.iso8601)) if time
+end</pre>
+
     </div>
     <div id="footer">
       <div style="float:right;">
