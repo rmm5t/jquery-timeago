@@ -1,5 +1,5 @@
 /*
- * Time Ago (for jQuery) version: 0.1 (07/18/2008)
+ * Time Ago (for jQuery) version: 0.2 (07/18/2008)
  * @requires jQuery v1.2 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -32,15 +32,15 @@
       var years = days / 365;
 
       var words = seconds < 45 && "less than a minute" ||
-        seconds < 90 && "about 1 minute" ||
+        seconds < 90 && "about a minute" ||
         minutes < 45 && Math.round(minutes) + " minutes" ||
-        minutes < 90 && "about 1 hour" ||
-        hours < 24 && Math.round(hours) + " hours" ||
-        hours < 48 && "about 1 day" ||
+        minutes < 90 && "about an hour" ||
+        hours < 24 && "about " + Math.round(hours) + " hours" ||
+        hours < 48 && "a day" ||
         days < 30 && Math.floor(days) + " days" ||
-        days < 60 && "about 1 month" ||
+        days < 60 && "about a month" ||
         days < 365 && Math.floor(days / 30) + " months" ||
-        years < 2 && "about 1 year" ||
+        years < 2 && "about a year" ||
         Math.floor(years) + " years";
 
       return words + " ago";
