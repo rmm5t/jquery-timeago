@@ -66,7 +66,9 @@
 
   function refresh() {
     var date = $.timeago.parse(this.title);
-    $(this).text($.timeago.inWords(distance(date)));
+    if (!isNaN(date)) {
+      $(this).text($.timeago.inWords(distance(date)));
+    }
   }
 
   function distance(date) {

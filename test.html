@@ -34,7 +34,7 @@
 
   <h2>Short term</h2>
   You opened this page <abbr class="loaded timeago">sometime before now</abbr>.<br />
-  This page was last modified <abbr class="modified timeago">sometime before now</abbr>.<br />
+  This page was last modified <abbr class="modified timeago">sometime before now (your browser might not support document.lastModified for local resources)</abbr>.<br />
 
   <h2>Long term</h2>
   Jett was born <abbr class="timeago" title="2008-02-27T00:23:00Z">bleh</abbr> [from Z]<br />
@@ -52,6 +52,7 @@
   <h2>Errors</h2>
   Bad (letters): <abbr class="timeago" title="bleh">(this should be displayed)</abbr>.<br />
   Bad (numbers): <abbr class="timeago" title="1234">(this should be displayed)</abbr>.<br />
+  Bad (blank): <abbr class="timeago" title="">(this should be displayed)</abbr>.<br />
   Bad (missing): <abbr class="timeago">(this should be displayed)</abbr>.<br />
 
   <h1>Parsing unit tests:</h1>
