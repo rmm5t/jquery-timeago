@@ -13,7 +13,7 @@
         $('abbr[class*=timeago]').timeago();
 
         $("#prog_date").text(jQuery.timeago(new Date()));
-        $("#prog_string").text(jQuery.timeago("2008-07-17T09:24:17Z"));
+        $("#prog_string").text(jQuery.timeago("2008-07-17"));
         $("#prog_element").text(jQuery.timeago("2008-07-20"));
       });
 
@@ -104,9 +104,9 @@ jQuery(document).ready(function() {
         You can also use it programmatically:
       </p>
       <pre>
-jQuery.timeago(new Date());              //=> &quot;<span id="prog_date"></span>&quot;
-jQuery.timeago("2008-07-17T09:24:17Z");  //=> &quot;<span id="prog_string"></span>&quot;
-jQuery.timeago(jQuery("abbr#some_id"));  //=> &quot;<span id="prog_element"></span>&quot;     // [title=&quot;2008-07-20&quot;]</pre>
+jQuery.timeago(new Date());             //=> &quot;<span id="prog_date"></span>&quot;
+jQuery.timeago("2008-07-17");           //=> &quot;<span id="prog_string"></span>&quot;
+jQuery.timeago(jQuery("abbr#some_id")); //=> &quot;<span id="prog_element"></span>&quot;     // [title=&quot;2008-07-20&quot;]</pre>
 
       <h3>Where?</h3>
       <p><a href="jquery.timeago.js">Download the &quot;stable&quot; release</a>.</p>
