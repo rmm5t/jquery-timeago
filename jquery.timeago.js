@@ -1,5 +1,5 @@
 /*
- * Time Ago (for jQuery) version: 0.2 (07/19/2008)
+ * Time Ago (for jQuery) version: 0.2.99 (07/19/2008)
  * @requires jQuery v1.2 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -22,7 +22,7 @@
 
   $.extend($.timeago, {
     settings: {
-      refreshSeconds: 60
+      refreshMillis: 60000
     },
     inWords: function(distanceMillis) {
       var seconds = distanceMillis / 1000;
@@ -59,8 +59,8 @@
     self.each(refresh);
 
     var $s = $.timeago.settings;
-    if ($s.refreshSeconds > 0) {
-      setInterval(function() { self.each(refresh); }, ($s.refreshSeconds * 1000));
+    if ($s.refreshMillis > 0) {
+      setInterval(function() { self.each(refresh); }, ($s.refreshMillis));
     }
   };
 
