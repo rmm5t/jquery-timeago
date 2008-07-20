@@ -17,7 +17,7 @@
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) return inWords(timestamp);
     else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
-    else return $(timestamp).timeago();
+    else return inWords($.timeago.parse(timestamp.title));
   };
 
   $.extend($.timeago, {

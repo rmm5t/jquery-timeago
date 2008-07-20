@@ -11,7 +11,12 @@
     <script type="text/javascript">
       jQuery(document).ready(function($) {
         $('abbr[class*=timeago]').timeago();
+
+        $("#prog_date").text(jQuery.timeago(new Date()));
+        $("#prog_string").text(jQuery.timeago("2008-07-17T09:24:17Z"));
+        $("#prog_element").text(jQuery.timeago("2008-07-20"));
       });
+
     </script>
     <style>
       * { margin: 0; padding: 0; }
@@ -58,6 +63,14 @@
         Ryan was born <abbr class="timeago" title="1978-12-18T17:17:00Z">Dec 18, 1978</abbr>.
       </p>
 
+      <h3>Why?</h3>
+      <p>Timeago was originally built for use with <a href="http://yarp.com">Yarp.com</a> (coming soon) to timestamp comments.</p>
+      <ul>
+        <li>Because timeago can refresh automatically, you won't have timestamps dated "1 minute ago" even though the page was opened 10 minutes ago.</li>
+        <li>Because the fuzzy timestamps aren't calculated on the server, you can take full advantage of page caching in your web applications.</li>
+        <li>You get to use <a href="http://microformats.org/">microformats</a> like the cool kids.</li>
+      </ul>
+
       <h3>How?</h3>
       <p class="how">
         First, load <a href="http://jquery.com/">jQuery</a> and the plugin:
@@ -87,13 +100,13 @@ jQuery(document).ready(function() {
         which yields: <abbr class="timeago" title="2008-07-17T09:24:17Z">July 17, 2008</abbr>.  As time passes, the timestamps will automatically update.
       </p>
 
-      <h3>Why?</h3>
-      <p>Timeago was originally built for use with <a href="http://yarp.com">Yarp.com</a> (coming soon) to timestamp comments.</p>
-      <ul>
-        <li>Because timeago can refresh automatically, you won't have timestamps dated "1 minute ago" even though the page was opened 10 minutes ago.</li>
-        <li>Because the fuzzy timestamps aren't calculated on the server, you can take full advantage of page caching in your web applications.</li>
-        <li>You get to use <a href="http://microformats.org/">microformats</a> like the cool kids.</li>
-      </ul>
+      <p class="how">
+        You can also use it programmatically:
+      </p>
+      <pre>
+jQuery.timeago(new Date());              //=> &quot;<span id="prog_date"></span>&quot;
+jQuery.timeago("2008-07-17T09:24:17Z");  //=> &quot;<span id="prog_string"></span>&quot;
+jQuery.timeago(jQuery("abbr#some_id"));  //=> &quot;<span id="prog_element"></span>&quot;     // [title=&quot;2008-07-20&quot;]</pre>
 
       <h3>Where?</h3>
       <p><a href="jquery.timeago.js">Download the &quot;stable&quot; release</a>.</p>
