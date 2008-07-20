@@ -1,5 +1,5 @@
 /*
- * Time Ago (for jQuery) version: 0.2.99 (07/19/2008)
+ * Time Ago (for jQuery) version: 0.3 (07/20/2008)
  * @requires jQuery v1.2 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -15,9 +15,9 @@
  */
 (function($) {
   $.timeago = function(timestamp) {
-    // TODO: should take a Date, ISO8601, or element[title=iso8601]
-    // return words if date or iso8601; convert and return element if element
-    alert("jQuery.timeago helper not implemented yet");
+    if (timestamp instanceof Date) return inWords(timestamp);
+    else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
+    else return $(timestamp).timeago();
   };
 
   $.extend($.timeago, {
@@ -60,15 +60,21 @@
 
     var $s = $.timeago.settings;
     if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, ($s.refreshMillis));
+      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
     }
+    return self;
   };
 
   function refresh() {
     var date = $.timeago.parse(this.title);
     if (!isNaN(date)) {
-      $(this).text($.timeago.inWords(distance(date)));
+      $(this).text(inWords(date));
     }
+    return this;
+  }
+
+  function inWords(date) {
+    return $.timeago.inWords(distance(date));
   }
 
   function distance(date) {

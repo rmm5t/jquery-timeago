@@ -23,6 +23,11 @@
         var string = $.timeago.inWords(parseInt(this.title) * 1000);
         $(this).text(string);
       });
+
+      // unit tests
+      $("#helper_date").text($.timeago(new Date()));
+      $("#helper_string").text($.timeago(iso8601(new Date())));
+      $.timeago($("#helper_element"));
     });
   </script>
   <style>
@@ -83,5 +88,10 @@
   <abbr class="towords" title="16416000"></abbr> [190 days]<br />
   <abbr class="towords" title="31622400"></abbr> [366 days]<br />
   <abbr class="towords" title="94608000"></abbr> [1095 days]<br />
+
+  <h1>Helper unit tests:</h1>
+  You opened this page <abbr id="helper_date"></abbr> [won't refresh]<br />
+  You opened this page <abbr id="helper_string"></abbr> [won't refresh]<br />
+  You opened this page <abbr id="helper_element" class="loaded"></abbr> [should refresh]<br />
 </body>
 </html>
