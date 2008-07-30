@@ -27,7 +27,7 @@
       // unit tests
       $("#helper_date").text($.timeago(new Date()));
       $("#helper_string").text($.timeago(iso8601(new Date())));
-      $.timeago($("#helper_element"));
+      $("#helper_element").text($.timeago($("#helper_element")));
     });
   </script>
   <style>
@@ -92,6 +92,6 @@
   <h1>Helper unit tests:</h1>
   You opened this page <abbr id="helper_date"></abbr> [won't refresh]<br />
   You opened this page <abbr id="helper_string"></abbr> [won't refresh]<br />
-  You opened this page <abbr id="helper_element" class="loaded"></abbr> [should refresh]<br />
+  You opened this page <abbr id="helper_element" class="a loaded"></abbr> [won't refresh]<br />
 </body>
 </html>
