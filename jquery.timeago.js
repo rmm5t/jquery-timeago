@@ -46,7 +46,7 @@
       return words + " ago";
     },
     parse: function(iso8601) {
-      var s = iso8601.replace(/^\s+/, '').replace(/\s+$/, '');
+      var s = $.trim(iso8601);
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
       s = s.replace(/([\+-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
