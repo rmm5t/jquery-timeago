@@ -8,6 +8,7 @@
   <script src="jquery.timeago.js" type="text/javascript"></script>
   <script src="test.js" type="text/javascript"></script>
   <script type="text/javascript">
+    jQuery.timeago.settings.allowFuture = true;
     jQuery(document).ready(function($) {
       // functional tests
       $('abbr[class*=timeago]').timeago();
@@ -70,6 +71,7 @@
   <abbr class="todate" title="1978-12-19T02:17:00+0900"></abbr> [from +0900]<br />
 
   <h1>Wording unit tests:</h1>
+  <abbr class="towords" title="-7200"></abbr> [-120 min]<br />
   <abbr class="towords" title="-60"></abbr> [-60 sec]<br />
   <abbr class="towords" title="-30"></abbr> [-30 sec]<br />
   <abbr class="towords" title="-1"></abbr> [-1 sec]<br />

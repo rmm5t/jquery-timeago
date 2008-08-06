@@ -1,5 +1,5 @@
 /*
- * timeago: a jQuery plugin, version: 0.3.2.99 (07/30/2008)
+ * timeago: a jQuery plugin, version: 0.4 (08/05/2008)
  * @requires jQuery v1.2 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -22,9 +22,16 @@
 
   $.extend($.timeago, {
     settings: {
-      refreshMillis: 60000
+      refreshMillis: 60000,
+      allowFuture: false
     },
     inWords: function(distanceMillis) {
+      var suffix = " ago";
+      if (this.settings.allowFuture) {
+        if (distanceMillis < 0) suffix = " from now";
+        distanceMillis = Math.abs(distanceMillis);
+      }
+
       var seconds = distanceMillis / 1000;
       var minutes = seconds / 60;
       var hours = minutes / 60;
@@ -43,7 +50,7 @@
         years < 2 && "about a year" ||
         Math.floor(years) + " years";
 
-      return words + " ago";
+      return words + suffix;
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);

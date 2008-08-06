@@ -109,6 +109,12 @@ jQuery.timeago(new Date());             //=> &quot;<span id="prog_date"></span>&
 jQuery.timeago("2008-07-17");           //=> &quot;<span id="prog_string"></span>&quot;
 jQuery.timeago(jQuery("abbr#some_id")); //=> &quot;<span id="prog_element"></span>&quot;     // [title=&quot;2008-07-20&quot;]</pre>
 
+      <p class="how">
+        To support timestamps in the future, use the <tt>allowFuture</tt> setting:
+      </p>
+      <pre>
+jQuery.timeago.settings.allowFuture = true;</pre>
+
       <h3>Where?</h3>
       <p><a href="jquery.timeago.js">Download the &quot;stable&quot; release</a>.</p>
       <p>
