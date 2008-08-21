@@ -1,5 +1,5 @@
 /*
- * timeago: a jQuery plugin, version: 0.5 (08/19/2008)
+ * timeago: a jQuery plugin, version: 0.5.1 (08/20/2008)
  * @requires jQuery v1.2 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -108,5 +108,10 @@
   // lame sprintf implementation
   function sprintf(string, value) {
     return string.replace(/%d/i, value);
+  }
+
+  // fix for IE6 suckage
+  if ($.browser.msie && $.browser.version < 7.0) {
+    document.createElement('abbr');
   }
 })(jQuery);
