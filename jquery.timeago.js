@@ -1,5 +1,5 @@
 /*
- * timeago: a jQuery plugin, version: 0.6.1 (10/14/2008)
+ * timeago: a jQuery plugin, version: 0.6.2 (10/14/2008)
  * @requires jQuery v1.2 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -52,7 +52,7 @@
       if (this.settings.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
-          suffix = $l.suffixAgo || $l.fromNow;
+          suffix = $l.suffixFromNow || $l.fromNow;
         }
         distanceMillis = Math.abs(distanceMillis);
       }
