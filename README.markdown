@@ -31,6 +31,8 @@ As time passes, the timestamps will automatically update.
 
 **For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
 
+**For different language configurations**: [http://gist.github.com/6251](http://gist.github.com/6251)
+
 ## Other
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
