@@ -33,6 +33,10 @@ As time passes, the timestamps will automatically update.
 
 **For different language configurations**: [http://gist.github.com/6251](http://gist.github.com/6251)
 
+## Author
+
+[Ryan McGeary](http://ryan.mcgeary.org) ([@rmm5t](http://twitter.com/rmm5t))
+
 ## Other
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
