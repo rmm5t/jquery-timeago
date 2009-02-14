@@ -63,17 +63,17 @@
       var days = hours / 24;
       var years = days / 365;
 
-      var words = seconds < 45 && sprintf($l.seconds, Math.round(seconds)) ||
+      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
         seconds < 90 && $l.minute ||
-        minutes < 45 && sprintf($l.minutes, Math.round(minutes)) ||
+        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
         minutes < 90 && $l.hour ||
-        hours < 24 && sprintf($l.hours, Math.round(hours)) ||
+        hours < 24 && substitute($l.hours, Math.round(hours)) ||
         hours < 48 && $l.day ||
-        days < 30 && sprintf($l.days, Math.floor(days)) ||
+        days < 30 && substitute($l.days, Math.floor(days)) ||
         days < 60 && $l.month ||
-        days < 365 && sprintf($l.months, Math.floor(days / 30)) ||
+        days < 365 && substitute($l.months, Math.floor(days / 30)) ||
         years < 2 && $l.year ||
-        sprintf($l.years, Math.floor(years));
+        substitute($l.years, Math.floor(years));
 
       return $.trim([prefix, words, suffix].join(" "));
     },
@@ -113,8 +113,8 @@
     return (new Date().getTime() - date.getTime());
   }
 
-  // lame sprintf implementation
-  function sprintf(string, value) {
+  function substitute(stringOrFunction, value) {
+    var string = $.isFunction(stringOrFunction) ? stringOrFunction(value) : stringOrFunction;
     return string.replace(/%d/i, value);
   }
 
