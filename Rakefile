@@ -3,16 +3,21 @@ SETTINGS = {
   :rsync_options => '-e ssh -avz --delete --exclude=.git'
 }
 
+verbose(true)
+
 task :default => :test
 
-desc 'Publish to server (edit Rakefile to config)'
+desc 'Publish "marketing" docs'
 task :publish do
-  cmd = "rsync #{SETTINGS[:rsync_options]} ./ #{SETTINGS[:rsync_server]}"
-  puts "\nSyncing with server: #{cmd}\n\n"
-  system(cmd)
+  sh("git rebase master gh-pages")
+  sh("git checkout master")
+  sh("git push")
+  sh("git push --tags")
+
+  sh("rsync #{SETTINGS[:rsync_options]} ./ #{SETTINGS[:rsync_server]}")
 end
 
 desc 'Open your default browser with the test page'
 task :test do
-  system("open test.html")
+  sh("open test.html")
 end
