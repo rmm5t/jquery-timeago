@@ -1,8 +1,3 @@
-SETTINGS = {
-  :rsync_server  => 'timeago.yarp.com:/var/www/timeago/',
-  :rsync_options => '-e ssh -avz --delete --exclude=.git'
-}
-
 verbose(true)
 
 task :default => :test
@@ -13,8 +8,6 @@ task :publish do
   sh("git checkout master")
   sh("git push")
   sh("git push --tags")
-
-  sh("rsync #{SETTINGS[:rsync_options]} ./ #{SETTINGS[:rsync_server]}")
 end
 
 desc 'Open your default browser with the test page'
