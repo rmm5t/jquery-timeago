@@ -119,7 +119,5 @@
   }
 
   // fix for IE6 suckage
-  if ($.browser.msie && $.browser.version < 7.0) {
-    document.createElement('abbr');
-  }
+  document.createElement('abbr');
 })(jQuery);
