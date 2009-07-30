@@ -268,7 +268,7 @@
 
       $('abbr.todate').each(function () {
         var date = $.timeago.parse(this.title);
-        $(this).text(date.toString());
+        $(this).text(date.toUTCString());
       });
 
       $('abbr.towords').each(toWords);
@@ -308,7 +308,7 @@
 
       module('Long term');
 
-      test("Dates older than one year should container the word 'year'", function () {
+      test("Dates older than one year should contain the word 'year'", function () {
         ok(testElements('abbr.testLongTerm', function (element) {
           return (element.html().match(/year/));
         }), 'All long term dates correctly parsed');
@@ -317,7 +317,7 @@
       module('Parsing');
 
       // Note, different browsers behave slightly different
-      var correctMatch = /Mon Dec 18 1978 17:17:00 GMT\+0000 \((?:BST|GMT)\)/;
+      var correctMatch = /Mon, 18 Dec 1978 17:17:00 GMT/;
 
       test('From Z', function () {
         ok(($('#testParsing1').html().match(correctMatch)), 'Correctly parsed');
@@ -344,7 +344,7 @@
       });
 
       test('From blank TZ', function () {
-        ok(($('#testParsing7').html().match(correctMatch)), 'Correctly parsed');
+        ok(($('#testParsing7').html().match(/Mon, 18 Dec 1978 \d\d:17:00 GMT/)), 'Correctly parsed, assumed local time');
       });
 
       module('Wording');
