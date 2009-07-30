@@ -12,5 +12,5 @@ end
 
 desc 'Open your default browser with the test page'
 task :test do
-  sh("open test.html")
+  sh("open test/test.html")
 end
