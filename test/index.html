@@ -68,6 +68,8 @@
 
     <p>Date only (abbr element): <abbr class="timeago" title="2008-02-26">(you shouldn't see this)</abbr>.</p>
     <p>Date only (time element): <time class="timeago" datetime="2008-02-26">(you shouldn't see this)</time>.</p>
+    <p>Date only (friendly tooltip): <abbr id="testTooltip" class="timeago" title="2008-02-26">February 26th</abbr>.</p>
+    <p>Date only (default tooltip): <abbr id="defaultTooltip" class="timeago" title="2008-02-26"> </abbr>.</p>
 
     <h2>Errors</h2>
 
@@ -190,11 +192,12 @@
 
       $.timeago.settings.allowFuture = true;
 
-      $('abbr.loaded').attr('title', iso8601(new Date()));
-      $('abbr.modified').attr('title', iso8601(new Date(document.lastModified)));
+      prepareDynamicDates();
 
       $('abbr.timeago').timeago();
       $('time.timeago').timeago();
+
+      var tooltip = $("#testTooltip").data("timeago");
 
       $('abbr.todate').each(function () {
         var date = $.timeago.parse(this.title);
@@ -248,6 +251,23 @@
         ok(testElements('abbr.testLongTerm', function (element) {
           return (element.html().match(/year/));
         }), 'All long term dates correctly parsed');
+      });
+
+      module('Data object');
+
+      test("should set timeago data object", function () {
+        ok(tooltip, "data set");
+        ok(tooltip.datetime, "datetime set");
+      });
+
+      module('Tooltip');
+
+      test("should set title to original text contents", function () {
+        ok($("#testTooltip").attr("title") == "February 26th", "correctly set");
+      });
+
+      test("should leave title alone if no text text content", function () {
+        ok($("#defaultTooltip").attr("title") == "2008-02-26", "correctly set");
       });
 
       module('Parsing');

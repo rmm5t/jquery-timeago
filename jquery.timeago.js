@@ -1,6 +1,6 @@
 /*
  * timeago: a jQuery plugin, version: 0.7.2 (2009-07-30)
- * @requires jQuery v1.2 or later
+ * @requires jQuery v1.2.3 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
@@ -85,8 +85,8 @@
       return new Date(s);
     },
     datetime: function(elem) {
-      var that = $(elem);
-      return $t.parse(that.is('time') ? that.attr('datetime') : that.attr('title'));
+      var iso8601 = $(elem).is('time') ? $(elem).attr('datetime') : $(elem).attr('title');
+      return $t.parse(iso8601);
     }
   });
 
@@ -102,11 +102,21 @@
   };
 
   function refresh() {
-    var date = $t.datetime(this);
-    if (!isNaN(date)) {
-      $(this).text(inWords(date));
+    var data = prepareData(this);
+    if (!isNaN(data.datetime)) {
+      $(this).text(inWords(data.datetime));
     }
     return this;
+  }
+
+  function prepareData(element) {
+    element = $(element);
+    if (element.data("timeago") === undefined) {
+      element.data("timeago", { datetime: $t.datetime(element) });
+      var text = $.trim(element.text());
+      if (text.length > 0) element.attr("title", text);
+    }
+    return element.data("timeago");
   }
 
   function inWords(date) {
