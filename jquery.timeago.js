@@ -1,5 +1,5 @@
 /*
- * timeago: a jQuery plugin, version: 0.7.2 (2009-07-30)
+ * timeago: a jQuery plugin, version: 0.8.0 (2009-10-25)
  * @requires jQuery v1.2.3 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
