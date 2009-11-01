@@ -25,7 +25,7 @@ This will turn all abbr elements with a class of timeago and an ISO 8601 timesta
 
 into something like this:
 
-    <abbr class="timeago" title="2008-07-17T09:24:17Z">about 1 day ago</abbr>
+    <abbr class="timeago" title="July 17, 2008">about 1 day ago</abbr>
 
 As time passes, the timestamps will automatically update.
 
