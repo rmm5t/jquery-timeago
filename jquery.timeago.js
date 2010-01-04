@@ -85,7 +85,9 @@
       return new Date(s);
     },
     datetime: function(elem) {
-      var iso8601 = $(elem).is('time') ? $(elem).attr('datetime') : $(elem).attr('title');
+      // jQuery's `is()` doesn't play well with HTML5 in IE
+      var isTime = $(elem).get(0).tagName.toLowerCase() == 'time'; // $(elem).is('time');
+      var iso8601 = isTime ? $(elem).attr('datetime') : $(elem).attr('title');
       return $t.parse(iso8601);
     }
   });
