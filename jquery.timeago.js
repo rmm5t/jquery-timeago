@@ -1,5 +1,5 @@
 /*
- * timeago: a jQuery plugin, version: 0.8.0 (2009-10-25)
+ * timeago: a jQuery plugin, version: 0.8.1 (2010-01-04)
  * @requires jQuery v1.2.3 or later
  *
  * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -11,7 +11,7 @@
  * Licensed under the MIT:
  * http://www.opensource.org/licenses/mit-license.php
  *
- * Copyright (c) 2008-2009, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
+ * Copyright (c) 2008-2010, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  */
 (function($) {
   $.timeago = function(timestamp) {
