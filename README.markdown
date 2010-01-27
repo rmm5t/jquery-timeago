@@ -15,7 +15,7 @@ Now, let's attach it to your timestamps on DOM ready:
 
     <pre>
       jQuery(document).ready(function() {
-        jQuery('abbr.timeago').timeago();
+        jQuery("abbr.timeago").timeago();
       });
     </pre>
 

@@ -194,73 +194,73 @@
 
       prepareDynamicDates();
 
-      $('abbr.timeago').timeago();
-      $('time.timeago').timeago();
+      $("abbr.timeago").timeago();
+      $("time.timeago").timeago();
 
       var tooltip = $("#testTooltip").data("timeago");
 
-      $('abbr.todate').each(function () {
+      $("abbr.todate").each(function () {
         var date = $.timeago.parse(this.title);
         $(this).text(date.toUTCString());
       });
 
-      $('abbr.towords').each(toWords);
+      $("abbr.towords").each(toWords);
 
       loadYoungOldYears();
-      $('abbr.toyoungold').each(toWords);
+      $("abbr.toyoungold").each(toWords);
 
       loadPigLatin();
-      $('abbr.tolatin').each(toWords);
+      $("abbr.tolatin").each(toWords);
 
       loadRussian();
-      $('abbr.torussian').each(toWords);
+      $("abbr.torussian").each(toWords);
 
-      module('Valid date');
+      module("Valid date");
 
-      test('Text in abbr tag should be replaced', function () {
-        ok(testElements('abbr.timeago', function (element) {
+      test("Text in abbr tag should be replaced", function () {
+        ok(testElements("abbr.timeago", function (element) {
           return (element.html() !== "(you shouldn't see this)");
-        }), 'All text was replaced');
+        }), "All text was replaced");
       });
 
-      test('Text in time tag should be replaced', function () {
-        ok(testElements('time.timeago', function (element) {
+      test("Text in time tag should be replaced", function () {
+        ok(testElements("time.timeago", function (element) {
           return (element.html() !== "(you shouldn't see this)");
-        }), 'All text was replaced');
+        }), "All text was replaced");
       });
 
-      module('Invalid date');
+      module("Invalid date");
 
-      test('Text in abbr should not be replaced', function () {
-        ok(testElements('abbr.bad', function (element) {
-          return (element.html() === '(this should be displayed)');
-        }), 'No text was replaced');
+      test("Text in abbr should not be replaced", function () {
+        ok(testElements("abbr.bad", function (element) {
+          return (element.html() === "(this should be displayed)");
+        }), "No text was replaced");
       });
 
-      module('Short term');
+      module("Short term");
 
       test("Dates shorter than a minute should be replaced with short term text", function () {
-        ok(testElements('abbr.testShortTerm', function (element) {
-          return (element.html() === 'less than a minute ago');
-        }), 'All short term dates correctly parsed');
+        ok(testElements("abbr.testShortTerm", function (element) {
+          return (element.html() === "less than a minute ago");
+        }), "All short term dates correctly parsed");
       });
 
-      module('Long term');
+      module("Long term");
 
       test("Dates older than one year should contain the word 'year'", function () {
-        ok(testElements('abbr.testLongTerm', function (element) {
+        ok(testElements("abbr.testLongTerm", function (element) {
           return (element.html().match(/year/));
-        }), 'All long term dates correctly parsed');
+        }), "All long term dates correctly parsed");
       });
 
-      module('Data object');
+      module("Data object");
 
       test("should set timeago data object", function () {
         ok(tooltip, "data set");
         ok(tooltip.datetime, "datetime set");
       });
 
-      module('Tooltip');
+      module("Tooltip");
 
       test("should set title to original text contents", function () {
         ok($("#testTooltip").attr("title") == "February 26th", "correctly set");
@@ -270,201 +270,201 @@
         ok($("#defaultTooltip").attr("title") == "2008-02-26", "correctly set");
       });
 
-      module('Parsing');
+      module("Parsing");
 
       // Note, different browsers behave slightly different
       var correctMatch = /Mon, 18 Dec 1978 17:17:00 GMT/;
 
-      test('From Z', function () {
-        ok(($('#testParsing1').html().match(correctMatch)), 'Correctly parsed');
+      test("From Z", function () {
+        ok(($("#testParsing1").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test('From -00:00', function () {
-        ok(($('#testParsing2').html().match(correctMatch)), 'Correctly parsed');
+      test("From -00:00", function () {
+        ok(($("#testParsing2").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test('From -05:00', function () {
-        ok(($('#testParsing3').html().match(correctMatch)), 'Correctly parsed');
+      test("From -05:00", function () {
+        ok(($("#testParsing3").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test('From -0500', function () {
-        ok(($('#testParsing4').html().match(correctMatch)), 'Correctly parsed');
+      test("From -0500", function () {
+        ok(($("#testParsing4").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test('From +09:00', function () {
-        ok(($('#testParsing5').html().match(correctMatch)), 'Correctly parsed');
+      test("From +09:00", function () {
+        ok(($("#testParsing5").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test('From +0900', function () {
-        ok(($('#testParsing6').html().match(correctMatch)), 'Correctly parsed');
+      test("From +0900", function () {
+        ok(($("#testParsing6").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test('From blank TZ', function () {
-        ok(($('#testParsing7').html().match(/Mon, 18 Dec 1978 \d\d:17:00 GMT/)), 'Correctly parsed, assumed local time');
+      test("From blank TZ", function () {
+        ok(($("#testParsing7").html().match(/Mon, 18 Dec 1978 \d\d:17:00 GMT/)), "Correctly parsed, assumed local time");
       });
 
-      module('Wording');
+      module("Wording");
 
-      test('-120 min', function () {
-        ok(($('#testWording1').html() === 'about 2 hours from now'), 'Correctly parsed');
+      test("-120 min", function () {
+        ok(($("#testWording1").html() === "about 2 hours from now"), "Correctly parsed");
       });
 
-      test('-60 sec', function () {
-        ok(($('#testWording2').html() === 'about a minute from now'), 'Correctly parsed');
+      test("-60 sec", function () {
+        ok(($("#testWording2").html() === "about a minute from now"), "Correctly parsed");
       });
 
-      test('-30 sec', function () {
-        ok(($('#testWording3').html() === 'less than a minute from now'), 'Correctly parsed');
+      test("-30 sec", function () {
+        ok(($("#testWording3").html() === "less than a minute from now"), "Correctly parsed");
       });
 
-      test('-1 sec', function () {
-        ok(($('#testWording4').html() === 'less than a minute from now'), 'Correctly parsed');
+      test("-1 sec", function () {
+        ok(($("#testWording4").html() === "less than a minute from now"), "Correctly parsed");
       });
 
-      test('0 sec', function () {
-        ok(($('#testWording5').html() === 'less than a minute ago'), 'Correctly parsed');
+      test("0 sec", function () {
+        ok(($("#testWording5").html() === "less than a minute ago"), "Correctly parsed");
       });
 
-      test('30 sec', function () {
-        ok(($('#testWording6').html() === 'less than a minute ago'), 'Correctly parsed');
+      test("30 sec", function () {
+        ok(($("#testWording6").html() === "less than a minute ago"), "Correctly parsed");
       });
 
-      test('45 sec', function () {
-        ok(($('#testWording7').html() === 'about a minute ago'), 'Correctly parsed');
+      test("45 sec", function () {
+        ok(($("#testWording7").html() === "about a minute ago"), "Correctly parsed");
       });
 
-      test('90 sec', function () {
-        ok(($('#testWording8').html() === '2 minutes ago'), 'Correctly parsed');
+      test("90 sec", function () {
+        ok(($("#testWording8").html() === "2 minutes ago"), "Correctly parsed");
       });
 
-      test('120 sec', function () {
-        ok(($('#testWording9').html() === '2 minutes ago'), 'Correctly parsed');
+      test("120 sec", function () {
+        ok(($("#testWording9").html() === "2 minutes ago"), "Correctly parsed");
       });
 
-      test('45 min', function () {
-        ok(($('#testWording10').html() === 'about an hour ago'), 'Correctly parsed');
+      test("45 min", function () {
+        ok(($("#testWording10").html() === "about an hour ago"), "Correctly parsed");
       });
 
-      test('89 min', function () {
-        ok(($('#testWording11').html() === 'about an hour ago'), 'Correctly parsed');
+      test("89 min", function () {
+        ok(($("#testWording11").html() === "about an hour ago"), "Correctly parsed");
       });
 
-      test('90 min', function () {
-        ok(($('#testWording12').html() === 'about 2 hours ago'), 'Correctly parsed');
+      test("90 min", function () {
+        ok(($("#testWording12").html() === "about 2 hours ago"), "Correctly parsed");
       });
 
-      test('120 min', function () {
-        ok(($('#testWording13').html() === 'about 2 hours ago'), 'Correctly parsed');
+      test("120 min", function () {
+        ok(($("#testWording13").html() === "about 2 hours ago"), "Correctly parsed");
       });
 
-      test('1380 min', function () {
-        ok(($('#testWording14').html() === 'about 23 hours ago'), 'Correctly parsed');
+      test("1380 min", function () {
+        ok(($("#testWording14").html() === "about 23 hours ago"), "Correctly parsed");
       });
 
-      test('25 hours', function () {
-        ok(($('#testWording15').html() === 'a day ago'), 'Correctly parsed');
+      test("25 hours", function () {
+        ok(($("#testWording15").html() === "a day ago"), "Correctly parsed");
       });
 
-      test('48 hours', function () {
-        ok(($('#testWording16').html() === '2 days ago'), 'Correctly parsed');
+      test("48 hours", function () {
+        ok(($("#testWording16").html() === "2 days ago"), "Correctly parsed");
       });
 
-      test('696 hours', function () {
-        ok(($('#testWording17').html() === '29 days ago'), 'Correctly parsed');
+      test("696 hours", function () {
+        ok(($("#testWording17").html() === "29 days ago"), "Correctly parsed");
       });
 
-      test('30 days', function () {
-        ok(($('#testWording18').html() === 'about a month ago'), 'Correctly parsed');
+      test("30 days", function () {
+        ok(($("#testWording18").html() === "about a month ago"), "Correctly parsed");
       });
 
-      test('190 days', function () {
-        ok(($('#testWording19').html() === '6 months ago'), 'Correctly parsed');
+      test("190 days", function () {
+        ok(($("#testWording19").html() === "6 months ago"), "Correctly parsed");
       });
 
-      test('366 days', function () {
-        ok(($('#testWording20').html() === 'about a year ago'), 'Correctly parsed');
+      test("366 days", function () {
+        ok(($("#testWording20").html() === "about a year ago"), "Correctly parsed");
       });
 
-      test('1095 days', function () {
-        ok(($('#testWording21').html() === '3 years ago'), 'Correctly parsed');
+      test("1095 days", function () {
+        ok(($("#testWording21").html() === "3 years ago"), "Correctly parsed");
       });
 
-      module('Settings');
+      module("Settings");
 
-      test('suffixFromNow', function () {
-        ok($('#testLatinSettings1').html().match(/omNow-fray$/), 'Settings correctly applied');
+      test("suffixFromNow", function () {
+        ok($("#testLatinSettings1").html().match(/omNow-fray$/), "Settings correctly applied");
       });
 
-      test('suffixAgo', function () {
-        ok($('#testLatinSettings5').html().match(/ago-hay$/), 'Settings correctly applied');
-        ok($('#testRussianSettings5').html().match(/назад$/), 'Settings correctly applied');
+      test("suffixAgo", function () {
+        ok($("#testLatinSettings5").html().match(/ago-hay$/), "Settings correctly applied");
+        ok($("#testRussianSettings5").html().match(/назад$/), "Settings correctly applied");
       });
 
-      test('prefixFromNow', function () {
-        ok($('#testRussianSettings2').html().match(/^через/), 'Settings correctly applied');
+      test("prefixFromNow", function () {
+        ok($("#testRussianSettings2").html().match(/^через/), "Settings correctly applied");
       });
 
-      test('seconds', function () {
-        ok($('#testLatinSettings5').html().match(/^ess-lay an-thay a-hay inute-may/), 'Settings correctly applied');
-        ok($('#testRussianSettings5').html().match(/^меньше минуты/), 'Settings correctly applied');
+      test("seconds", function () {
+        ok($("#testLatinSettings5").html().match(/^ess-lay an-thay a-hay inute-may/), "Settings correctly applied");
+        ok($("#testRussianSettings5").html().match(/^меньше минуты/), "Settings correctly applied");
       });
 
-      test('minute', function () {
-        ok($('#testLatinSettings7').html().match(/^about-hay a-hay inute-may/), 'Settings correctly applied');
-        ok($('#testRussianSettings7').html().match(/^минуту/), 'Settings correctly applied');
+      test("minute", function () {
+        ok($("#testLatinSettings7").html().match(/^about-hay a-hay inute-may/), "Settings correctly applied");
+        ok($("#testRussianSettings7").html().match(/^минуту/), "Settings correctly applied");
       });
 
-      test('minutes', function () {
-        ok($('#testLatinSettings8').html().match(/^2 inutes-may/), 'Settings correctly applied');
-        ok($('#testRussianSettings8').html().match(/^2 минуты/), 'Settings correctly applied');
-        // TODO: Test 'минута' and 'минут'
+      test("minutes", function () {
+        ok($("#testLatinSettings8").html().match(/^2 inutes-may/), "Settings correctly applied");
+        ok($("#testRussianSettings8").html().match(/^2 минуты/), "Settings correctly applied");
+        // TODO: Test "минута" and "минут"
       });
 
-      test('hour', function () {
-        ok($('#testLatinSettings10').html().match(/^about-hay an-hay hour-hay/), 'Settings correctly applied');
-        ok($('#testRussianSettings10').html().match(/^час/), 'Settings correctly applied');
+      test("hour", function () {
+        ok($("#testLatinSettings10").html().match(/^about-hay an-hay hour-hay/), "Settings correctly applied");
+        ok($("#testRussianSettings10").html().match(/^час/), "Settings correctly applied");
       });
 
-      test('hours', function () {
-        ok($('#testLatinSettings12').html().match(/^about-hay 2 hours-hay/), 'Settings correctly applied');
-        ok($('#testRussianSettings12').html().match(/^2 часа/), 'Settings correctly applied');
-        // TODO: Test 'час' and 'часов'
+      test("hours", function () {
+        ok($("#testLatinSettings12").html().match(/^about-hay 2 hours-hay/), "Settings correctly applied");
+        ok($("#testRussianSettings12").html().match(/^2 часа/), "Settings correctly applied");
+        // TODO: Test "час" and "часов"
       });
 
-      test('day', function () {
-        ok($('#testLatinSettings15').html().match(/^a-hay ay-day/), 'Settings correctly applied');
-        ok($('#testRussianSettings15').html().match(/^день/), 'Settings correctly applied');
+      test("day", function () {
+        ok($("#testLatinSettings15").html().match(/^a-hay ay-day/), "Settings correctly applied");
+        ok($("#testRussianSettings15").html().match(/^день/), "Settings correctly applied");
       });
 
-      test('days', function () {
-        ok($('#testLatinSettings16').html().match(/^2 ays-day/), 'Settings correctly applied');
-        ok($('#testRussianSettings16').html().match(/^2 дня/), 'Settings correctly applied');
-        ok($('#testRussianSettings17').html().match(/^29 дней/), 'Settings correctly applied');
-        // TODO: Test 'день'
+      test("days", function () {
+        ok($("#testLatinSettings16").html().match(/^2 ays-day/), "Settings correctly applied");
+        ok($("#testRussianSettings16").html().match(/^2 дня/), "Settings correctly applied");
+        ok($("#testRussianSettings17").html().match(/^29 дней/), "Settings correctly applied");
+        // TODO: Test "день"
       });
 
-      test('month', function () {
-        ok($('#testLatinSettings18').html().match(/^about-hay a-hay onth-may/), 'Settings correctly applied');
-        ok($('#testRussianSettings18').html().match(/^месяц/), 'Settings correctly applied');
+      test("month", function () {
+        ok($("#testLatinSettings18").html().match(/^about-hay a-hay onth-may/), "Settings correctly applied");
+        ok($("#testRussianSettings18").html().match(/^месяц/), "Settings correctly applied");
       });
 
-      test('months', function () {
-        ok($('#testLatinSettings19').html().match(/^6 onths-may/), 'Settings correctly applied');
-        ok($('#testRussianSettings19').html().match(/^6 месяцев/), 'Settings correctly applied');
-        // TODO: Test 'месяца' and 'месяц'
+      test("months", function () {
+        ok($("#testLatinSettings19").html().match(/^6 onths-may/), "Settings correctly applied");
+        ok($("#testRussianSettings19").html().match(/^6 месяцев/), "Settings correctly applied");
+        // TODO: Test "месяца" and "месяц"
       });
 
-      test('year', function () {
-        ok($('#testLatinSettings20').html().match(/^about-hay a-hay ear-yay/), 'Settings correctly applied');
-        ok($('#testRussianSettings20').html().match(/^год/), 'Settings correctly applied');
+      test("year", function () {
+        ok($("#testLatinSettings20").html().match(/^about-hay a-hay ear-yay/), "Settings correctly applied");
+        ok($("#testRussianSettings20").html().match(/^год/), "Settings correctly applied");
       });
 
-      test('years', function () {
-        ok($('#testYoungOldSettings1').html().match(/^16 young years/), 'Settings correctly applied');
-        ok($('#testYoungOldSettings2').html().match(/^64 old years/), 'Settings correctly applied');
-        ok($('#testLatinSettings21').html().match(/^3 years-yay/), 'Settings correctly applied');
-        ok($('#testRussianSettings21').html().match(/^3 года/), 'Settings correctly applied');
-        // TODO: Test 'год' and 'лет'
+      test("years", function () {
+        ok($("#testYoungOldSettings1").html().match(/^16 young years/), "Settings correctly applied");
+        ok($("#testYoungOldSettings2").html().match(/^64 old years/), "Settings correctly applied");
+        ok($("#testLatinSettings21").html().match(/^3 years-yay/), "Settings correctly applied");
+        ok($("#testRussianSettings21").html().match(/^3 года/), "Settings correctly applied");
+        // TODO: Test "год" and "лет"
       });
     })(jQuery);
     //]]>
