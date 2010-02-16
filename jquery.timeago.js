@@ -113,7 +113,7 @@
 
   function prepareData(element) {
     element = $(element);
-    if (element.data("timeago") === undefined) {
+    if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
       if (text.length > 0) element.attr("title", text);
