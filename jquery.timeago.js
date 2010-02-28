@@ -40,7 +40,8 @@
         month: "about a month",
         months: "%d months",
         year: "about a year",
-        years: "%d years"
+        years: "%d years",
+        numbers: []
       }
     },
     inWords: function(distanceMillis) {
@@ -60,6 +61,12 @@
       var hours = minutes / 60;
       var days = hours / 24;
       var years = days / 365;
+
+      function substitute(stringOrFunction, number) {
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number) : stringOrFunction;
+        var value = ($l.numbers && $l.numbers[number]) || number;
+        return string.replace(/%d/i, value);
+      }
 
       var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
         seconds < 90 && substitute($l.minute, 1) ||
@@ -125,11 +132,6 @@
 
   function distance(date) {
     return (new Date().getTime() - date.getTime());
-  }
-
-  function substitute(stringOrFunction, value) {
-    var string = $.isFunction(stringOrFunction) ? stringOrFunction(value) : stringOrFunction;
-    return string.replace(/%d/i, value);
   }
 
   // fix for IE6 suckage

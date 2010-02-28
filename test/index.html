@@ -120,6 +120,10 @@
     <h2>Settings</h2>
 
     <ul>
+      <li><abbr id="testNumbersSettings1" class="tonumbers" title="120"></abbr> [2 min]</li>
+      <li><abbr id="testNumbersSettings2" class="tonumbers" title="540"></abbr> [9 min]</li>
+      <li><abbr id="testNumbersSettings3" class="tonumbers" title="600"></abbr> [10 min]</li>
+
       <li><abbr id="testYoungOldSettings1" class="toyoungold" title="504576000"></abbr> [5840 days]</li>
       <li><abbr id="testYoungOldSettings2" class="toyoungold" title="2018304000"></abbr> [23360 days]</li>
 
@@ -205,6 +209,10 @@
       });
 
       $("abbr.towords").each(toWords);
+
+      loadNumbers();
+      $("abbr.tonumbers").each(toWords);
+      unloadNumbers();
 
       loadYoungOldYears();
       $("abbr.toyoungold").each(toWords);
@@ -465,6 +473,12 @@
         ok($("#testLatinSettings21").html().match(/^3 years-yay/), "Settings correctly applied");
         ok($("#testRussianSettings21").html().match(/^3 года/), "Settings correctly applied");
         // TODO: Test "год" and "лет"
+      });
+
+      test("numbers", function () {
+        ok($("#testNumbersSettings1").html().match(/^two minutes/), "Settings correctly applied");
+        ok($("#testNumbersSettings2").html().match(/^nine minutes/), "Settings correctly applied");
+        ok($("#testNumbersSettings3").html().match(/^10 minutes/), "Settings correctly applied");
       });
     })(jQuery);
     //]]>
