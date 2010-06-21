@@ -70,6 +70,7 @@
     <p>Date only (time element): <time class="timeago" datetime="2008-02-26">(you shouldn't see this)</time>.</p>
     <p>Date only (friendly tooltip): <abbr id="testTooltip" class="timeago" title="2008-02-26">February 26th</abbr>.</p>
     <p>Date only (default tooltip): <abbr id="defaultTooltip" class="timeago" title="2008-02-26"> </abbr>.</p>
+    <p>Timestsamp (with millis): <abbr class="timeago" title="1978-12-18T17:17:00.021Z">(you shouldn't see this)</abbr>.</p>
 
     <h2>Errors</h2>
 
@@ -89,6 +90,7 @@
       <li><abbr id="testParsing5" class="todate" title="1978-12-19T02:17:00+09:00"></abbr> [from +09:00]</li>
       <li><abbr id="testParsing6" class="todate" title="1978-12-19T02:17:00+0900"></abbr> [from +0900]</li>
       <li><abbr id="testParsing7" class="todate" title="1978-12-18 17:17:00"></abbr> [from blank TZ]</li>
+      <li><abbr id="testParsing8" class="todate" title="1978-12-18 17:17:00.021Z"></abbr> [from Z with milliseonds]</li>
     </ul>
 
     <h2>Wording</h2>
@@ -309,6 +311,10 @@
 
       test("From blank TZ", function () {
         ok(($("#testParsing7").html().match(/Mon, 18 Dec 1978 \d\d:17:00 GMT/)), "Correctly parsed, assumed local time");
+      });
+
+      test("From Z with milliseconds", function () {
+        ok(($("#testParsing8").html().match(correctMatch)), "Correctly parsed");
       });
 
       module("Wording");
