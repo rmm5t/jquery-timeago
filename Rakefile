@@ -6,7 +6,8 @@ desc 'Publish "marketing" docs'
 task :publish do
   sh("git rebase master gh-pages")
   sh("git checkout master")
-  sh("git push")
+  sh("git push origin master")
+  sh("git push origin gh-pages")
   sh("git push --tags")
 end
 
