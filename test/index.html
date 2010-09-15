@@ -174,6 +174,16 @@
       <li><abbr id="testRussianSettings19" class="torussian" title="16416000"></abbr> [190 days]</li>
       <li><abbr id="testRussianSettings20" class="torussian" title="31622400"></abbr> [366 days]</li>
       <li><abbr id="testRussianSettings21" class="torussian" title="94608000"></abbr> [1095 days]</li>
+
+      <li><abbr id="testMillisSettings1" class="tomillis" title="-7200"></abbr> [-120 min]</li>
+      <li><abbr id="testMillisSettings2" class="tomillis" title="-60"></abbr> [-60 sec]</li>
+      <li><abbr id="testMillisSettings3" class="tomillis" title="-30"></abbr> [-30 sec]</li>
+      <li><abbr id="testMillisSettings4" class="tomillis" title="-1"></abbr> [-1 sec]</li>
+      <li><abbr id="testMillisSettings5" class="tomillis" title="0"></abbr> [0 sec]</li>
+      <li><abbr id="testMillisSettings6" class="tomillis" title="30"></abbr> [30 sec]</li>
+      <li><abbr id="testMillisSettings7" class="tomillis" title="45"></abbr> [45 sec]</li>
+      <li><abbr id="testMillisSettings8" class="tomillis" title="90"></abbr> [90 sec]</li>
+      <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
     </ul>
   </div>
 
@@ -226,6 +236,9 @@
 
       loadRussian();
       $("abbr.torussian").each(toWords);
+
+      loadMillis();
+      $("abbr.tomillis").each(toWords);
 
       module("Valid date");
 
@@ -413,11 +426,13 @@
 
       test("suffixFromNow", function () {
         ok($("#testLatinSettings1").html().match(/omNow-fray$/), "Settings correctly applied");
+        ok($("#testMillisSettings1").html().match(/from now$/), "Settings correctly applied");
       });
 
       test("suffixAgo", function () {
         ok($("#testLatinSettings5").html().match(/ago-hay$/), "Settings correctly applied");
         ok($("#testRussianSettings5").html().match(/назад$/), "Settings correctly applied");
+        ok($("#testMillisSettings5").html().match(/ago/), "Settings correctly applied");
       });
 
       test("prefixFromNow", function () {
@@ -427,11 +442,13 @@
       test("seconds", function () {
         ok($("#testLatinSettings5").html().match(/^ess-lay an-thay a-hay inute-may/), "Settings correctly applied");
         ok($("#testRussianSettings5").html().match(/^меньше минуты/), "Settings correctly applied");
+        ok($("#testMillisSettings5").html().match(/0 milliseconds/), "Settings correctly applied");
       });
 
       test("minute", function () {
         ok($("#testLatinSettings7").html().match(/^about-hay a-hay inute-may/), "Settings correctly applied");
         ok($("#testRussianSettings7").html().match(/^минуту/), "Settings correctly applied");
+        ok($("#testMillisSettings7").html().match(/45000 milliseconds/), "Settings correctly applied");
       });
 
       test("minutes", function () {

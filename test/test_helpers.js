@@ -76,6 +76,25 @@ function loadRussian() {
   })();
 }
 
+function loadMillis() {
+  var millisSubstitution = function(number, millis) { return millis + " milliseconds"; };
+  jQuery.timeago.settings.strings = {
+    suffixAgo: "ago",
+    suffixFromNow: "from now",
+    seconds: millisSubstitution,
+    minute: millisSubstitution,
+    minutes: millisSubstitution,
+    hour: millisSubstitution,
+    hours: millisSubstitution,
+    day: millisSubstitution,
+    days: millisSubstitution,
+    month: millisSubstitution,
+    months: millisSubstitution,
+    year: millisSubstitution,
+    years: millisSubstitution
+  };
+}
+
 function loadYoungOldYears() {
   jQuery.extend(jQuery.timeago.settings.strings, {
     years: function(value) { return (value < 21) ? "%d young years" : "%d old years"; }
