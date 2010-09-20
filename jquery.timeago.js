@@ -13,129 +13,184 @@
  *
  * Copyright (c) 2008-2010, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  */
-(function($) {
-  $.timeago = function(timestamp) {
-    if (timestamp instanceof Date) return inWords(timestamp);
-    else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
-    else return inWords($.timeago.datetime(timestamp));
-  };
-  var $t = $.timeago;
+(function($){
 
-  $.extend($.timeago, {
-    settings: {
-      refreshMillis: 60000,
-      allowFuture: false,
-      strings: {
-        prefixAgo: null,
-        prefixFromNow: null,
-        suffixAgo: "ago",
-        suffixFromNow: "from now",
-        seconds: "less than a minute",
-        minute: "about a minute",
-        minutes: "%d minutes",
-        hour: "about an hour",
-        hours: "about %d hours",
-        day: "a day",
-        days: "%d days",
-        month: "about a month",
-        months: "%d months",
-        year: "about a year",
-        years: "%d years",
-        numbers: []
-      }
-    },
-    inWords: function(distanceMillis) {
-      var $l = this.settings.strings;
-      var prefix = $l.prefixAgo;
-      var suffix = $l.suffixAgo;
-      if (this.settings.allowFuture) {
-        if (distanceMillis < 0) {
-          prefix = $l.prefixFromNow;
-          suffix = $l.suffixFromNow;
-        }
-        distanceMillis = Math.abs(distanceMillis);
-      }
+var $t, $s;
 
-      var seconds = distanceMillis / 1000;
-      var minutes = seconds / 60;
-      var hours = minutes / 60;
-      var days = hours / 24;
-      var years = days / 365;
+$.timeago = $t = function( timestamp, lang )
+{
+  if( timestamp instanceof Date ) 
+    return $t.distanceInWords( timestamp, lang );
 
-      function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
-        var value = ($l.numbers && $l.numbers[number]) || number;
-        return string.replace(/%d/i, value);
-      }
+  else if( typeof timestamp == "string" ) 
+    return $t.distanceInWords( $t.parse(timestamp), lang );
+    
+  else if( typeof timestamp == "number"  )
+    return $t.distanceInWords( new Date(timestamp), lang );
+    
+  return $t.distanceInWords( $t.datetime( timestamp ), lang );
+};
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 48 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.floor(days)) ||
-        days < 60 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.floor(days / 30)) ||
-        years < 2 && substitute($l.year, 1) ||
-        substitute($l.years, Math.floor(years));
-
-      return $.trim([prefix, words, suffix].join(" "));
-    },
-    parse: function(iso8601) {
-      var s = $.trim(iso8601);
-      s = s.replace(/\.\d\d\d+/,""); // remove milliseconds
-      s = s.replace(/-/,"/").replace(/-/,"/");
-      s = s.replace(/T/," ").replace(/Z/," UTC");
-      s = s.replace(/([\+-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
-      return new Date(s);
-    },
-    datetime: function(elem) {
-      // jQuery's `is()` doesn't play well with HTML5 in IE
-      var isTime = $(elem).get(0).tagName.toLowerCase() == "time"; // $(elem).is("time");
-      var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
-      return $t.parse(iso8601);
+$.extend($t, {
+  interval: null,
+  settings: {
+    refreshMillis: 60000,
+    allowFuture: false,
+    deviance: 0,
+    strings: {
+      prefixAgo: null,
+      prefixFromNow: null,
+      suffixAgo: "ago",
+      suffixFromNow: "from now",
+      seconds: "less than a minute",
+      minute: "about a minute",
+      minutes: "%d minutes",
+      hour: "about an hour",
+      hours: "about %d hours",
+      day: "a day",
+      days: "%d days",
+      month: "about a month",
+      months: "%d months",
+      year: "about a year",
+      years: "%d years",
+      numbers: []
     }
-  });
-
-  $.fn.timeago = function() {
-    var self = this;
-    self.each(refresh);
-
-    var $s = $t.settings;
-    if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+  },
+  
+  strings: function( lang )
+  {
+    if( !lang && !$.isFunction(this) )
+    {
+      if( lang = $(this).attr( 'className').match( /timeago-language-([a-z0-9_-]+)/i ) )
+        lang = lang[1];
     }
-    return self;
-  };
+    
+    if( lang && typeof $s.strings[ lang ] == 'object' )
+      return $s.strings[ lang ];
+    
+    return $s.strings;
+  },
+  
+  substitute: function( stringOrFunction, number, distanceMillis ) 
+  {
+    var $l = $t.strings.call( this ),
+      string = $.isFunction( stringOrFunction ) ? stringOrFunction( number, distanceMillis ) : stringOrFunction,
+      value = ( $l.numbers && $l.numbers[ number ] ) || number;
 
-  function refresh() {
-    var data = prepareData(this);
-    if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+    return string.replace( /%d/i, value );
+  },
+  
+  distance: function( date )
+  {
+    return ( new Date().getTime() + $s.deviance - date.getTime() );
+  },
+  
+  distanceInWords: function( date, lang )
+  {
+    return $t.inWords.call( this, $t.distance.call( this, date ), lang );
+  },
+  
+  inWords: function( distanceMillis, lang ) 
+  {
+    var $l = $t.strings.call( this, lang ),
+      s = $t.substitute,
+      prefix = $l.prefixAgo,
+      suffix = $l.suffixAgo;
+    
+    if( $s.allowFuture ) 
+    {
+      if( distanceMillis < 0 )
+      {
+        prefix = $l.prefixFromNow;
+        suffix = $l.suffixFromNow;
+      }
+      
+      distanceMillis = Math.abs(distanceMillis);
     }
+
+    var seconds = distanceMillis / 1000,
+      minutes = seconds / 60,
+      hours = minutes / 60,
+      days = hours / 24,
+      years = days / 365,
+      words = seconds < 45 && s.call( this, $l.seconds, Math.round(seconds), distanceMillis ) 
+        || seconds < 90 && s.call( this, $l.minute, 1, distanceMillis )
+        || minutes < 45 && s.call( this, $l.minutes, Math.round(minutes), distanceMillis )
+        || minutes < 90 && s.call( this, $l.hour, 1, distanceMillis )
+        || hours < 24 && s.call( this, $l.hours, Math.round(hours), distanceMillis )
+        || hours < 48 && s.call( this, $l.day, 1, distanceMillis )
+        || days < 30 && s.call( this, $l.days, Math.floor(days), distanceMillis )
+        || days < 60 && s.call( this, $l.month, 1, distanceMillis )
+        || days < 365 && s.call( this, $l.months, Math.floor(days / 30), distanceMillis )
+        || years < 2 && s.call( this, $l.year, 1, distanceMillis )
+        || s.call( this, $l.years, Math.floor(years), distanceMillis );
+
+    return $.trim( [prefix, words, suffix].join(" ") );
+  },
+
+  parse: function( iso8601 )
+  {
+    var s = $.trim( iso8601 )
+      .replace(/\.\d\d\d+/,"") // remove milliseconds
+      .replace(/-/,"/").replace(/-/,"/")
+      .replace(/T/," ").replace(/Z/," UTC")
+      .replace(/([\+-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
+
+    return new Date( s );
+  },
+  
+  datetime: function()
+  {
+    // jQuery's `is()` doesn't play well with HTML5 in IE
+    var isTime = $(this).get(0).tagName.toLowerCase() == "time", // $(elem).is("time");
+      iso8601 = isTime ? $(this).attr("datetime") : $(this).attr("title");
+
+    return $t.parse( iso8601 );
+  },
+  
+  refreshAll: function()
+  {
+    $( '.timeago-automatic-refresh' ).each( $t.refresh );
+  },
+  
+  prepareData: function()
+  {
+    var $this = $(this);
+    if( !$this.data("timeago") )
+    {
+      $this.data( "timeago", { datetime: $t.datetime.call( $this ) } );
+      var text = $.trim( $this.text() );
+      if( text.length )
+        $this.attr( "title", text );
+    }
+
+    return $this.data("timeago");
+  },
+  
+  refresh: function()
+  {
+    var data = $t.prepareData.call( this );
+    if( !isNaN( data.datetime ) ) 
+      $(this).text( $t.distanceInWords.call( this, data.datetime ) );
+
     return this;
   }
+});
 
-  function prepareData(element) {
-    element = $(element);
-    if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
-      var text = $.trim(element.text());
-      if (text.length > 0) element.attr("title", text);
-    }
-    return element.data("timeago");
-  }
+$s = $t.settings;
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
-  }
+$.fn.timeago = function() 
+{
+  this.each( $t.refresh ).addClass( 'timeago-automatic-refresh' );
 
-  function distance(date) {
-    return (new Date().getTime() - date.getTime());
-  }
+  if( !$t.interval && $s.refreshMillis )
+    $t.interval = window.setInterval( $t.refreshAll, $s.refreshMillis );
+  
+  return this;
+};
 
-  // fix for IE6 suckage
-  document.createElement("abbr");
-  document.createElement("time");
+// fix for IE6 suckage
+document.createElement("abbr");
+document.createElement("time");
+
 })(jQuery);
