@@ -27,6 +27,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
+      deviance: 0,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -136,7 +137,7 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    return (new Date().getTime() + $s.deviance - date.getTime());
   }
 
   // fix for IE6 suckage
