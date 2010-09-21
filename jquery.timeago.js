@@ -83,11 +83,12 @@
       return $.trim([prefix, words, suffix].join(" "));
     },
     parse: function(iso8601) {
-      var s = $.trim(iso8601);
+      var s = $.trim(iso8601)
       	.replace(/\.\d{3,}/,"") // remove milliseconds
       	.replace(/-/,"/").replace(/-/,"/")
-      	.replace(/T/," ").replace(/Z/," UTC")
+      	.replace(/(\d)T(\d)/,"$1 $2").replace(/Z/," UTC")
       	.replace(/([\+-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
+
       return new Date(s);
     },
     datetime: function(elem) {
