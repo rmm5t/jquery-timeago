@@ -48,17 +48,18 @@
       }
     },
     substitute: function(stringOrFunction, number) {
-      var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
+      var $l = $.timeago.settings.strings,
+        string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
         value = ($l.numbers && $l.numbers[number]) || number;
       return string.replace(/%d/i, value);
     },
     inWords: function(distanceMillis) {
-      var $l = this.settings.strings,
-        s = this.substitute,
+      var $l = $.timeago.settings.strings,
+        s = $.timeago.substitute,
         prefix = $l.prefixAgo,
         suffix = $l.suffixAgo;
 		
-      if (this.settings.allowFuture) {
+      if ($.timeago.settings.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
