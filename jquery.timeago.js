@@ -47,8 +47,14 @@
         numbers: []
       }
     },
+    substitute: function(stringOrFunction, number) {
+      var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
+        value = ($l.numbers && $l.numbers[number]) || number;
+      return string.replace(/%d/i, value);
+    }
     inWords: function(distanceMillis) {
       var $l = this.settings.strings,
+        s = this.substitute,
         prefix = $l.prefixAgo,
         suffix = $l.suffixAgo;
 		
@@ -64,25 +70,18 @@
         minutes = seconds / 60,
         hours = minutes / 60,
         days = hours / 24,
-        years = days / 365;
-
-      function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
-          value = ($l.numbers && $l.numbers[number]) || number;
-        return string.replace(/%d/i, value);
-      }
-
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 48 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.floor(days)) ||
-        days < 60 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.floor(days / 30)) ||
-        years < 2 && substitute($l.year, 1) ||
-        substitute($l.years, Math.floor(years));
+        years = days / 365,
+        words = seconds < 45 && s($l.seconds, Math.round(seconds))
+        || seconds < 90 && s($l.minute, 1)
+        || minutes < 45 && s($l.minutes, Math.round(minutes))
+        || minutes < 90 && s($l.hour, 1)
+        || hours < 24 && s($l.hours, Math.round(hours))
+        || hours < 48 && s($l.day, 1)
+        || days < 30 && s($l.days, Math.floor(days))
+        || days < 60 && s($l.month, 1)
+        || days < 365 && s($l.months, Math.floor(days / 30))
+        || years < 2 && s($l.year, 1)
+        || s($l.years, Math.floor(years));
 
       return $.trim([prefix, words, suffix].join(" "));
     },
