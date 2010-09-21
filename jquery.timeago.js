@@ -51,7 +51,7 @@
       var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
         value = ($l.numbers && $l.numbers[number]) || number;
       return string.replace(/%d/i, value);
-    }
+    },
     inWords: function(distanceMillis) {
       var $l = this.settings.strings,
         s = this.substitute,
