@@ -22,6 +22,7 @@
   var $t = $.timeago;
 
   $.extend($.timeago, {
+	interval: null,
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
@@ -104,8 +105,8 @@
     self.each(refresh);
 
     var $s = $t.settings;
-    if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+    if ( !$.timeago.interval && $s.refreshMillis > 0) {
+      $.timeago.interval = setInterval(function() { self.each(refresh); }, $s.refreshMillis);
     }
     return self;
   };
