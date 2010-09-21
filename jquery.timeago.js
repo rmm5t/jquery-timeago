@@ -140,7 +140,7 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() + $s.deviance - date.getTime());
+    return (new Date().getTime() + $.timeago.settings.deviance - date.getTime());
   }
 
   // fix for IE6 suckage
