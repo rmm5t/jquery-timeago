@@ -103,15 +103,19 @@
   });
 
   $.fn.timeago = function() {
-    var self = this;
-    self.each(refresh);
+    
+    this.each(refresh).addClass( 'timeago-automatic-refresh' );
 
     var $s = $t.settings;
     if ( !$.timeago.interval && $s.refreshMillis > 0) {
-      $.timeago.interval = setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+      $.timeago.interval = setInterval( refreshAll, $s.refreshMillis);
     }
-    return self;
+    return this;
   };
+
+  function refreshAll() {
+    $( '.timeago-automatic-refresh' ).each( refresh );
+  }
 
   function refresh() {
     var data = prepareData(this);
