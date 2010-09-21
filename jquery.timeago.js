@@ -17,7 +17,7 @@
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) return inWords(timestamp);
     else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
-	else if( typeof timestamp == "number"  ) return inWords(new Date(timestamp));
+    else if( typeof timestamp == "number"  ) return inWords(new Date(timestamp));
     else return inWords($.timeago.datetime(timestamp));
   };
   var $t = $.timeago;
@@ -47,9 +47,10 @@
       }
     },
     inWords: function(distanceMillis) {
-      var $l = this.settings.strings;
-      var prefix = $l.prefixAgo;
-      var suffix = $l.suffixAgo;
+      var $l = this.settings.strings,
+        prefix = $l.prefixAgo,
+        suffix = $l.suffixAgo;
+		
       if (this.settings.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
@@ -58,15 +59,15 @@
         distanceMillis = Math.abs(distanceMillis);
       }
 
-      var seconds = distanceMillis / 1000;
-      var minutes = seconds / 60;
-      var hours = minutes / 60;
-      var days = hours / 24;
-      var years = days / 365;
+      var seconds = distanceMillis / 1000,
+        minutes = seconds / 60,
+        hours = minutes / 60,
+        days = hours / 24,
+        years = days / 365;
 
       function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
-        var value = ($l.numbers && $l.numbers[number]) || number;
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
+          value = ($l.numbers && $l.numbers[number]) || number;
         return string.replace(/%d/i, value);
       }
 
@@ -95,8 +96,8 @@
     },
     datetime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
-      var isTime = $(elem).get(0).tagName.toLowerCase() == "time"; // $(elem).is("time");
-      var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
+      var isTime = $(elem).get(0).tagName.toLowerCase() == "time", // $(elem).is("time");
+        iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
       return $t.parse(iso8601);
     }
   });
