@@ -16,11 +16,11 @@
 (function($) {
   var $t, $s;
   
-  $.timeago = function(timestamp) {
-    if (timestamp instanceof Date) return inWords(timestamp);
-    else if (typeof timestamp == "string") return inWords($t.parse(timestamp));
-    else if( typeof timestamp == "number"  ) return inWords(new Date(timestamp));
-    else return inWords($t.datetime(timestamp));
+  $.timeago = function(timestamp, lang) {
+    if (timestamp instanceof Date) return inWords(timestamp, lang);
+    else if (typeof timestamp == "string") return inWords($t.parse(timestamp, lang));
+    else if( typeof timestamp == "number"  ) return inWords(new Date(timestamp, lang));
+    else return inWords($t.datetime(timestamp, lang));
   };
 
   $t = $.extend($.timeago, {
@@ -48,14 +48,20 @@
         numbers: []
       }
     },
-    substitute: function(stringOrFunction, number) {
-      var $l = $s.strings,
+    strings: function(lang) {
+      if( lang && typeof $s.strings[ lang ] == 'object' )
+        return $s.strings[ lang ];
+
+      return $s.strings;
+    },
+    substitute: function(stringOrFunction, number, lang) {
+      var $l = $t.strings(lang),
         string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
         value = ($l.numbers && $l.numbers[number]) || number;
       return string.replace(/%d/i, value);
     },
-    inWords: function(distanceMillis) {
-      var $l = $s.strings,
+    inWords: function(distanceMillis,lang) {
+      var $l = $t.strings(lang),
         s = $t.substitute,
         prefix = $l.prefixAgo,
         suffix = $l.suffixAgo;
@@ -73,17 +79,17 @@
         hours = minutes / 60,
         days = hours / 24,
         years = days / 365,
-        words = seconds < 45 && s($l.seconds, Math.round(seconds))
-        || seconds < 90 && s($l.minute, 1)
-        || minutes < 45 && s($l.minutes, Math.round(minutes))
-        || minutes < 90 && s($l.hour, 1)
-        || hours < 24 && s($l.hours, Math.round(hours))
-        || hours < 48 && s($l.day, 1)
-        || days < 30 && s($l.days, Math.floor(days))
-        || days < 60 && s($l.month, 1)
-        || days < 365 && s($l.months, Math.floor(days / 30))
-        || years < 2 && s($l.year, 1)
-        || s($l.years, Math.floor(years));
+        words = seconds < 45 && s($l.seconds, Math.round(seconds), lang)
+        || seconds < 90 && s($l.minute, 1, lang)
+        || minutes < 45 && s($l.minutes, Math.round(minutes), lang)
+        || minutes < 90 && s($l.hour, 1, lang)
+        || hours < 24 && s($l.hours, Math.round(hours), lang)
+        || hours < 48 && s($l.day, 1, lang)
+        || days < 30 && s($l.days, Math.floor(days), lang)
+        || days < 60 && s($l.month, 1, lang)
+        || days < 365 && s($l.months, Math.floor(days / 30), lang)
+        || years < 2 && s($l.year, 1, lang)
+        || s($l.years, Math.floor(years), lang);
 
       return $.trim([prefix, words, suffix].join(" "));
     },
@@ -111,19 +117,19 @@
     this.each(refresh).addClass( 'timeago-automatic-refresh' );
 
     if ( !$t.interval && $s.refreshMillis > 0) {
-      $t.interval = setInterval( refreshAll, $s.refreshMillis);
+      $t.interval = setInterval(refreshAll, $s.refreshMillis);
     }
     return this;
   };
 
   function refreshAll() {
-    $( '.timeago-automatic-refresh' ).each( refresh );
+    $('.timeago-automatic-refresh').each(refresh);
   }
 
   function refresh() {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      $(this).text(inWords(data.datetime, data.lang));
     }
     return this;
   }
@@ -131,15 +137,19 @@
   function prepareData(element) {
     element = $(element);
     if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
+      var lang;
+      if( lang = element.attr( 'className').match( /timeago-language-([a-z0-9_-]+)/i ) )
+        lang = lang[1];
+
+      element.data("timeago", { datetime: $t.datetime(element), lang:lang });
       var text = $.trim(element.text());
       if (text.length > 0) element.attr("title", text);
     }
     return element.data("timeago");
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
+  function inWords(date, lang) {
+    return $t.inWords(distance(date), lang);
   }
 
   function distance(date) {

@@ -16,7 +16,13 @@
         $("#prog_string").text(jQuery.timeago("2008-07-17"));
         $("#prog_element").text(jQuery.timeago("2008-07-20"));
       });
-
+      
+      // setup language (for is a reserved keyword, don't take any chances!)
+  		$.timeago.settings.strings['for'] = $.extend( 
+  			{}, 
+  			$.timeago.settings.strings, 
+  			{ prefixAgo: 'for', suffixAgo: '' }
+  		);
     </script>
     <style>
       * { margin: 0; padding: 0; }
@@ -63,6 +69,9 @@
       </p>
       <p class="example">
         Ryan was born <abbr class="timeago" title="1978-12-18T17:17:00Z">Dec 18, 1978</abbr>.
+      </p>
+      <p class="example">
+        Ryan has been alive <abbr class="timeago timeago-language-for" title="1978-12-18T17:17:00Z">Dec 18, 1978</abbr>.
       </p>
 
       <h3>Why?</h3>
