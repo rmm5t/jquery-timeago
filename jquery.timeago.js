@@ -14,15 +14,16 @@
  * Copyright (c) 2008-2010, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  */
 (function($) {
+  var $t, $s;
+  
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) return inWords(timestamp);
-    else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
+    else if (typeof timestamp == "string") return inWords($t.parse(timestamp));
     else if( typeof timestamp == "number"  ) return inWords(new Date(timestamp));
-    else return inWords($.timeago.datetime(timestamp));
+    else return inWords($t.datetime(timestamp));
   };
-  var $t = $.timeago;
 
-  $.extend($.timeago, {
+  $t = $.extend($.timeago, {
 	interval: null,
     settings: {
       refreshMillis: 60000,
@@ -48,18 +49,18 @@
       }
     },
     substitute: function(stringOrFunction, number) {
-      var $l = $.timeago.settings.strings,
+      var $l = $s.strings,
         string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
         value = ($l.numbers && $l.numbers[number]) || number;
       return string.replace(/%d/i, value);
     },
     inWords: function(distanceMillis) {
-      var $l = $.timeago.settings.strings,
-        s = $.timeago.substitute,
+      var $l = $s.strings,
+        s = $t.substitute,
         prefix = $l.prefixAgo,
         suffix = $l.suffixAgo;
 		
-      if ($.timeago.settings.allowFuture) {
+      if ($s.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
@@ -102,14 +103,15 @@
       return $t.parse(iso8601);
     }
   });
-
+  
+  $s = $t.settings;
+  
   $.fn.timeago = function() {
     
     this.each(refresh).addClass( 'timeago-automatic-refresh' );
 
-    var $s = $t.settings;
-    if ( !$.timeago.interval && $s.refreshMillis > 0) {
-      $.timeago.interval = setInterval( refreshAll, $s.refreshMillis);
+    if ( !$t.interval && $s.refreshMillis > 0) {
+      $t.interval = setInterval( refreshAll, $s.refreshMillis);
     }
     return this;
   };
@@ -141,7 +143,7 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() + $.timeago.settings.deviance - date.getTime());
+    return (new Date().getTime() + $s.deviance - date.getTime());
   }
 
   // fix for IE6 suckage
