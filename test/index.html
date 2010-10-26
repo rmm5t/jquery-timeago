@@ -298,7 +298,7 @@
       module("Parsing");
 
       // Note, different browsers behave slightly different
-      var correctMatch = /Mon, 18 Dec 1978 17:17:00 GMT/;
+      var correctMatch = /Mon, 18 Dec 1978 17:17:00 (GMT|UTC)/;
 
       test("From Z", function () {
         ok(($("#testParsing1").html().match(correctMatch)), "Correctly parsed");
@@ -325,7 +325,7 @@
       });
 
       test("From blank TZ", function () {
-        ok(($("#testParsing7").html().match(/Mon, 18 Dec 1978 \d\d:17:00 GMT/)), "Correctly parsed, assumed local time");
+        ok(($("#testParsing7").html().match(/Mon, 18 Dec 1978 \d\d:17:00 (GMT|UTC)/)), "Correctly parsed, assumed local time");
       });
 
       test("From Z with milliseconds", function () {
