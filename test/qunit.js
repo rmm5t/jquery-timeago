@@ -131,7 +131,7 @@ var QUnit = {
 			try {
 				QUnit.reset();
 			} catch(e) {
-				fail("reset() failed, following Test " + name + ", exception and reset fn follows", e, reset);
+				fail("reset() failed, following Test " + name + ", exception and reset fn follows", e, QUnit.reset);
 			}
 
 			if ( config.expected && config.expected != config.assertions.length ) {
@@ -168,7 +168,7 @@ var QUnit = {
 				}
 
 				var b = document.createElement("strong");
-				b.innerHTML = name + " <b style='color:black;'>(<b class='fail'>" + bad + "</b>, <b class='pass'>" + good + "</b>, " + config.assertions.length + ")</b>";
+				b.innerHTML = name + " <b class='counts'>(<b class='failed'>" + bad + "</b>, <b class='passed'>" + good + "</b>, " + config.assertions.length + ")</b>";
 				
 				addEvent(b, "click", function() {
 					var next = b.nextSibling, display = next.style.display;
