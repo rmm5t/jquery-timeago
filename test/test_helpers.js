@@ -22,6 +22,14 @@ function unloadNumbers() {
   jQuery.timeago.settings.strings.numbers = [];
 }
 
+function loadCutoffSetting() {
+	jQuery.timeago.settings.cutoff = 7*24*60*60*1000;
+}
+
+function unloadCutoffSetting() {
+	jQuery.timeago.settings.cutoff = 0;
+}
+
 function loadPigLatin() {
   jQuery.timeago.settings.strings = {
     suffixAgo: "ago-hay",
