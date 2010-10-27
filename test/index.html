@@ -63,6 +63,12 @@
     <p><time id="testTimeTitle" class="timeago" datetime="2012-05-07T10:06:02+02:00" title="May 10, 2012 10:06">May 10, 2012</time></p>
     <p><time id="testTimeTitle2" class="timeago" datetime="2012-05-07T10:06:02+02:00">May 10, 2012</time></p>
 
+    <h2>Cutoff</h2>
+
+    <p>Date that is older than cutoff: <abbr class="timeago cutoff doCutoff" title="1978-12-18">(this should be displayed)</abbr></p>
+
+    <p>Date that is newer than cutoff: <abbr class="timeago loaded cutoff dontCutoff">(you shouldn't see this)</abbr></p>
+
     <h2>Errors</h2>
 
     <p>Bad (letters): <abbr class="bad timeago" title="bleh">(this should be displayed)</abbr>.</p>
@@ -212,8 +218,12 @@
 
       prepareDynamicDates();
 
-      $("abbr.timeago").timeago();
+      $("abbr.timeago").not("abbr.cutoff").timeago();
       $("time.timeago").timeago();
+
+      loadCutoffSetting();
+      $("abbr.cutoff").timeago();
+      unloadCutoffSetting();
 
       var tooltip = $("#testTooltip").data("timeago");
 
@@ -289,6 +299,20 @@
       test("should set timeago data object", function () {
         ok(tooltip, "data set");
         ok(tooltip.datetime, "datetime set");
+      });
+
+      module("Cutoff");
+
+      test("should not change dates older than cutoff setting", function () {
+        ok(testElements("abbr.doCutoff", function (element) {
+          return (element.html() === "(this should be displayed)");
+        }), "Cutoff setting working fine");
+      });
+
+      test("should change dates newer than cutoff setting", function () {
+        ok(testElements("abbr.dontCutoff", function (element) {
+          return (element.html() === "less than a minute ago");
+        }), "Cutoff setting working fine");
       });
 
       module("Tooltip");
