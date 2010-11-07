@@ -14,10 +14,10 @@
  * Copyright (c) 2008-2010, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  */
 (function($) {
-  $.timeago = function(timestamp) {
-    if (timestamp instanceof Date) return inWords(timestamp);
-    else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
-    else return inWords($.timeago.datetime(timestamp));
+  $.timeago = function(timestamp, settings) {
+    if (typeof timestamp == "string") timestamp = $.timeago.parse(timestamp);
+    else if (!timestamp instanceof Date) timestamp = $.timeago.datetime(timestamp);
+    return inWords(timestamp, $.extend(true, {}, $t.settings, settings));
   };
   var $t = $.timeago;
 
@@ -44,11 +44,11 @@
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
-      var $l = this.settings.strings;
+    inWords: function(distanceMillis, settings) {
+      var $l = settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
-      if (this.settings.allowFuture) {
+      if (settings.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
@@ -98,11 +98,11 @@
     }
   });
 
-  $.fn.timeago = function() {
+  $.fn.timeago = function(settings) {
     var self = this;
+    var $s = $.extend(true, {}, $t.settings, settings);
+    self.data("timeago", { settings: $s });
     self.each(refresh);
-
-    var $s = $t.settings;
     if ($s.refreshMillis > 0) {
       setInterval(function() { self.each(refresh); }, $s.refreshMillis);
     }
@@ -112,23 +112,25 @@
   function refresh() {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      $(this).text(inWords(data.datetime, data.settings));
     }
     return this;
   }
 
   function prepareData(element) {
     element = $(element);
-    if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
+    var data = element.data("timeago");
+    if (!data.datetime) {
+      data = $.extend(true, {}, data, { datetime: $t.datetime(element) })
+      element.data("timeago", data);
       var text = $.trim(element.text());
       if (text.length > 0) element.attr("title", text);
     }
-    return element.data("timeago");
+    return data;
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
+  function inWords(date, settings) {
+    return $t.inWords(distance(date), settings);
   }
 
   function distance(date) {
