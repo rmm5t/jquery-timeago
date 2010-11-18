@@ -17,10 +17,11 @@ var QUnit = {
 		config.currentModule = name;
 
 		synchronize(function() {
-			if ( config.currentModule ) {
+			if ( config.previousModule ) {
 				QUnit.moduleDone( config.currentModule, config.moduleStats.bad, config.moduleStats.all );
 			}
 
+			config.previousModule = config.currentModule;
 			config.currentModule = name;
 			config.moduleTestEnvironment = testEnvironment;
 			config.moduleStats = { all: 0, bad: 0 };
@@ -84,7 +85,7 @@ var QUnit = {
 				var li = document.createElement("li");
 					li.appendChild( b );
 					li.id = "current-test-output";
-				tests.appendChild( li )
+				tests.appendChild( li );
 			}
 
 			try {
@@ -107,7 +108,7 @@ var QUnit = {
 				callback.call(testEnvironment);
 			} catch(e) {
 				fail("Test " + name + " died, exception and test follows", e, callback);
-				QUnit.ok( false, "Died on test #" + (config.assertions.length + 1) + ": " + e.message );
+				QUnit.ok( false, "Died on test #" + (config.assertions.length + 1) + ": " + e.message + " - " + QUnit.jsDump.parse(e) );
 				// else next test will carry the responsibility
 				saveGlobal();
 
@@ -128,16 +129,10 @@ var QUnit = {
 	    });
 	
 	    synchronize(function() {
-			try {
-				QUnit.reset();
-			} catch(e) {
-				fail("reset() failed, following Test " + name + ", exception and reset fn follows", e, QUnit.reset);
-			}
-
 			if ( config.expected && config.expected != config.assertions.length ) {
 				QUnit.ok( false, "Expected " + config.expected + " assertions, but " + config.assertions.length + " were run" );
 			}
-
+			
 			var good = 0, bad = 0,
 				tests = id("qunit-tests");
 
@@ -152,7 +147,7 @@ var QUnit = {
 
 					var li = document.createElement("li");
 					li.className = assertion.result ? "pass" : "fail";
-					li.innerHTML = assertion.message || "(no message)";
+					li.innerHTML = assertion.message || (assertion.result ? "okay" : "failed");
 					ol.appendChild( li );
 
 					if ( assertion.result ) {
@@ -188,6 +183,7 @@ var QUnit = {
 				var li = id("current-test-output");
 				li.id = "";
 				li.className = bad ? "fail" : "pass";
+				li.style.display = resultDisplayStyle(!bad);
 				li.removeChild( li.firstChild );
 				li.appendChild( b );
 				li.appendChild( ol );
@@ -209,6 +205,12 @@ var QUnit = {
 						config.moduleStats.bad++;
 					}
 				}
+			}
+
+			try {
+				QUnit.reset();
+			} catch(e) {
+				fail("reset() failed, following Test " + name + ", exception and reset fn follows", e, QUnit.reset);
 			}
 
 			QUnit.testDone( testName, bad, config.assertions.length );
@@ -233,11 +235,15 @@ var QUnit = {
 	 * @example ok( "asdfasdf".length > 5, "There must be at least 5 chars" );
 	 */
 	ok: function(a, msg) {
+		a = !!a;
+		var details = {
+			result: a,
+			message: msg
+		};
 		msg = escapeHtml(msg);
-		QUnit.log(a, msg);
-
+		QUnit.log(a, msg, details);
 		config.assertions.push({
-			result: !!a,
+			result: a,
 			message: msg
 		});
 	},
@@ -255,27 +261,27 @@ var QUnit = {
 	 * @param String message (optional)
 	 */
 	equal: function(actual, expected, message) {
-		push(expected == actual, actual, expected, message);
+		QUnit.push(expected == actual, actual, expected, message);
 	},
 
 	notEqual: function(actual, expected, message) {
-		push(expected != actual, actual, expected, message);
+		QUnit.push(expected != actual, actual, expected, message);
 	},
 	
 	deepEqual: function(actual, expected, message) {
-		push(QUnit.equiv(actual, expected), actual, expected, message);
+		QUnit.push(QUnit.equiv(actual, expected), actual, expected, message);
 	},
 
 	notDeepEqual: function(actual, expected, message) {
-		push(!QUnit.equiv(actual, expected), actual, expected, message);
+		QUnit.push(!QUnit.equiv(actual, expected), actual, expected, message);
 	},
 
 	strictEqual: function(actual, expected, message) {
-		push(expected === actual, actual, expected, message);
+		QUnit.push(expected === actual, actual, expected, message);
 	},
 
 	notStrictEqual: function(actual, expected, message) {
-		push(expected !== actual, actual, expected, message);
+		QUnit.push(expected !== actual, actual, expected, message);
 	},
 
 	raises: function(fn,  message) {
@@ -403,10 +409,17 @@ extend(QUnit, {
 	
 	/**
 	 * Resets the test setup. Useful for tests that modify the DOM.
+	 * 
+	 * If jQuery is available, uses jQuery's html(), otherwise just innerHTML.
 	 */
 	reset: function() {
 		if ( window.jQuery ) {
-			jQuery("#main, #qunit-fixture").html( config.fixture );
+			jQuery( "#main, #qunit-fixture" ).html( config.fixture );
+		} else {
+			var main = id( 'main' ) || id( 'qunit-fixture' );
+			if ( main ) {
+				main.innerHTML = config.fixture;
+			}
 		}
 	},
 	
@@ -469,6 +482,31 @@ extend(QUnit, {
 		return undefined;
 	},
 	
+	push: function(result, actual, expected, message) {
+		var details = {
+			result: result,
+			message: message,
+			actual: actual,
+			expected: expected
+		};
+		
+		message = escapeHtml(message) || (result ? "okay" : "failed");
+		message = '<span class="test-message">' + message + "</span>";
+		expected = escapeHtml(QUnit.jsDump.parse(expected));
+		actual = escapeHtml(QUnit.jsDump.parse(actual));
+		var output = message + ', expected: <span class="test-expected">' + expected + '</span>';
+		if (actual != expected) {
+			output += ' result: <span class="test-actual">' + actual + '</span>, diff: ' + QUnit.diff(expected, actual);
+		}
+		
+		QUnit.log(result, message, details);
+		
+		config.assertions.push({
+			result: !!result,
+			message: output
+		});
+	},
+	
 	// Logging callbacks
 	begin: function() {},
 	done: function(failures, total) {},
@@ -499,7 +537,16 @@ addEvent(window, "load", function() {
 	}
 	var banner = id("qunit-header");
 	if ( banner ) {
-		banner.innerHTML = '<a href="' + location.href + '">' + banner.innerHTML + '</a>'; 
+		var paramsIndex = location.href.lastIndexOf(location.search);
+		if ( paramsIndex > -1 ) {
+			var mainPageLocation = location.href.slice(0, paramsIndex);
+			if ( mainPageLocation == location.href ) {
+				banner.innerHTML = '<a href=""> ' + banner.innerHTML + '</a> ';
+			} else {
+				var testName = decodeURIComponent(location.search.slice(1));
+				banner.innerHTML = '<a href="' + mainPageLocation + '">' + banner.innerHTML + '</a> &#8250; <a href="">' + testName + '</a>';
+			}
+		}
 	}
 	
 	var toolbar = id("qunit-testrunner-toolbar");
@@ -634,8 +681,15 @@ function validTest( name ) {
 	return run;
 }
 
+function resultDisplayStyle(passed) {
+	return passed && id("qunit-filter-pass") && id("qunit-filter-pass").checked ? 'none' : '';
+}
+
 function escapeHtml(s) {
-	s = s === null ? "" : s + "";
+	if (!s) {
+		return "";
+	}
+	s = s + "";
 	return s.replace(/[\&"<>\\]/g, function(s) {
 		switch(s) {
 			case "&": return "&amp;";
@@ -645,24 +699,6 @@ function escapeHtml(s) {
 			case ">": return "&gt;";
 			default: return s;
 		}
-	});
-}
-
-function push(result, actual, expected, message) {
-	message = escapeHtml(message) || (result ? "okay" : "failed");
-	message = '<span class="test-message">' + message + "</span>";
-	expected = escapeHtml(QUnit.jsDump.parse(expected));
-	actual = escapeHtml(QUnit.jsDump.parse(actual));
-	var output = message + ', expected: <span class="test-expected">' + expected + '</span>';
-	if (actual != expected) {
-		output += ' result: <span class="test-actual">' + actual + '</span>, diff: ' + QUnit.diff(expected, actual);
-	}
-	
-	// can't use ok, as that would double-escape messages
-	QUnit.log(result, output);
-	config.assertions.push({
-		result: !!result,
-		message: output
 	});
 }
 
@@ -1255,7 +1291,7 @@ QUnit.diff = (function() {
 		}
 		
 		return str;
-	}
+	};
 })();
 
 })(this);
