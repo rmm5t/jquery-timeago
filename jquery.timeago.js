@@ -99,6 +99,8 @@
   });
 
   $.fn.timeago = function() {
+    if (this.length === 0) return;
+
     var self = this;
     var newTimestamps = self.filter(unattachedTimestamps);
     self.each(refresh);
