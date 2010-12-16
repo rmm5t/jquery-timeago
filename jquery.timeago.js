@@ -42,6 +42,16 @@
         year: "about a year",
         years: "%d years",
         numbers: []
+      },
+      limits: {
+        past: {
+          time: null,
+          message: "Never updated"
+        },
+        future: {
+          time: null,
+          message: "Someday will be updated"
+        }
       }
     },
     inWords: function(distanceMillis) {
@@ -111,10 +121,30 @@
 
   function refresh() {
     var data = prepareData(this);
-    if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+    var datetime = data.datetime
+    if (!isNaN(datetime)) {
+      dateText = datetimeOffLimitsText(datetime) || inWords(datetime)
+      $(this).text(dateText);
     }
     return this;
+  }
+
+  function datetimeOffLimitsText(datetime) {
+    var settings = $t.settings;
+    var limits = settings.limits;
+
+
+    if (limits.past.time && 
+        limits.past.time > datetime) {
+      return limits.past.message;
+    }
+
+    if (settings.allowFuture && 
+        limits.future.time &&
+        limits.future.time > datetime) {
+      return limits.future.message;
+    }
+  
   }
 
   function prepareData(element) {

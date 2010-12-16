@@ -100,3 +100,36 @@ function loadYoungOldYears() {
     years: function(value) { return (value < 21) ? "%d young years" : "%d old years"; }
   });
 }
+
+function prepareLimits(options) {  
+  resetLimits();
+
+  if (options.past) {
+    $.timeago.settings.limits.past.time = new Date(1978, 12, 18, 17, 17, 0, 0).getTime();
+  } else {
+    $.timeago.settings.limits.future.time = new Date(2078, 12, 19, 17, 17, 0, 0).getTime();
+  }
+
+  if (options.customMessage && options.past) {
+    $.timeago.settings.limits.past.message = options.customMessage 
+  } 
+
+  if (options.customMessage && !options.future) {
+    $.timeago.settings.limits.future.message = options.customMessage 
+  }
+
+  $('abbr.' + options.class.split(' ').join('.')).timeago();
+}
+
+function resetLimits() {
+  $.timeago.settings.limits = {
+    past: {
+      time: null,
+      message: "Never updated"
+    },
+    future: {
+      time: null,
+      message: "Someday will be updated"
+    }
+  }
+}

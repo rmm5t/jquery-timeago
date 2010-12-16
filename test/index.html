@@ -184,6 +184,12 @@
       <li><abbr id="testMillisSettings7" class="tomillis" title="45"></abbr> [45 sec]</li>
       <li><abbr id="testMillisSettings8" class="tomillis" title="90"></abbr> [90 sec]</li>
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
+
+      <li><abbr id="testLimitsPast1" class="limits past default" title="1978-12-18 17:17:00.021432Z"> (you shouldn't see this)</abbr></li>
+      <li><abbr id="testLimitsPast2" class="limits past custom" title="1977-12-17 23:59:00.021432Z"> (you shouldn't see this)</abbr></li>
+
+      <li><abbr id="testLimitsFuture1" class="limits future default" title="2078-12-18 17:17:00.021432Z"> (you shouldn't see this)</abbr></li>
+      <li><abbr id="testLimitsFuture2" class="limits future custom" title="2078-12-18 17:17:00.021432Z"> (you shouldn't see this)</abbr></li>
     </ul>
   </div>
 
@@ -509,6 +515,31 @@
         ok($("#testNumbersSettings2").html().match(/^nine minutes/), "Settings correctly applied");
         ok($("#testNumbersSettings3").html().match(/^10 minutes/), "Settings correctly applied");
       });
+
+      prepareLimits({class: 'limits past default', past: true});
+
+      test("limits past with default message", function() {
+        ok($("#testLimitsPast1").html().match(/^Never updated/), "Settings correctly applied");
+      });
+
+      prepareLimits({class: 'limits past custom', past: true, customMessage: "Updated long time ago"});
+
+      test("limits past with custom message", function() {
+        ok($("#testLimitsPast2").html().match(/^Updated long time ago/), "Settings correctly applied");
+      });
+
+      prepareLimits({class: 'limits future default', past: false});
+
+      test("limits future with default message", function() {
+        ok($("#testLimitsFuture1").html().match(/^Someday will be updated/), "Settings correctly applied");
+      });
+
+      prepareLimits({class: 'limits future custom', past: false, customMessage: "Updated in the future"});
+
+      test("limits future with custom message", function() {
+        ok($("#testLimitsFuture2").html().match(/^Updated in the future/), "Settings correctly applied");
+      });
+
     })(jQuery);
     //]]>
   </script>
