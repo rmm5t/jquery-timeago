@@ -138,4 +138,4 @@
   // fix for IE6 suckage
   document.createElement("abbr");
   document.createElement("time");
-})(jQuery);
+}(jQuery));
