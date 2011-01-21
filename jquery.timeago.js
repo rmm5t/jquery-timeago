@@ -15,9 +15,13 @@
  */
 (function($) {
   $.timeago = function(timestamp) {
-    if (timestamp instanceof Date) return inWords(timestamp);
-    else if (typeof timestamp === "string") return inWords($.timeago.parse(timestamp));
-    else return inWords($.timeago.datetime(timestamp));
+    if (timestamp instanceof Date) {
+      return inWords(timestamp);
+    } else if (typeof timestamp === "string") {
+      return inWords($.timeago.parse(timestamp));
+    } else {
+      return inWords($.timeago.datetime(timestamp));
+    }
   };
   var $t = $.timeago;
 
@@ -122,7 +126,9 @@
     if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
-      if (text.length > 0) element.attr("title", text);
+      if (text.length > 0) {
+        element.attr("title", text);
+      }
     }
     return element.data("timeago");
   }
