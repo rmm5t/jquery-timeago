@@ -16,7 +16,7 @@
 (function($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) return inWords(timestamp);
-    else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
+    else if (typeof timestamp === "string") return inWords($.timeago.parse(timestamp));
     else return inWords($.timeago.datetime(timestamp));
   };
   var $t = $.timeago;
@@ -92,7 +92,7 @@
     },
     datetime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
-      var isTime = $(elem).get(0).tagName.toLowerCase() == "time"; // $(elem).is("time");
+      var isTime = $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
       var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
       return $t.parse(iso8601);
     }
