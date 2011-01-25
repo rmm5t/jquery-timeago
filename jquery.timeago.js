@@ -24,6 +24,8 @@
     }
   };
   var $t = $.timeago;
+  var intervalId = null;
+  var elements = [];
 
   $.extend($.timeago, {
     settings: {
@@ -102,13 +104,19 @@
     }
   });
 
-  $.fn.timeago = function() {
+  $.fn.timeago = function(clear) {
     var self = this;
-    self.each(refresh);
+    self.each(function (i, element) {
+        if ($.inArray(element, elements) == -1)
+            elements.push(element);
+    });
+    $.each(elements, refresh);
 
     var $s = $t.settings;
     if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+      if (intervalId === null) {
+        intervalId = setInterval(function() { $.each(elements, refresh); }, $s.refreshMillis);
+      }
     }
     return self;
   };
