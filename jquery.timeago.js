@@ -69,7 +69,7 @@
 
       function substitute(stringOrFunction, number) {
         var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
-        var value = $.isFunction($l.numbers) ? $l.numbers(number) : ($l.numbers[number] || number);
+        var value = $.isFunction($l.numbers) ? $l.numbers(number) : (($l.numbers && $l.numbers[number]) || number);
         return string.replace(/%d/i, value);
       }
 
