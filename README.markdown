@@ -8,24 +8,32 @@ formatted dates and times embedded in your HTML (à la microformats).
 
 First, load jQuery and the plugin:
 
-    <script src="jquery.min.js" type="text/javascript"></script>
-    <script src="jquery.timeago.js" type="text/javascript"></script>
+```html
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="jquery.timeago.js" type="text/javascript"></script>
+```
 
 Now, let's attach it to your timestamps on DOM ready:
 
-    <pre>
-      jQuery(document).ready(function() {
-        jQuery("abbr.timeago").timeago();
-      });
-    </pre>
+```html
+<pre>
+   jQuery(document).ready(function() {
+     jQuery("abbr.timeago").timeago();
+   });
+</pre>
+```html
 
 This will turn all abbr elements with a class of timeago and an ISO 8601 timestamp in the title:
 
-    <abbr class="timeago" title="2008-07-17T09:24:17Z">July 17, 2008</abbr>
+```html
+<abbr class="timeago" title="2008-07-17T09:24:17Z">July 17, 2008</abbr>
+```
 
 into something like this:
 
-    <abbr class="timeago" title="July 17, 2008">about 1 day ago</abbr>
+```html
+<abbr class="timeago" title="July 17, 2008">about 1 day ago</abbr>
+```
 
 As time passes, the timestamps will automatically update.
 
