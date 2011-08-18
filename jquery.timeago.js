@@ -18,9 +18,9 @@
     if (timestamp instanceof Date) {
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
-      return inWords($.timeago.parse(timestamp));
+      return inWords($.timeago.parse(timestamp), timestamp);
     } else {
-      return inWords($.timeago.datetime(timestamp));
+      return inWords($.timeago.datetime(timestamp), timestamp);
     }
   };
   var $t = $.timeago;
@@ -48,7 +48,7 @@
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
+    inWords: function(distanceMillis, date, origDate) {
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
@@ -67,7 +67,7 @@
       var years = days / 365;
 
       function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis, date, origDate) : stringOrFunction;
         var value = ($l.numbers && $l.numbers[number]) || number;
         return string.replace(/%d/i, value);
       }
@@ -116,7 +116,7 @@
   function refresh() {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      $(this).text(inWords(data.datetime, data.origDate));
     }
     return this;
   }
@@ -124,7 +124,7 @@
   function prepareData(element) {
     element = $(element);
     if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
+      element.data("timeago", { datetime: $t.datetime(element), origDate: element.attr("title") });
       var text = $.trim(element.text());
       if (text.length > 0) {
         element.attr("title", text);
@@ -133,8 +133,8 @@
     return element.data("timeago");
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
+  function inWords(date, origDate) {
+    return $t.inWords(distance(date), date, origDate);
   }
 
   function distance(date) {
