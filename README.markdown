@@ -41,6 +41,19 @@ As time passes, the timestamps will automatically update.
 
 **For different language configurations**: [http://gist.github.com/6251](http://gist.github.com/6251)
 
+## Time difference between client and server
+
+Servers and clients can have a time difference. For example, when the user has is 20 seconds in advance, he'll get something like "20 seconds from now". If you want to fix this, you've the possibility to add following code to your html.
+
+```html
+<script>
+    this.timediffServerClient = (new Date(<SERVER_UTC_TIMESTAMP>).getTime() - new Date().getTime());
+</script>
+```
+
+Replace <SERVER_UTC_TIMESTAMP> with the UTC timestamp of the server, and the diffence will be corrected. If ```javascript this.timediffServerClient``` is not set, it doesn't make any correction.
+
+
 ## Author
 
 [Ryan McGeary](http://ryan.mcgeary.org) ([@rmm5t](http://twitter.com/rmm5t))
