@@ -51,7 +51,7 @@ Servers and clients can have a time difference. For example, when the user has i
 </script>
 ```
 
-Replace <SERVER_UTC_TIMESTAMP> with the UTC timestamp of the server, and the diffence will be corrected. If ```javascript this.timediffServerClient``` is not set, it doesn't make any correction.
+Replace <SERVER_UTC_TIMESTAMP> with the UTC timestamp of the server, and the diffence will be corrected. If ```this.timediffServerClient``` is not set, it doesn't make any correction.
 
 
 ## Author
