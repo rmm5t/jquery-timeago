@@ -36,15 +36,15 @@
         suffixFromNow: "from now",
         seconds: "less than a minute",
         minute: "about a minute",
-        minutes: "%d minutes",
+        minutes: "%d&nbsp;minutes",
         hour: "about an hour",
-        hours: "about %d hours",
+        hours: "about %d&nbsp;hours",
         day: "a day",
-        days: "%d days",
+        days: "%d&nbsp;days",
         month: "about a month",
-        months: "%d months",
+        months: "%d&nbsp;months",
         year: "about a year",
-        years: "%d years",
+        years: "%d&nbsp;years",
         numbers: []
       }
     },
@@ -116,7 +116,7 @@
   function refresh() {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      $(this).html(inWords(data.datetime));
     }
     return this;
   }
