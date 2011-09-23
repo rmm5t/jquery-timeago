@@ -2,7 +2,7 @@ require "bundler/setup"
 
 task :default => :watch
 
-desc "Publish "marketing" docs"
+desc "Publish \"marketing\" docs"
 task :publish do
   sh("git rebase master gh-pages")
   sh("git checkout master")
