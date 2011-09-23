@@ -28,7 +28,7 @@
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
-      allowFuture: true,
+      allowFuture: false,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -155,5 +155,3 @@
   document.createElement("abbr");
   document.createElement("time");
 }(jQuery));
-
-$.timeago.settings.refreshMillis = 1000;
