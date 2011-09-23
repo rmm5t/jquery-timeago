@@ -28,12 +28,15 @@
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
-      allowFuture: false,
+      allowFuture: true,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
         suffixAgo: "ago",
         suffixFromNow: "from now",
+        secondaccurate : "now",
+        secondsaccurate : "%d seconds",
+        second: "about %d seconds",
         seconds: "less than a minute",
         minute: "about a minute",
         minutes: "%d minutes",
@@ -60,6 +63,8 @@
         distanceMillis = Math.abs(distanceMillis);
       }
 
+      
+
       var seconds = distanceMillis / 1000;
       var minutes = seconds / 60;
       var hours = minutes / 60;
@@ -72,7 +77,12 @@
         return string.replace(/%d/i, value);
       }
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
+      suffix = seconds < 2 ? "" : suffix;
+
+      var words = seconds < 2 && this.settings.refreshMillis <= 10000 && substitute($l.secondaccurate, 1) || 
+        seconds < 60 && this.settings.refreshMillis <= 2000 && substitute($l.secondsaccurate, Math.round(seconds)) || 
+        seconds < 60 && this.settings.refreshMillis <= 10000 && substitute($l.second, Math.round(seconds)) ||
+        seconds < 45 && this.settings.refreshMillis > 10000 && substitute($l.seconds, Math.round(seconds)) ||
         seconds < 90 && substitute($l.minute, 1) ||
         minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
         minutes < 90 && substitute($l.hour, 1) ||
@@ -145,3 +155,5 @@
   document.createElement("abbr");
   document.createElement("time");
 }(jQuery));
+
+$.timeago.settings.refreshMillis = 1000;
