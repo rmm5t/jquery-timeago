@@ -57,10 +57,9 @@
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
         }
-        distanceMillis = Math.abs(distanceMillis);
       }
 
-      var seconds = distanceMillis / 1000;
+      var seconds = Math.abs(distanceMillis) / 1000;
       var minutes = seconds / 60;
       var hours = minutes / 60;
       var days = hours / 24;
