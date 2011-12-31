@@ -29,6 +29,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
+      dateOnly: false,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -45,10 +46,13 @@
         months: "%d months",
         year: "about a year",
         years: "%d years",
+		today: "today",
+		tomorrow: "tomorrow",
+		yesterday: "yesterday",
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
+    inWords: function(distanceMillis, originalDate) {
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
@@ -64,8 +68,33 @@
       var hours = minutes / 60;
       var days = hours / 24;
       var years = days / 365;
-	  
-	  
+      
+      if (this.settings.dateOnly) {
+        // Day difference code from https://github.com/brianmhunt/jquery-timeago/commit/dfbef678758da942127fc60a10638f12dd2c3ee2#commitcomment-97699
+        var dateWithoutTime = new Date(
+          originalDate.getFullYear(),
+          originalDate.getMonth(),
+          originalDate.getDate()
+        );
+
+        var daysDifference = Math.floor((new Date() - dateWithoutTime) / (1000 * 60 * 60 * 24));
+        
+        if (Math.abs(daysDifference) <= 1) {
+          var word =
+            daysDifference == -1 && $l.tomorrow ||
+            daysDifference == 0 && $l.today ||
+            $l.yesterday;
+          return $.trim(word);
+        }
+        
+        // Not today, tomorrow, or yesterday; subsequent code will choose words, so make
+        // sure that correct day difference (knowing about midnight) is used (since it's more
+        // than one day's difference, hours should be >= 48 even if the actual span is less)
+        hours = 48;
+        days = Math.abs(daysDifference);
+      }
+      
+
       function substitute(stringOrFunction, number) {
         var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
         var value = ($l.numbers && $l.numbers[number]) || number;
@@ -91,7 +120,7 @@
       s = s.replace(/\.\d\d\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
-	  s = s.replace(/([\+\-]\d\d)$/,"$1:00");	// -04 -> -04:00
+      s = s.replace(/([\+\-]\d\d)$/,"$1:00");	// -04 -> -04:00
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
       return new Date(s);
     },
@@ -135,7 +164,7 @@
   }
 
   function inWords(date) {
-    return $t.inWords(distance(date));
+    return $t.inWords(distance(date), date);
   }
 
   function distance(date) {
