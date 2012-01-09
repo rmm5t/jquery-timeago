@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 0.9.3
+ * @version 0.10.0
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -59,10 +59,9 @@
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
         }
-        distanceMillis = Math.abs(distanceMillis);
       }
 
-      var seconds = distanceMillis / 1000;
+      var seconds = Math.abs(distanceMillis) / 1000;
       var minutes = seconds / 60;
       var hours = minutes / 60;
       var days = hours / 24;
