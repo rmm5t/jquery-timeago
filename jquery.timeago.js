@@ -1,15 +1,15 @@
-/**
+/*
+ * timeago: a jQuery plugin, version: 0.9.3 (2011-01-21)
+ * @requires jQuery v1.2.3 or later
+ *
  * Timeago is a jQuery plugin that makes it easy to support automatically
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
- * @name timeago
- * @version 0.10.0
- * @requires jQuery v1.2.3+
- * @author Ryan McGeary
- * @license MIT License - http://www.opensource.org/licenses/mit-license.php
- *
  * For usage and examples, visit:
  * http://timeago.yarp.com/
+ *
+ * Licensed under the MIT:
+ * http://www.opensource.org/licenses/mit-license.php
  *
  * Copyright (c) 2008-2011, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  */
@@ -28,7 +28,6 @@
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
-      allowFuture: false,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -39,31 +38,32 @@
         minutes: "%d minutes",
         hour: "about an hour",
         hours: "about %d hours",
-        day: "a day",
-        days: "%d days",
-        month: "about a month",
-        months: "%d months",
-        year: "about a year",
-        years: "%d years",
+        
+  	today: "Today",
+		yesterday: "Yesterday",
+		
+		formatLess48h: "hh:mma",
+		formatLess1Week: "DD, hh:mma",
+		formatLess1Month: "DD ddth MMM",
+		formatLess1Year: "ddth MMM",
+		formatMore1Year: "mm/dd/yyyy",
+		
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
+    inWords: function(date) {
+	  var dateNow = new Date();
+	  var distanceMillis = dateNow.getTime() - date;
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
-      if (this.settings.allowFuture) {
-        if (distanceMillis < 0) {
-          prefix = $l.prefixFromNow;
-          suffix = $l.suffixFromNow;
-        }
-      }
 
-      var seconds = Math.abs(distanceMillis) / 1000;
+      var seconds = distanceMillis / 1000;
       var minutes = seconds / 60;
       var hours = minutes / 60;
-      var days = hours / 24;
+	  var days = hours / 24;
       var years = days / 365;
+
 
       function substitute(stringOrFunction, number) {
         var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
@@ -71,19 +71,34 @@
         return string.replace(/%d/i, value);
       }
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 48 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.floor(days)) ||
-        days < 60 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.floor(days / 30)) ||
-        years < 2 && substitute($l.year, 1) ||
-        substitute($l.years, Math.floor(years));
+	  if (hours < 6) { // displaying "XXX ago"
+		  var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
+			seconds < 90 && substitute($l.minute, 1) ||
+			minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
+			minutes < 90 && substitute($l.hour, 1) ||
+			hours < 6 && substitute($l.hours, Math.round(hours));
 
-      return $.trim([prefix, words, suffix].join(" "));
+		  return $.trim([prefix, words, suffix].join(" "));
+	  }
+	  else if (hours < 48) { // displaying "Today, hh:mma" or "Yesterday, hh:mma" 
+		
+		  var hour = $.format.date(date, $l.formatLess48h);
+		  var prefix = (date.getDate() == dateNow.getDate())? $l.today : $l.yesterday;
+		  return $.trim([prefix, hour].join(", "));
+	  }
+	  else if (days < 7) { // displaying "DD, hh:mma"
+		  return $.format.date(date, $l.formatLess1Week);
+	  }
+	  else if ((years < 1) && (date.getMonth() == dateNow.getMonth())) { // displaying "DD ddth MMM"
+		  return $.format.date(date, $l.formatLess1Month);
+	  }
+	  else if (years < 1) { // displaying "ddth MMM"
+		  return $.format.date(date, $l.formatLess1Year);
+	  }
+	  else { // displaying "mm/dd/yyyy"
+		  return $.format.date(date, $l.formatMore1Year);
+	  }
+		
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
@@ -133,11 +148,7 @@
   }
 
   function inWords(date) {
-    return $t.inWords(distance(date));
-  }
-
-  function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    return $t.inWords(date);
   }
 
   // fix for IE6 suckage
