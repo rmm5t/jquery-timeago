@@ -113,9 +113,14 @@
   };
 
   function refresh() {
-    var data = prepareData(this);
+    var data = prepareData(this), textString;
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      if ($t.settings.append) {
+        textString = $(this).attr("title") + " (" + inWords(data.datetime) + ")";
+      } else {
+        textString = inWords(data.datetime);
+      }
+      $(this).text(textString);
     }
     return this;
   }

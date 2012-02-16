@@ -183,7 +183,11 @@
       <li><abbr id="testMillisSettings7" class="tomillis" title="45"></abbr> [45 sec]</li>
       <li><abbr id="testMillisSettings8" class="tomillis" title="90"></abbr> [90 sec]</li>
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
+
+      <li><abbr id="testAppendSettings1" class="appendtimeago" title="2012-1-30T17:17:00Z">(you should see this)</abbr></li>
+      <li><time id="testAppendSettings2" class="appendtimeago" datetime="2012-1-30T17:17:00Z">(you should see this)</time></li>
     </ul>
+
   </div>
 
   <script src="test_helpers.js" type="text/javascript"></script>
@@ -213,6 +217,11 @@
 
       $("abbr.timeago").timeago();
       $("time.timeago").timeago();
+
+      $.timeago.settings.append = true;
+      $("abbr.appendtimeago").timeago();
+      $("time.appendtimeago").timeago();
+      $.timeago.settings.append = false;
 
       var tooltip = $("#testTooltip").data("timeago");
 
@@ -508,6 +517,12 @@
         ok($("#testNumbersSettings2").html().match(/^nine minutes/), "Settings correctly applied");
         ok($("#testNumbersSettings3").html().match(/^10 minutes/), "Settings correctly applied");
       });
+
+      test("append", function () {
+        ok($("#testAppendSettings1").html().match(/^\(you should see this\) \(.+ago\)/), "Settings correctly applied");
+        ok($("#testAppendSettings2").html().match(/^\(you should see this\) \(.+ago\)/), "Settings correctly applied");
+      });
+
     })(jQuery);
     //]]>
   </script>
