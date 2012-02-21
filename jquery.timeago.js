@@ -34,12 +34,12 @@
         prefixFromNow: null,
         suffixAgo: "ago",
         suffixFromNow: "from now",
-        seconds: "less than a minute",
+        seconds: "%d seconds",
         minute: "about a minute",
         minutes: "%d minutes",
         hour: "about an hour",
-        hours: "about %d hours",
-        day: "a day",
+        hours: "%d hours",
+        day: "about a day",
         days: "%d days",
         month: "about a month",
         months: "%d months",
@@ -71,10 +71,10 @@
         return string.replace(/%d/i, value);
       }
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
+      var words = seconds < 60 && substitute($l.seconds, Math.round(seconds)) ||
+        seconds < 120 && substitute($l.minute, 1) ||
+        minutes < 60 && substitute($l.minutes, Math.round(minutes)) ||
+        minutes < 120 && substitute($l.hour, 1) ||
         hours < 24 && substitute($l.hours, Math.round(hours)) ||
         hours < 48 && substitute($l.day, 1) ||
         days < 30 && substitute($l.days, Math.floor(days)) ||
@@ -137,7 +137,8 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    if (this.timediffServerClient===undefined) this.timediffServerClient = 0;
+    return Math.floor(new Date().getTime() - (date.getTime() - this.timediffServerClient));
   }
 
   // fix for IE6 suckage
