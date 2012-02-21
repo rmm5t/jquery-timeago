@@ -13,14 +13,14 @@ First, load jQuery and the plugin:
 <script src="jquery.timeago.js" type="text/javascript"></script>
 ```
 
-Now, let's attach it to your timestamps on DOM ready:
+Now, let's attach it to your timestamps on DOM ready - put this in the head section:
 
 ```html
-<pre>
+<script type="text/javascript">
    jQuery(document).ready(function() {
-     jQuery("abbr.timeago").timeago();
+     $("abbr.timeago").timeago();
    });
-</pre>
+</script>
 ```
 
 This will turn all abbr elements with a class of timeago and an ISO 8601 timestamp in the title:
