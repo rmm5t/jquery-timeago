@@ -112,12 +112,15 @@
       <li><abbr id="testWording13" class="towords" title="7200"></abbr> [120 min]</li>
       <li><abbr id="testWording14" class="towords" title="82800"></abbr> [1380 min]</li>
       <li><abbr id="testWording15" class="towords" title="90000"></abbr> [25 hours]</li>
-      <li><abbr id="testWording16" class="towords" title="172800"></abbr> [48 hours]</li>
+      <li><abbr id="testWording16a" class="towords" title="147600"></abbr> [41 hours]</li>
+      <li><abbr id="testWording16b" class="towords" title="151200"></abbr> [42 hours]</li>
+      <li><abbr id="testWording16c" class="towords" title="172800"></abbr> [48 hours]</li>
       <li><abbr id="testWording17" class="towords" title="2505600"></abbr> [696 hours]</li>
       <li><abbr id="testWording18" class="towords" title="2592000"></abbr> [30 days]</li>
       <li><abbr id="testWording19" class="towords" title="16416000"></abbr> [190 days]</li>
       <li><abbr id="testWording20" class="towords" title="31622400"></abbr> [366 days]</li>
-      <li><abbr id="testWording21" class="towords" title="94608000"></abbr> [1095 days]</li>
+      <li><abbr id="testWording21" class="towords" title="62640000"></abbr> [725 days]</li>
+      <li><abbr id="testWording22" class="towords" title="94608000"></abbr> [1095 days]</li>
     </ul>
 
     <h2>Settings</h2>
@@ -397,8 +400,14 @@
         ok(($("#testWording15").html() === "a day ago"), "Correctly parsed");
       });
 
+      test("41 hour", function () {
+        ok(($("#testWording16a").html() === "a day ago"), "Correctly parsed");
+      });
+      test("42 hours", function () {
+        ok(($("#testWording16b").html() === "2 days ago"), "Correctly parsed");
+      });
       test("48 hours", function () {
-        ok(($("#testWording16").html() === "2 days ago"), "Correctly parsed");
+        ok(($("#testWording16c").html() === "2 days ago"), "Correctly parsed");
       });
 
       test("696 hours", function () {
@@ -417,8 +426,12 @@
         ok(($("#testWording20").html() === "about a year ago"), "Correctly parsed");
       });
 
+      test("725 days", function () {
+        ok(($("#testWording21").html() === "2 years ago"), "Correctly parsed");
+      });
+
       test("1095 days", function () {
-        ok(($("#testWording21").html() === "3 years ago"), "Correctly parsed");
+        ok(($("#testWording22").html() === "3 years ago"), "Correctly parsed");
       });
 
       module("Settings");
