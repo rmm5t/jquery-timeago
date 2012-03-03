@@ -36,7 +36,8 @@ function loadPigLatin() {
     month: "about-hay a-hay onth-may",
     months: "%d onths-may",
     year: "about-hay a-hay ear-yay",
-    years: "%d years-yay"
+    years: "%d years-yay",
+    wordSeparator: " "
   };
 }
 
@@ -71,7 +72,8 @@ function loadRussian() {
       month: "месяц",
       months: function(value) { return numpf(value, "%d месяц", "%d месяца", "%d месяцев"); },
       year: "год",
-      years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
+      years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); },
+      wordSeparator: " "
     };
   })();
 }
@@ -93,6 +95,13 @@ function loadMillis() {
     year: millisSubstitution,
     years: millisSubstitution
   };
+}
+
+function loadNoSpaces() {
+  jQuery.extend(jQuery.timeago.settings.strings, {
+    minutes: "%dminutes",
+    wordSeparator: ""
+  });
 }
 
 function loadYoungOldYears() {

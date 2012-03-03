@@ -130,6 +130,8 @@
       <li><abbr id="testYoungOldSettings1" class="toyoungold" title="504576000"></abbr> [5840 days]</li>
       <li><abbr id="testYoungOldSettings2" class="toyoungold" title="2018304000"></abbr> [23360 days]</li>
 
+      <li><abbr id="testNoSpaces1" class="nospaces" title="120"></abbr> [120 sec]</li>
+
       <li><abbr id="testLatinSettings1" class="tolatin" title="-7200"></abbr> [-120 min]</li>
       <li><abbr id="testLatinSettings2" class="tolatin" title="-60"></abbr> [-60 sec]</li>
       <li><abbr id="testLatinSettings3" class="tolatin" title="-30"></abbr> [-30 sec]</li>
@@ -229,6 +231,9 @@
 
       loadYoungOldYears();
       $("abbr.toyoungold").each(toWords);
+
+      loadNoSpaces();
+      $("abbr.nospaces").each(toWords);
 
       loadPigLatin();
       $("abbr.tolatin").each(toWords);
@@ -507,6 +512,10 @@
         ok($("#testNumbersSettings1").html().match(/^two minutes/), "Settings correctly applied");
         ok($("#testNumbersSettings2").html().match(/^nine minutes/), "Settings correctly applied");
         ok($("#testNumbersSettings3").html().match(/^10 minutes/), "Settings correctly applied");
+      });
+
+      test("wordSeparator", function () {
+        ok($("#testNoSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
       });
     })(jQuery);
     //]]>
