@@ -137,7 +137,11 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    var offset = 0;
+    if (typeof $.timeago.settings.offset != 'undefined') {
+      offset = $.timeago.settings.offset;
+    }
+    return (new Date().getTime() - date.getTime() + offset);
   }
 
   // fix for IE6 suckage
