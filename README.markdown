@@ -37,6 +37,25 @@ into something like this:
 
 As time passes, the timestamps will automatically update.
 
+### Usage with callback on refresh
+
+If you want to have an callback to modify the specific element on refresh, just pass a function as a callback.
+
+```html
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    $("abbr.timeago").timeago(function(distance) {
+      // my callback function where 'this' is the element and the parameter 'distance' is the difference between the current time and the elements time
+      var minutes = (distance / 60) / 1000; // get distance in minutes
+      // add old class if the time passes 10 minutes
+      if (minutes > 10) {
+        $(this).addClass("old");
+      }
+    });
+  });
+</script>
+```
+
 **For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
 
 **For different language configurations**: [http://gist.github.com/6251](http://gist.github.com/6251)
