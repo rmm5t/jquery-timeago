@@ -101,22 +101,30 @@
       return $t.parse(iso8601);
     }
   });
-
-  $.fn.timeago = function() {
+  
+  // callback function param that gets called on each refresh
+  $.fn.timeago = function(callback) {
     var self = this;
-    self.each(refresh);
+    
+    self.each(function() {
+      refresh.call(this, callback);
+    });
 
     var $s = $t.settings;
     if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+      setInterval(function() { self.each(function() {refresh.call(this, callback)}); }, $s.refreshMillis);
     }
     return self;
   };
-
-  function refresh() {
+  
+  function refresh(callback) {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
       $(this).text(inWords(data.datetime));
+      // make a call to the callback function if it exists
+      if (callback) {
+        callback.call(this, distance(data.datetime));
+      }
     }
     return this;
   }
