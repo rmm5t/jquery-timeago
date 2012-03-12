@@ -84,7 +84,8 @@
         years < 1.5 && substitute($l.year, 1) ||
         substitute($l.years, Math.round(years));
 
-      return $.trim([prefix, words, suffix].join($l.wordSeparator));
+      var separator = $l.wordSeparator === undefined ?  " " : $l.wordSeparator;
+      return $.trim([prefix, words, suffix].join(separator));
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
