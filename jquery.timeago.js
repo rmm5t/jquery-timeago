@@ -11,7 +11,7 @@
  * For usage and examples, visit:
  * http://timeago.yarp.com/
  *
- * Copyright (c) 2008-2011, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
+ * Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
 (function($) {
   $.timeago = function(timestamp) {
