@@ -14,13 +14,13 @@
  * Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
 (function($) {
-  $.timeago = function(timestamp) {
-    if (timestamp instanceof Date) {
-      return inWords(timestamp);
-    } else if (typeof timestamp === "string") {
-      return inWords($.timeago.parse(timestamp));
+  $.timeago = function(arg) {
+    if (arg instanceof Date) {
+      return inWords(arg);
+    } else if (typeof arg === "string") {
+      return inWords($.timeago.parse(arg));
     } else {
-      return inWords($.timeago.datetime(timestamp));
+      return inWords($.timeago.datetime(arg));
     }
   };
   var $t = $.timeago;
