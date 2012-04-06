@@ -27,6 +27,7 @@
 
   $.extend($.timeago, {
     settings: {
+      sourceAttribute: "title",
       refreshMillis: 60000,
       allowFuture: false,
       strings: {
@@ -98,7 +99,7 @@
     datetime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
       var isTime = $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
-      var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
+      var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr(this.settings.sourceAttribute);
       return $t.parse(iso8601);
     }
   });
@@ -128,7 +129,7 @@
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
       if (text.length > 0) {
-        element.attr("title", text);
+        element.attr($t.settings.sourceAttribute, text);
       }
     }
     return element.data("timeago");
