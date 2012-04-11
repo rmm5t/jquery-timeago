@@ -1,4 +1,4 @@
-// English (Template)
+// Welsh
 jQuery.timeago.settings.strings = {
   prefixAgo: null,
   prefixFromNow: null,
