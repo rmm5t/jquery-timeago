@@ -9,9 +9,9 @@ jQuery.timeago.settings.strings = {
   hours: "%d시간",
   day: "하루",
   days: "%d일",
-  month: "한달",
+  month: "한 달",
   months: "%d달",
   year: "1년",
   years: "%d년",
-  wordSeparator: ""
+  wordSeparator: " "
 };
