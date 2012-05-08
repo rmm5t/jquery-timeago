@@ -23,22 +23,29 @@ Now, let's attach it to your timestamps on DOM ready - put this in the head sect
 </script>
 ```
 
-This will turn all abbr elements with a class of timeago and an ISO 8601 timestamp in the title:
+This will turn all abbr elements with a class of timeago and an ISO 8601
+timestamp in the title (conforming to the
+[datetime design pattern microformat](http://microformats.org/wiki/datetime-design-pattern)):
 
 ```html
-<abbr class="timeago" title="2008-07-17T09:24:17Z">July 17, 2008</abbr>
+<abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
 ```
 
 into something like this:
 
 ```html
-<abbr class="timeago" title="July 17, 2008">about 1 day ago</abbr>
+<abbr class="timeago" title="Decebmer 17, 2011">about 1 day ago</abbr>
+```
+
+HTML5 `<time>` elements are also supported:
+
+```html
+<time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
 ```
 
 As time passes, the timestamps will automatically update.
 
 **For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
-
 
 **For different language configurations**: visit the [`locales`](https://github.com/rmm5t/jquery-timeago/tree/master/locales) directory.
 
