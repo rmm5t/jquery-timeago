@@ -34,7 +34,7 @@ timestamp in the title (conforming to the
 into something like this:
 
 ```html
-<abbr class="timeago" title="Decebmer 17, 2011">about 1 day ago</abbr>
+<abbr class="timeago" title="December 17, 2011">about 1 day ago</abbr>
 ```
 
 HTML5 `<time>` elements are also supported:
