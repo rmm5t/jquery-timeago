@@ -73,6 +73,9 @@
     <p>Date only (default tooltip): <abbr id="defaultTooltip" class="timeago" title="2008-02-26"> </abbr>.</p>
     <p>Timestsamp (with millis): <abbr class="timeago" title="1978-12-18T17:17:00.021Z">(you shouldn't see this)</abbr>.</p>
 
+    <p><time id="testTimeTitle" class="timeago" datetime="2012-05-07T10:06:02+02:00" title="May 10, 2012 10:06">May 10, 2012</time></p>
+    <p><time id="testTimeTitle2" class="timeago" datetime="2012-05-07T10:06:02+02:00">May 10, 2012</time></p>
+
     <h2>Errors</h2>
 
     <p>Bad (letters): <abbr class="bad timeago" title="bleh">(this should be displayed)</abbr>.</p>
@@ -300,6 +303,14 @@
 
       test("should leave title alone if no text text content", function () {
         ok($("#defaultTooltip").attr("title") == "2008-02-26", "correctly set");
+      });
+
+      test("should preserve title in time tags", function () {
+        ok(($("#testTimeTitle").attr('title') === "May 10, 2012 10:06"), "title preserved")
+      });
+
+      test("should set title in time tags without a title", function () {
+        ok(($("#testTimeTitle2").attr('title') === "May 10, 2012"), "title set")
       });
 
       module("Parsing");
