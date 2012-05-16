@@ -19,6 +19,8 @@
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
       return inWords($.timeago.parse(timestamp));
+    } else if (typeof timestamp === "number") {
+      return inWords(new Date(timestamp));
     } else {
       return inWords($.timeago.datetime(timestamp));
     }
