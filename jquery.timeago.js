@@ -27,7 +27,7 @@
 
     $.extend($.timeago, {
         settings: {
-            refreshMillis: 2000,
+            refreshMillis: 60000,
             allowFuture: false,
             strings: {
                 prefixAgo: null,
@@ -140,7 +140,6 @@
     };
 
     function refresh(object) {
-        console.log(object);
         var data = prepareData(object);
         if (!isNaN(data.datetime)) {
             t = $(object);
