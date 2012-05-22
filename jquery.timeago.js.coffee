@@ -15,7 +15,6 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
 ###
 (($) ->
   refresh = (object) ->
-    console.log object
     data = prepareData(object)
     unless isNaN(data.datetime)
       t = $(object)
