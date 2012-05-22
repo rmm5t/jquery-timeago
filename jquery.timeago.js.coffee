@@ -50,7 +50,7 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
   $t = $.timeago
   $.extend $.timeago,
     settings:
-      refreshMillis: 2000
+      refreshMillis: 60000
       allowFuture: false
       strings:
         prefixAgo: null
