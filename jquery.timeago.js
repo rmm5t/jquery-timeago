@@ -31,6 +31,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
+      longStrings: false,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -49,10 +50,34 @@
         years: "%d years",
         wordSeparator: " ",
         numbers: []
+      },
+      shortened_strings: {
+        prefixAgo: null,
+        prefixFromNow: null,
+        suffixAgo: "",
+        suffixFromNow: "",
+        seconds: "1m",
+        minute: "1m",
+        minutes: "%dm",
+        hour: "1h",
+        hours: "%dh",
+        day: "1d",
+        days: "%dd",
+        month: "1mo",
+        months: "%dmo",
+        year: "1yr",
+        years: "%dyr",
+        wordSeparator: " ",
+        numbers: []
       }
     },
     inWords: function(distanceMillis) {
-      var $l = this.settings.strings;
+      var $l;
+      if (!this.settings.longStrings) {
+        $l = this.settings.shortened_strings;
+      } else {
+        $l = this.settings.strings;
+      }
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
       if (this.settings.allowFuture) {
