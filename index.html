@@ -116,6 +116,18 @@ jQuery.timeago(jQuery("abbr#some_id")); //=> &quot;<span id="prog_element"></spa
       <pre>
 jQuery.timeago.settings.allowFuture = true;</pre>
 
+
+      <p class="how">
+        To allow for a resolution of seconds, set the <tt>refreshMillis</tt> setting to <= 10000 or for even more accurate set it <= 2000:
+      </p>
+      <pre>
+jQuery.timeago.settings.refreshMillis = 1000;
+0-2 //=> "now"
+2-> //=> "xx seconds ago"
+jQuery.timeago.settings.refreshMillis = 5000;
+0-2 //=> "now"
+5-> //=> "about xx seconds ago"</pre>
+
       <h3>Excusez-moi?</h3>
       <p>
         Yes, timeago has locale/i18n/language support.  Here are some <a href="https://github.com/rmm5t/jquery-timeago/tree/master/locales">configuration examples</a>.  Please submit a <a href="https://github.com/rmm5t/jquery-timeago">GitHub pull request</a> for corrections or additional languages.
