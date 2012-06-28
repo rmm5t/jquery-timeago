@@ -95,6 +95,7 @@
       <li><abbr id="testParsing7" class="todate" title="1978-12-18 17:17:00"></abbr> [from blank TZ]</li>
       <li><abbr id="testParsing8" class="todate" title="1978-12-18 17:17:00.021Z"></abbr> [from Z with milliseonds]</li>
       <li><abbr id="testParsing9" class="todate" title="1978-12-18 17:17:00.021432Z"></abbr> [from Z with microseonds]</li>
+      <li><abbr id="testParsing10" class="todate" title="1978-12-18 17:17:00.0Z"></abbr> [from Z with milliseonds]</li>
     </ul>
 
     <h2>Wording</h2>
@@ -352,6 +353,10 @@
 
       test("From Z with microseconds", function () {
         ok(($("#testParsing9").html().match(correctMatch)), "Correctly parsed");
+      });
+
+      test("From Z with microseconds", function () {
+        ok(($("#testParsing10").html().match(correctMatch)), "Correctly parsed");
       });
 
       module("Wording");
