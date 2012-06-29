@@ -93,9 +93,9 @@
       <li><abbr id="testParsing5" class="todate" title="1978-12-19T02:17:00+09:00"></abbr> [from +09:00]</li>
       <li><abbr id="testParsing6" class="todate" title="1978-12-19T02:17:00+0900"></abbr> [from +0900]</li>
       <li><abbr id="testParsing7" class="todate" title="1978-12-18 17:17:00"></abbr> [from blank TZ]</li>
-      <li><abbr id="testParsing8" class="todate" title="1978-12-18 17:17:00.021Z"></abbr> [from Z with milliseonds]</li>
-      <li><abbr id="testParsing9" class="todate" title="1978-12-18 17:17:00.021432Z"></abbr> [from Z with microseonds]</li>
-      <li><abbr id="testParsing10" class="todate" title="1978-12-18 17:17:00.0Z"></abbr> [from Z with milliseonds]</li>
+      <li><abbr id="testParsing8" class="todate" title="1978-12-18 17:17:00.021Z"></abbr> [from Z with milliseconds]</li>
+      <li><abbr id="testParsing9" class="todate" title="1978-12-18 17:17:00.021432Z"></abbr> [from Z with microseconds]</li>
+      <li><abbr id="testParsing10" class="todate" title="1978-12-18 17:17:00.0Z"></abbr> [from Z with tenths of a second]</li>
     </ul>
 
     <h2>Wording</h2>
@@ -355,7 +355,7 @@
         ok(($("#testParsing9").html().match(correctMatch)), "Correctly parsed");
       });
 
-      test("From Z with microseconds", function () {
+      test("From Z with tenths of a second", function () {
         ok(($("#testParsing10").html().match(correctMatch)), "Correctly parsed");
       });
 
