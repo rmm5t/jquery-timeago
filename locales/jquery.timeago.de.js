@@ -1,5 +1,5 @@
 // German
-jQuery.timeago.settings.strings = {
+jQuery.timeago.settings.strings["de"] = {
   prefixAgo: "vor",
   prefixFromNow: "in",
   suffixAgo: "",
