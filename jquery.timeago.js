@@ -124,6 +124,7 @@
       s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
+      s = s.replace(/([\+\-]\d\d)$/,"$1:00");  // -04 -> -04:00
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
       return new Date(s);
     },
