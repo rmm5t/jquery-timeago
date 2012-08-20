@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 0.10.0
+ * @version 0.11.4
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -11,7 +11,7 @@
  * For usage and examples, visit:
  * http://timeago.yarp.com/
  *
- * Copyright (c) 2008-2011, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
+ * Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
 (function($) {
   $.timeago = function(timestamp) {
@@ -19,6 +19,8 @@
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
       return inWords($.timeago.parse(timestamp));
+    } else if (typeof timestamp === "number") {
+      return inWords(new Date(timestamp));
     } else {
       return inWords($.timeago.datetime(timestamp));
     }
@@ -29,7 +31,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
-      dateOnly: false,
+	  dateOnly: false, // https://github.com/cameron314/jquery-timeago/
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -46,13 +48,15 @@
         months: "%d months",
         year: "about a year",
         years: "%d years",
+        wordSeparator: " ",
+        numbers: [],
+		
 		today: "today",
 		tomorrow: "tomorrow",
-		yesterday: "yesterday",
-        numbers: []
+		yesterday: "yesterday"
       }
     },
-    inWords: function(distanceMillis, originalDate) {
+    inWords: function(distanceMillis, originalDate, dateOnly) {
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
@@ -68,8 +72,8 @@
       var hours = minutes / 60;
       var days = hours / 24;
       var years = days / 365;
-      
-      if (this.settings.dateOnly) {
+	  
+	  if (this.settings.dateOnly || dateOnly) {
         // Day difference code from https://github.com/brianmhunt/jquery-timeago/commit/dfbef678758da942127fc60a10638f12dd2c3ee2#commitcomment-97699
         var dateWithoutTime = new Date(
           originalDate.getFullYear(),
@@ -93,7 +97,6 @@
         hours = 48;
         days = Math.abs(daysDifference);
       }
-      
 
       function substitute(stringOrFunction, number) {
         var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
@@ -106,29 +109,31 @@
         minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
         minutes < 90 && substitute($l.hour, 1) ||
         hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 48 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.floor(days)) ||
-        days < 60 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.floor(days / 30)) ||
-        years < 2 && substitute($l.year, 1) ||
-        substitute($l.years, Math.floor(years));
+        hours < 42 && substitute($l.day, 1) ||
+        days < 30 && substitute($l.days, Math.round(days)) ||
+        days < 45 && substitute($l.month, 1) ||
+        days < 365 && substitute($l.months, Math.round(days / 30)) ||
+        years < 1.5 && substitute($l.year, 1) ||
+        substitute($l.years, Math.round(years));
 
-      return $.trim([prefix, words, suffix].join(" "));
+      var separator = $l.wordSeparator === undefined ?  " " : $l.wordSeparator;
+      return $.trim([prefix, words, suffix].join(separator));
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
-      s = s.replace(/\.\d\d\d+/,""); // remove milliseconds
+      s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
-      s = s.replace(/([\+\-]\d\d)$/,"$1:00");	// -04 -> -04:00
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
       return new Date(s);
     },
     datetime: function(elem) {
-      // jQuery's `is()` doesn't play well with HTML5 in IE
-      var isTime = $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
-      var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
+      var iso8601 = $t.isTime(elem) ? $(elem).attr("datetime") : $(elem).attr("title");
       return $t.parse(iso8601);
+    },
+    isTime: function(elem) {
+      // jQuery's `is()` doesn't play well with HTML5 in IE
+      return $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
     }
   });
 
@@ -146,7 +151,7 @@
   function refresh() {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      $(this).text(inWords(data.datetime, $(this).data("timeago-dateonly")));
     }
     return this;
   }
@@ -156,15 +161,18 @@
     if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
-      if (text.length > 0) {
+      if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
+	  // FIX: Compute dateonly setting per element
+	  var dateonly = (element.attr("title").indexOf(':') == -1);
+	  element.data("timeago-dateonly", dateonly);
     }
     return element.data("timeago");
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date), date);
+  function inWords(date, dateOnly) {
+    return $t.inWords(distance(date), date, dateOnly);
   }
 
   function distance(date) {
