@@ -127,9 +127,15 @@
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
       return new Date(s);
     },
+    parseUTCToLocal: function(iso8601) {
+      var utc = $t.parse(iso8601);
+      utc.setTime(utc.getTime() - utc.getTimezoneOffset()*60*1000);
+      return utc;
+    },
     datetime: function(elem) {
       var iso8601 = $t.isTime(elem) ? $(elem).attr("datetime") : $(elem).attr("title");
-      return $t.parse(iso8601);
+      var tzchange = $(elem).data('tz-change');
+      return (tzchange == "utc2local")? $t.parseUTCToLocal(iso8601) : $t.parse(iso8601);
     },
     isTime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
