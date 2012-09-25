@@ -127,20 +127,22 @@
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
       return new Date(s);
     },
-    parseUTCToLocal: function(iso8601) {
-      var utc = $t.parse(iso8601);
-      utc.setTime(utc.getTime() - utc.getTimezoneOffset()*60*1000);
-      return utc;
-    },
     datetime: function(elem) {
       var iso8601 = $t.isTime(elem) ? $(elem).attr("datetime") : $(elem).attr("title");
-      var tzchange = $(elem).data('tz-change');
-      return (tzchange == "utc2local")? $t.parseUTCToLocal(iso8601) : $t.parse(iso8601);
+	  return ($(elem).attr('data-tz-utc') != undefined)? $t.XDate(iso8601) : $t.parse(iso8601);
     },
     isTime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
       return $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
-    }
+    },
+	XDate: function(iso8601) {
+		// XDate (http://arshaw.com/xdate) not found? - fallback on default
+		if (typeof XDate == 'undefined') {
+			return (iso8601 == undefined)? new Date() : $t.parse(iso8601);
+		} else {
+			return (iso8601 == undefined)? new XDate(true): new XDate(iso8601.replace(/\//,'-'), true);
+		}
+	}
   });
 
   $.fn.timeago = function() {
@@ -182,7 +184,8 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    //return (new Date().getTime() - date.getTime());
+	return ($t.XDate().getTime() - date.getTime());
   }
 
   // fix for IE6 suckage
