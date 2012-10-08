@@ -41,6 +41,18 @@ As time passes, the timestamps will automatically update.
 
 **For different language configurations**: [http://gist.github.com/6251](http://gist.github.com/6251)
 
+# Enhancement: (UTC to Localtime)
+
+```html
+<abbr class="timeago" title="2010-10-20 09:20:17" data-tz-utc></abbr>
+```
+
+2010-10-20 09:20:17 - will be treated as UTC and translated to 2010-10-20 14:50:17 GMT+5:30 (if client-browser is using IST).
+
+__NOTE: This feature depends on [XDate](http://arshaw.com/xdate/) support at runtime __
+
+
+
 ## Author
 
 [Ryan McGeary](http://ryan.mcgeary.org) ([@rmm5t](http://twitter.com/rmm5t))
