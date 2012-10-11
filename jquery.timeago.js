@@ -113,7 +113,21 @@
 
     var $s = $t.settings;
     if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+      var intervalId = setInterval(function() {
+        var destroyed = 0
+
+        self.each(function() {
+          if ($(this).parents().filter('html').length === 0) {
+            destroyed++;
+          } else {
+            Function.call(this, refresh);
+          }
+        });
+
+        if (destroyed === self.length) {
+          clearInterval(intervalId);
+        }
+      }, $s.refreshMillis);
     }
     return self;
   };
