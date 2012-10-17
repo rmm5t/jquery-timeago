@@ -69,13 +69,14 @@
         suffixAgo: "ago",
         suffixFromNow: "from now",
         month_names: ['Jan','Feb','Mar','Apr','May','Jun',
-                      'Jul','Aug','Sep','Oct','Nov','Dec']
-
+                      'Jul','Aug','Sep','Oct','Nov','Dec'],
+        numbers: []
       }
     },
     ranges: ranges,
     units: units,
     inWords: function(date) {
+      var date = date;
       var distanceMillis = distance(date);
 
       var $l = this.settings.strings;
@@ -90,7 +91,7 @@
 
       // Assemble replacements.  Not the full set, but pretty good.
 
-      // Deltas.
+      // Calculate Deltas.
       var seconds = Math.round(Math.abs(distanceMillis) / 1000);
       var minutes = Math.round(seconds / 60);
       var hours = Math.round(minutes / 60);
@@ -110,7 +111,7 @@
         '%b' : $l.month_names[date.getMonth()],
         '%Y' : date.getFullYear(),
         '%sfx' : suffix,
-        '%pfx' : prefix
+        '%pfx' : prefix,
       };
 
       // Find the matching range.
@@ -123,9 +124,19 @@
       }
       return_val = current_range;
 
-      for(key in times) {
-        return_val = return_val.replace(key, times[key]);
+      function substitute(stringOrFunction, times) {
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(times, distanceMillis) : stringOrFunction;
+
+        for(key in times) {
+            var value = times[key];
+            value = ($l.numbers && $l.numbers[value]) || value;
+            string = string.replace(key, value);
+        }
+
+        return string.replace(/%d/i, value);
       }
+
+      return_val = substitute(return_val, times);
 
       return return_val
 
