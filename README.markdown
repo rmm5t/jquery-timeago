@@ -57,7 +57,7 @@ var timeago_ranges = {};
     timeago_ranges[119*$.timeago.units.min] = "1 hour %sfx"; // 1 hour ago
     timeago_ranges[23*$.timeago.units.hour] = "%NH hours %sfx"; // 12 hours ago
     timeago_ranges[1*$.timeago.units.year] = "%b %d"; // Jan 12
-    timeago_ranges[9999*$.timeago.units.year] = "%b %d %Y"; // Jan 12 20012
+    timeago_ranges[9999*$.timeago.units.year] = "%b %d %Y"; // Jan 12 2012
 $.timeago.ranges = timeago_ranges;
 </script>
 ```
