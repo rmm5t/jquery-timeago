@@ -43,10 +43,10 @@
       refreshMillis: 60000,
       allowFuture: false,
       strings: {
-        prefixAgo: null,
-        prefixFromNow: null,
-        suffixAgo: "ago",
-        suffixFromNow: "from now",
+        prefixAgo: "",
+        prefixFromNow: "",
+        suffixAgo: " ago",
+        suffixFromNow: " from now",
         month_names: ['Jan','Feb','Mar','Apr','May','Jun',
                       'Jul','Aug','Sep','Oct','Nov','Dec'],
         numbers: []
@@ -56,58 +56,60 @@
     ranges: {
       seconds: {
         limit: 45*units.sec,
-        string:"%pfx less than a minute %sfx"
+        string:"%pfxless than a minute%sfx"
       },
       minute: {
         limit: 90*units.sec,
-        string:"%pfx about a minute %sfx"
+        string:"%pfxabout a minute%sfx"
       },
       minutes: {
         limit: 45*units.min,
-        string:"%pfx %NM minutes %sfx"
+        string:"%pfx%NM minutes%sfx"
       },
       hour: {
         limit: 90*units.min,
-        string:"%pfx about an hour %sfx"
+        string:"%pfxabout an hour%sfx"
       },
       hours: {
         limit: 24*units.hour,
-        string:"%pfx about %NH hours %sfx"
+        string:"%pfxabout %NH hours%sfx"
       },
       day: {
         limit: 42*units.hour,
-        string:"%pfx a day %sfx"
+        string:"%pfxa day%sfx"
       },
       days: {
         limit: 30*units.day,
-        string:"%pfx %Nd days %sfx"
+        string:"%pfx%Nd days%sfx"
       },
       month: {
         limit: 45*units.day,
-        string:"%pfx about a month %sfx"
+        string:"%pfxabout a month%sfx"
       },
       months: {
         limit: 365*units.day,
-        string:"%pfx %Nm months %sfx"
+        string:"%pfx%Nm months%sfx"
       },
       year: {
         limit: 1.5*units.year,
-        string:"%pfx about a year %sfx"
+        string:"%pfxabout a year%sfx"
       },
       years: {
         limit: 9999*units.year,
-        string:"%pfx %Ny years %sfx"
+        string:"%pfx%Ny years%sfx"
       },
     },
     units: units,
     inWords: function(timestamp) {
       var date;
-
       if (timestamp instanceof Date) {
         date = timestamp;
       } else if (typeof timestamp === "string") {
         date = $.timeago.parse(timestamp);
       } else if (typeof timestamp === "number") {
+        // Not a real timestamp, offset from "now".
+        // Also, reversed for some reason.
+        timestamp = new Date().getTime() - timestamp;
         date = new Date(timestamp);
       } else {
         date = $.timeago.datetime(timestamp);
@@ -157,7 +159,7 @@
           value: months
         },
         years: {
-          pattern: '%ny',
+          pattern: '%Ny',
           value: years
         },
         date_day: {
@@ -190,7 +192,6 @@
       return_val = '';
       for(key in this.ranges) {
         range = this.ranges[key];
-        console.log(range);
         if(seconds < range.limit) {
             return_val = range.string;
             break;
