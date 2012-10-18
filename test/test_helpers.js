@@ -93,7 +93,15 @@ function loadMillis() {
   jQuery.timeago.ranges.months.string = millisSubstitution;
   jQuery.timeago.ranges.year.string = millisSubstitution;
   jQuery.timeago.ranges.years.string = millisSubstitution;
+}
 
+function loadOrigDates() {
+  jQuery.timeago.ranges.day.string = "%m %d";
+  jQuery.timeago.ranges.days.string = "%m %d";
+  jQuery.timeago.ranges.month.string = "%m %d";
+  jQuery.timeago.ranges.months.string = "%m %d";
+  jQuery.timeago.ranges.year.string = "%b %d %Y";
+  jQuery.timeago.ranges.years.string = "%Y-%m-%d";
 }
 
 function loadNoSpaces() {
