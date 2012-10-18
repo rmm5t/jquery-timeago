@@ -23,21 +23,20 @@ function unloadNumbers() {
 }
 
 function loadPigLatin() {
-  jQuery.timeago.settings.strings = {
-    suffixAgo: "ago-hay",
-    suffixFromNow: "omNow-fray",
-    seconds: "ess-lay an-thay a-hay inute-may",
-    minute: "about-hay a-hay inute-may",
-    minutes: "%d inutes-may",
-    hour: "about-hay an-hay hour-hay",
-    hours: "about-hay %d hours-hay",
-    day: "a-hay ay-day",
-    days: "%d ays-day",
-    month: "about-hay a-hay onth-may",
-    months: "%d onths-may",
-    year: "about-hay a-hay ear-yay",
-    years: "%d years-yay"
-  };
+  jQuery.timeago.settings.strings['suffixAgo'] = " ago-hay";
+  jQuery.timeago.settings.strings['suffixFromNow'] = " omNow-fray";
+
+  jQuery.timeago.ranges.seconds.string = "%pfxess-lay an-thay a-hay inute-may%sfx";
+  jQuery.timeago.ranges.minute.string = "%pfxabout-hay a-hay inute-may%sfx";
+  jQuery.timeago.ranges.minutes.string = "%pfx%NM inutes-may%sfx";
+  jQuery.timeago.ranges.hour.string = "%pfxabout-hay an-hay hour-hay%sfx";
+  jQuery.timeago.ranges.hours.string = "%pfxabout-hay %NH hours-hay%sfx";
+  jQuery.timeago.ranges.day.string = "%pfxa-hay ay-day%sfx";
+  jQuery.timeago.ranges.days.string = "%pfx%Nd ays-day%sfx";
+  jQuery.timeago.ranges.month.string = "%pfxabout-hay a-hay onth-may%sfx";
+  jQuery.timeago.ranges.months.string = "%pfx%Nm onths-may%sfx";
+  jQuery.timeago.ranges.year.string = "%pfxabout-hay a-hay ear-yay%sfx";
+  jQuery.timeago.ranges.years.string = "%pfx%Ny years-yay%sfx";
 }
 
 function loadRussian() {
@@ -56,54 +55,59 @@ function loadRussian() {
       }
     }
 
-    jQuery.timeago.settings.strings = {
-      prefixAgo: null,
-      prefixFromNow: "через",
-      suffixAgo: "назад",
-      suffixFromNow: null,
-      seconds: "меньше минуты",
-      minute: "минуту",
-      minutes: function(value) { return numpf(value, "%d минута", "%d минуты", "%d минут"); },
-      hour: "час",
-      hours: function(value) { return numpf(value, "%d час", "%d часа", "%d часов"); },
-      day: "день",
-      days: function(value) { return numpf(value, "%d день", "%d дня", "%d дней"); },
-      month: "месяц",
-      months: function(value) { return numpf(value, "%d месяц", "%d месяца", "%d месяцев"); },
-      year: "год",
-      years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
-    };
+    jQuery.timeago.settings.strings['prefixAgo'] = '';
+    jQuery.timeago.settings.strings['prefixFromNow'] = "через ";
+    jQuery.timeago.settings.strings['suffixAgo'] = " назад";
+    jQuery.timeago.settings.strings['suffixFromNow'] = '';
+
+    jQuery.timeago.ranges.seconds.string = "%pfxменьше минуты%sfx";
+    jQuery.timeago.ranges.minute.string = "%pfxминуту%sfx";
+    jQuery.timeago.ranges.minutes.string = function(values) { return numpf(values.minutes.value, "%pfx%NM минута%sfx", "%pfx%NM минуты%sfx", "%pfx%NM минут%sfx"); };
+    jQuery.timeago.ranges.hour.string = "%pfxчас%sfx";
+    jQuery.timeago.ranges.hours.string = function(values) { return numpf(values.hours.value, "%pfx%NH час%sfx", "%pfx%NH часа%sfx", "%pfx%NH часов%sfx"); };
+    jQuery.timeago.ranges.day.string = "%pfxдень%sfx";
+    jQuery.timeago.ranges.days.string = function(values) { return numpf(values.days.value, "%pfx%Nd день%sfx", "%pfx%Nd дня%sfx", "%pfx%Nd дней%sfx"); };
+    jQuery.timeago.ranges.month.string = "%pfxмесяц%sfx";
+    jQuery.timeago.ranges.months.string = function(values) { return numpf(values.months.value, "%pfx%Nm месяц%sfx", "%pfx%Nm месяца%sfx", "%pfx%Nm месяцев%sfx"); };
+    jQuery.timeago.ranges.year.string = "%pfxгод%sfx";
+    jQuery.timeago.ranges.years.string = function(values) { return numpf(values.years.value, "%pfx%Ny год%sfx", "%pfx%Ny года%sfx", "%pfx%Ny лет%sfx"); };
   })();
 }
 
 function loadMillis() {
-  var millisSubstitution = function(number, millis) { return millis + " milliseconds"; };
-  jQuery.timeago.settings.strings = {
-    suffixAgo: "ago",
-    suffixFromNow: "from now",
-    seconds: millisSubstitution,
-    minute: millisSubstitution,
-    minutes: millisSubstitution,
-    hour: millisSubstitution,
-    hours: millisSubstitution,
-    day: millisSubstitution,
-    days: millisSubstitution,
-    month: millisSubstitution,
-    months: millisSubstitution,
-    year: millisSubstitution,
-    years: millisSubstitution
-  };
+  var millisSubstitution = function(values, millis) { return "%pfx" + millis + " milliseconds%sfx"; };
+
+  jQuery.timeago.settings.strings['prefixAgo'] = '';
+  jQuery.timeago.settings.strings['prefixFromNow'] = '';
+  jQuery.timeago.settings.strings['suffixAgo'] = " ago";
+  jQuery.timeago.settings.strings['suffixFromNow'] = " from now";
+
+  jQuery.timeago.ranges.seconds.string = millisSubstitution;
+  jQuery.timeago.ranges.minute.string = millisSubstitution;
+  jQuery.timeago.ranges.minutes.string = millisSubstitution;
+  jQuery.timeago.ranges.hour.string = millisSubstitution;
+  jQuery.timeago.ranges.hours.string = millisSubstitution;
+  jQuery.timeago.ranges.day.string = millisSubstitution;
+  jQuery.timeago.ranges.days.string = millisSubstitution;
+  jQuery.timeago.ranges.month.string = millisSubstitution;
+  jQuery.timeago.ranges.months.string = millisSubstitution;
+  jQuery.timeago.ranges.year.string = millisSubstitution;
+  jQuery.timeago.ranges.years.string = millisSubstitution;
+}
+
+function loadOrigDates() {
+  jQuery.timeago.ranges.day.string = "%m %d";
+  jQuery.timeago.ranges.days.string = "%m %d";
+  jQuery.timeago.ranges.month.string = "%m %d";
+  jQuery.timeago.ranges.months.string = "%m %d";
+  jQuery.timeago.ranges.year.string = "%b %d %Y";
+  jQuery.timeago.ranges.years.string = "%Y-%m-%d";
 }
 
 function loadNoSpaces() {
-  jQuery.extend(jQuery.timeago.settings.strings, {
-    minutes: "%dminutes",
-    wordSeparator: ""
-  });
+  jQuery.timeago.ranges.minutes.string = "%pfx%Nmminutes%sfx";
 }
 
 function loadYoungOldYears() {
-  jQuery.extend(jQuery.timeago.settings.strings, {
-    years: function(value) { return (value < 21) ? "%d young years" : "%d old years"; }
-  });
+  jQuery.timeago.ranges.years.string = function(values) { return (values.years.value < 21) ? "%Ny young years" : "%Ny old years"; };
 }
