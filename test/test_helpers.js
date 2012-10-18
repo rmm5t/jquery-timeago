@@ -101,5 +101,5 @@ function loadNoSpaces() {
 }
 
 function loadYoungOldYears() {
-  jQuery.timeago.ranges.years.string = function(values) { return (values.years.value < 21) ? "%d young years" : "%d old years"; };
+  jQuery.timeago.ranges.years.string = function(values) { return (values.years.value < 21) ? "%Ny young years" : "%Ny old years"; };
 }
