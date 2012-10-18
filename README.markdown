@@ -45,6 +45,52 @@ HTML5 `<time>` elements are also supported:
 
 As time passes, the timestamps will automatically update.
 
+You can override the default labels, change the original ranges, or replace the
+original ranges altogether.  You may also display either the difference in time
+or the original date.
+
+```html
+<script type="text/javascript">
+// Change a few labels
+jQuery.timeago.ranges.day.string = "%m %d";
+jQuery.timeago.ranges.days.string = "%m %d";
+jQuery.timeago.ranges.month.string = "%m %d";
+jQuery.timeago.ranges.months.string = "%m %d";
+
+// Replace all of the default ranges.
+jQuery.timeago.ranges = {
+    seconds: {
+        limit: 59*$.timeago.units.sec, // Within 59 seconds
+        string: "moments %sfx" // Moments ago
+    },
+    minute: {
+        limit: 119*$.timeago.units.sec, // Within 119 seconds
+        string: "1 minute %sfx" // 1 minute ago
+    },
+    minutes: {
+        limit: 59*$.timeago.units.min, // Within 59 minutes
+        string: "%NM minutes %sfx" // N minutes ago
+    },
+    hour: {
+        limit: 119*$.timeago.units.min, // Within 119 minutes
+        string: "1 hour %sfx" // 1 hour ago
+    },
+    hours: {
+        limit: 23*$.timeago.units.hour, // Within 23 hours
+        string: "%NH hours %sfx" // N hours ago
+    },
+    year: {
+        limit: 1*$.timeago.units.year, // Within 1 year
+        string: "%m-%d" // 02-12
+    },
+    years: {
+        limit: 9999*$.timeago.units.year, // Within 9999 years
+        string: "%b %d %Y" // Feb 12 2012
+    }
+};
+</script>
+```
+
 **For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
 
 **For different language configurations**: visit the [`locales`](https://github.com/rmm5t/jquery-timeago/tree/master/locales) directory.

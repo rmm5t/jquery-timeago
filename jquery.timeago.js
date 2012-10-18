@@ -15,43 +15,108 @@
  */
 (function($) {
   $.timeago = function(timestamp) {
-    if (timestamp instanceof Date) {
-      return inWords(timestamp);
-    } else if (typeof timestamp === "string") {
-      return inWords($.timeago.parse(timestamp));
-    } else if (typeof timestamp === "number") {
-      return inWords(new Date(timestamp));
-    } else {
-      return inWords($.timeago.datetime(timestamp));
-    }
+    return inWords(timestamp);
   };
   var $t = $.timeago;
+
+  // Units.
+  var sec = 1,
+      min = 60*sec,
+      hour = 60*min,
+      day = 24*hour,
+      week = 7*day,
+      month = 30*day,
+      year = 365*day;
+
+  var units = {
+    sec : sec,
+    min : min,
+    hour : hour,
+    day : day,
+    week : week,
+    month : month,
+    year : year
+  };
 
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
       strings: {
-        prefixAgo: null,
-        prefixFromNow: null,
-        suffixAgo: "ago",
-        suffixFromNow: "from now",
-        seconds: "less than a minute",
-        minute: "about a minute",
-        minutes: "%d minutes",
-        hour: "about an hour",
-        hours: "about %d hours",
-        day: "a day",
-        days: "%d days",
-        month: "about a month",
-        months: "%d months",
-        year: "about a year",
-        years: "%d years",
-        wordSeparator: " ",
+        prefixAgo: "",
+        prefixFromNow: "",
+        suffixAgo: " ago",
+        suffixFromNow: " from now",
+        month_names: ['Jan','Feb','Mar','Apr','May','Jun',
+                      'Jul','Aug','Sep','Oct','Nov','Dec'],
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
+    // Smallest to Largest!
+    ranges: {
+      seconds: {
+        limit: 45*units.sec,
+        string:"%pfxless than a minute%sfx"
+      },
+      minute: {
+        limit: 90*units.sec,
+        string:"%pfxabout a minute%sfx"
+      },
+      minutes: {
+        limit: 45*units.min,
+        string:"%pfx%NM minutes%sfx"
+      },
+      hour: {
+        limit: 90*units.min,
+        string:"%pfxabout an hour%sfx"
+      },
+      hours: {
+        limit: 24*units.hour,
+        string:"%pfxabout %NH hours%sfx"
+      },
+      day: {
+        limit: 42*units.hour,
+        string:"%pfxa day%sfx"
+      },
+      days: {
+        limit: 30*units.day,
+        string:"%pfx%Nd days%sfx"
+      },
+      month: {
+        limit: 45*units.day,
+        string:"%pfxabout a month%sfx"
+      },
+      months: {
+        limit: 365*units.day,
+        string:"%pfx%Nm months%sfx"
+      },
+      year: {
+        limit: 1.5*units.year,
+        string:"%pfxabout a year%sfx"
+      },
+      years: {
+        limit: 9999*units.year,
+        string:"%pfx%Ny years%sfx"
+      },
+    },
+    units: units,
+    inWords: function(timestamp) {
+      var date;
+      if (timestamp instanceof Date) {
+        date = timestamp;
+      } else if (typeof timestamp === "string") {
+        date = $.timeago.parse(timestamp);
+      } else if (typeof timestamp === "number") {
+        // Not a real timestamp, offset from "now".
+        // Also, reversed for some reason.
+        timestamp = new Date().getTime() - timestamp;
+        date = new Date(timestamp);
+      } else {
+        date = $.timeago.datetime(timestamp);
+      }
+
+      var distanceMillis = distance(date);
+
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
@@ -62,32 +127,94 @@
         }
       }
 
-      var seconds = Math.abs(distanceMillis) / 1000;
-      var minutes = seconds / 60;
-      var hours = minutes / 60;
-      var days = hours / 24;
-      var years = days / 365;
 
-      function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
-        var value = ($l.numbers && $l.numbers[number]) || number;
-        return string.replace(/%d/i, value);
+      // Calculate Deltas.
+      var seconds = Math.round(Math.abs(distanceMillis) / 1000);
+      var minutes = Math.round(seconds / 60);
+      var hours = Math.round(minutes / 60);
+      var days = Math.round(hours / 24);
+      var months = Math.round(days / 30);
+      var years = Math.round(days / 365);
+
+      // Assemble replacements.  Not the full set, but pretty good.
+      var times = {
+        seconds: {
+            pattern: '%NS',
+            value: seconds
+        },
+        minutes: {
+          pattern: '%NM',
+          value: minutes
+        },
+        hours: {
+          pattern: '%NH',
+          value: hours
+        },
+        days: {
+          pattern: '%Nd',
+          value: days
+        },
+        months: {
+          pattern: '%Nm',
+          value: months
+        },
+        years: {
+          pattern: '%Ny',
+          value: years
+        },
+        date_day: {
+          pattern: '%d',
+          value: date.getDate()
+        },
+        date_month: {
+          pattern: '%m',
+          value: date.getMonth()
+        },
+        date_monthname: {
+          pattern: '%b',
+          value: $l.month_names[date.getMonth()]
+        },
+        date_year: {
+          pattern: '%Y',
+          value: date.getFullYear()
+        },
+        suffix: {
+          pattern: '%sfx',
+          value: suffix
+        },
+        prefix: {
+          pattern: '%pfx',
+          value: prefix
+        },
+      };
+
+      // Find the matching range.
+      return_val = '';
+      for(key in this.ranges) {
+        range = this.ranges[key];
+        if(seconds < range.limit) {
+            return_val = range.string;
+            break;
+        }
       }
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.round(days / 30)) ||
-        years < 1.5 && substitute($l.year, 1) ||
-        substitute($l.years, Math.round(years));
+      function substitute(stringOrFunction, times) {
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(times, distanceMillis) : stringOrFunction;
 
-      var separator = $l.wordSeparator === undefined ?  " " : $l.wordSeparator;
-      return $.trim([prefix, words, suffix].join(separator));
+        for(key in times) {
+            var pattern = times[key].pattern;
+            var value = times[key].value;
+            value = ($l.numbers && $l.numbers[value]) || value;
+            string = string.replace(pattern, value);
+        }
+
+        return string;
+      }
+
+      return_val = substitute(return_val, times);
+
+      return return_val
+
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
@@ -139,7 +266,7 @@
   }
 
   function inWords(date) {
-    return $t.inWords(distance(date));
+    return $t.inWords(date);
   }
 
   function distance(date) {
