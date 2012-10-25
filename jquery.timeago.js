@@ -144,7 +144,7 @@
         if (!isNaN(data.datetime)) {
             t = $(object);
             t.text(inWords(data.datetime, data.settings));
-            if (data.datetime.getTime() > (1).hours().ago().getTime()){
+            if (data.datetime.getTime() > hourAgo().getTime()){
                 t.parent().addClass('lessThanOneDay');
             } else{
                 t.parent().removeClass('lessThanOneDay');
@@ -173,6 +173,12 @@
 
     function distance(date) {
         return (new Date().getTime() - date.getTime());
+    }
+    function hourAgo() {
+        var date;
+        date = new Date();
+        date.setHours(date.getHours()-1);
+        return date;
     }
 
     // fix for IE6 suckage

@@ -19,7 +19,7 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
     unless isNaN(data.datetime)
       t = $(object)
       t.text inWords(data.datetime, data.settings)
-      if data.datetime.getTime() > (1).hours().ago().getTime()
+      if data.datetime.getTime() > hourAgo().getTime()
         t.parent().addClass "lessThanOneDay"
       else
         t.parent().removeClass "lessThanOneDay"
@@ -39,6 +39,10 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
     $t.inWords distance(date), settings
   distance = (date) ->
     new Date().getTime() - date.getTime()
+  hourAgo = () ->
+    date = new Date()
+    date.setHours(-1)
+    date
   $.timeago = (timestamp, settings) ->
     if timestamp instanceof Date
       inWords timestamp, settings
