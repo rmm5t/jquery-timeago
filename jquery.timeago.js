@@ -52,6 +52,7 @@
       }
     },
     inWords: function(distanceMillis, settings) {
+      settings = $.extend(true, {}, $t.settings, settings);
       var $l = settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
