@@ -19,7 +19,7 @@
     prefixFromNow: "через",
     suffixAgo: "тому",
     suffixFromNow: null,
-    seconds: "меньше хвилини",
+    seconds: "менше хвилини",
     minute: "хвилина",
     minutes: function(value) { return numpf(value, "%d хвилина", "%d хвилини", "%d хвилин"); },
     hour: "година",

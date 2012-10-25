@@ -93,8 +93,10 @@
       <li><abbr id="testParsing5" class="todate" title="1978-12-19T02:17:00+09:00"></abbr> [from +09:00]</li>
       <li><abbr id="testParsing6" class="todate" title="1978-12-19T02:17:00+0900"></abbr> [from +0900]</li>
       <li><abbr id="testParsing7" class="todate" title="1978-12-18 17:17:00"></abbr> [from blank TZ]</li>
-      <li><abbr id="testParsing8" class="todate" title="1978-12-18 17:17:00.021Z"></abbr> [from Z with milliseonds]</li>
-      <li><abbr id="testParsing9" class="todate" title="1978-12-18 17:17:00.021432Z"></abbr> [from Z with microseonds]</li>
+      <li><abbr id="testParsing8" class="todate" title="1978-12-18 17:17:00.021Z"></abbr> [from Z with milliseconds]</li>
+      <li><abbr id="testParsing9" class="todate" title="1978-12-18 17:17:00.021432Z"></abbr> [from Z with microseconds]</li>
+      <li><abbr id="testParsing10" class="todate" title="1978-12-18 17:17:00.0Z"></abbr> [from Z with tenths of a second]</li>
+      <li><abbr id="testParsing11" class="todate" title="1978-12-18 17:17:00.02Z"></abbr> [from Z with hundreths of a second]</li>
     </ul>
 
     <h2>Wording</h2>
@@ -319,39 +321,59 @@
       var correctMatch = /Mon, 18 Dec 1978 17:17:00 (GMT|UTC)/;
 
       test("From Z", function () {
-        ok(($("#testParsing1").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing1");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From -00:00", function () {
-        ok(($("#testParsing2").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing2");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From -05:00", function () {
-        ok(($("#testParsing3").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing3");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From -0500", function () {
-        ok(($("#testParsing4").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing4");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From +09:00", function () {
-        ok(($("#testParsing5").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing5");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From +0900", function () {
-        ok(($("#testParsing6").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing6");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From blank TZ", function () {
-        ok(($("#testParsing7").html().match(/Mon, 18 Dec 1978 \d\d:17:00 (GMT|UTC)/)), "Correctly parsed, assumed local time");
+        var time = $("#testParsing7");
+        var correctMatch = /Mon, 18 Dec 1978 \d\d:17:00 (GMT|UTC)/;
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From Z with milliseconds", function () {
-        ok(($("#testParsing8").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing8");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       test("From Z with microseconds", function () {
-        ok(($("#testParsing9").html().match(correctMatch)), "Correctly parsed");
+        var time = $("#testParsing9");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+      });
+
+      test("From Z with tenths of a second", function () {
+        var time = $("#testParsing10");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+      });
+
+      test("From Z with hundreths of a second", function () {
+        var time = $("#testParsing11");
+        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
       module("Wording");
