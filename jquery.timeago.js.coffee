@@ -3,7 +3,7 @@ Timeago is a jQuery plugin that makes it easy to support automatically
 updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
 
 @name timeago
-@version 0.11.2
+@version 0.11.4
 @requires jQuery v1.2.3+
 @author Ryan McGeary
 @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -14,6 +14,11 @@ http://timeago.yarp.com/
 Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
 ###
 (($) ->
+  # remove milliseconds
+  # -04:00 -> -0400
+
+  # jQuery's `is()` doesn't play well with HTML5 in IE
+  # $(elem).is("time");
   refresh = (object) ->
     data = prepareData(object)
     unless isNaN(data.datetime)
@@ -39,15 +44,18 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
     $t.inWords distance(date), settings
   distance = (date) ->
     new Date().getTime() - date.getTime()
-  hourAgo = () ->
+  hourAgo = ->
+    date = undefined
     date = new Date()
-    date.setHours(-1)
+    date.setHours date.getHours() - 1
     date
   $.timeago = (timestamp, settings) ->
     if timestamp instanceof Date
       inWords timestamp, settings
     else if typeof timestamp is "string"
       inWords $.timeago.parse(timestamp), settings
+    else if typeof timestamp is "number"
+      inWords new Date(timestamp), settings
     else
       inWords $.timeago.datetime(timestamp), settings
 
@@ -94,11 +102,11 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
       years = days / 365
       words = seconds < 45 and substitute($l.seconds, Math.round(seconds)) or seconds < 90 and substitute($l.minute, 1) or minutes < 45 and substitute($l.minutes, Math.round(minutes)) or minutes < 90 and substitute($l.hour, 1) or hours < 24 and substitute($l.hours, Math.round(hours)) or hours < 42 and substitute($l.day, 1) or days < 30 and substitute($l.days, Math.round(days)) or days < 45 and substitute($l.month, 1) or days < 365 and substitute($l.months, Math.round(days / 30)) or years < 1.5 and substitute($l.year, 1) or substitute($l.years, Math.round(years))
       separator = (if $l.wordSeparator is `undefined` then " " else $l.wordSeparator)
-      $.trim [ prefix, words, suffix ].join(separator)
+      $.trim [prefix, words, suffix].join(separator)
 
     parse: (iso8601) ->
       s = $.trim(iso8601)
-      s = s.replace(/\.\d\d\d+/, "")
+      s = s.replace(/\.\d+/, "")
       s = s.replace(/-/, "/").replace(/-/, "/")
       s = s.replace(/T/, " ").replace(/Z/, " UTC")
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/, " $1$2")
@@ -133,6 +141,7 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
       _i++
     self
 
+  restart = undefined
   restart = (object, refreshMillis) ->
     setTimeout (->
       again = undefined
@@ -144,7 +153,8 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
       restart object, refreshMillis  if again
     ), refreshMillis
 
-  #fix for IE6 suckage
+
+  # fix for IE6 suckage
   document.createElement "abbr"
   document.createElement "time"
 ) jQuery
