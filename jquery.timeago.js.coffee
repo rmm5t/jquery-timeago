@@ -88,6 +88,7 @@ Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
         string = (if $.isFunction(stringOrFunction) then stringOrFunction(number, distanceMillis) else stringOrFunction)
         value = ($l.numbers and $l.numbers[number]) or number
         string.replace /%d/i, value
+      settings = $.extend(true, {}, $t.settings, settings)
       $l = settings.strings
       prefix = $l.prefixAgo
       suffix = $l.suffixAgo
