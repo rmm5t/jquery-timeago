@@ -113,7 +113,14 @@
 
     var $s = $t.settings;
     if ($s.refreshMillis > 0) {
-      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
+      var intervalID = setInterval(function() {
+        // Do not continue refresh if the element is no longer attached to the DOM.
+        if(self.parents(':last').is('html') == false) {
+          clearInterval(intervalID);
+        } else {
+          self.each(refresh);
+        }
+      }, $s.refreshMillis);
     }
     return self;
   };
