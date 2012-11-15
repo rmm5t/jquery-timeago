@@ -119,7 +119,7 @@
           if($(this).parents(":last").is("html") == false) {
             destroyed++;
           } else {
-            Function.call(this, refresh);
+            refresh.call(this);
           }
         });
         if (destroyed === self.length) {
