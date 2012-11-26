@@ -194,6 +194,14 @@
       <li><abbr id="testMillisSettings8" class="tomillis" title="90"></abbr> [90 sec]</li>
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
     </ul>
+    
+    <h2>untimeago</h2>
+    <ul>
+      <li><abbr id="testUntimeago1" class="loaded timeago testShortTerm">(you shouldn't see this)</abbr></li>
+      <li><abbr id="testUntimeago2" class="loaded timeago testShortTerm">(you shouldn't see this)</abbr></li>
+      <li><abbr id="testUntimeago3" >This Is Not A Timeago Element</abbr></li>
+      <li><abbr id="testUntimeago4" >This Is Not A Timeago Element</abbr></li>
+    </ul>
   </div>
 
   <script src="test_helpers.js" type="text/javascript"></script>
@@ -225,6 +233,18 @@
       $("time.timeago").timeago();
 
       var tooltip = $("#testTooltip").data("timeago");
+      var untimeago1_initial = $("#testUntimeago1").data("timeago")
+      $("#testUntimeago1").untimeago();
+      var untimeago1_final = $("#testUntimeago1").data("timeago")
+      var untimeago2_initial = $("#testUntimeago2").data("timeago")
+      $("#testUntimeago2").remove();
+      var untimeago2_final = $("#testUntimeago2").data("timeago")
+      var untimeago3_initial = $("#testUntimeago3").data("timeago");
+      $("#testUntimeago3").remove();
+      var untimeago3_final = $("#testUntimeago3").data("timeago");
+      var untimeago4_initial = $("#testUntimeago4").data("timeago");
+      $("#testUntimeago4").untimeago();
+      var untimeago4_final = $("#testUntimeago4").data("timeago");
 
       $("abbr.todate").each(function () {
         var date = $.timeago.parse(this.title);
@@ -562,6 +582,30 @@
 
       test("wordSeparator", function () {
         ok($("#testNoSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
+      });
+      
+      module("Untimeago");
+
+      test("manualRemove", function () {
+        ok(typeof(untimeago1_initial.intervalId)!='undefined', "Timeago interval handler defined");
+        ok(untimeago1_initial.intervalId > -1, "Timeago interval handler valid");
+        ok(typeof(untimeago1_final)=='undefined', "Timeago interval handler removed after untimeago");
+      });
+      
+      test("Remove", function () {
+        ok(typeof(untimeago2_initial.intervalId)!='undefined', "Timeago interval handler defined");
+        ok(untimeago2_initial.intervalId > -1, "Timeago interval handler valid");
+        ok(typeof(untimeago2_final)=='undefined', "Timeago interval handler removed after untimeago");
+      });
+
+      test("RemoveOnNonTimeago", function () {
+        ok(typeof(untimeago3_initial)=='undefined', "testUntimeago3 is not a timeago element");
+        ok(typeof(untimeago3_final)=='undefined', "calling remove() on non-timeago element doesn't cause crash");
+      });
+
+      test("UntimeagoOnNonTimeago", function () {
+        ok(typeof(untimeago4_initial)=='undefined', "testUntimeago4 is not a timeago element");
+        ok(typeof(untimeago4_final)=='undefined', "calling untimeago() on non-timeago element doesn't cause crash");
       });
     })(jQuery);
     //]]>
