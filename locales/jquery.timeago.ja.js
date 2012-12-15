@@ -13,7 +13,7 @@ jQuery.timeago.settings.strings = {
   days: "%d 日ほど",
   month: "大体一ヶ月",
   months: "%d ヶ月ほど",
-  year: "丁度一年（虎舞流ｗ）",
+  year: "1年前",
   years: "%d 年",
   wordSeparator: ""
 };
