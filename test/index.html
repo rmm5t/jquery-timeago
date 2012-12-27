@@ -139,6 +139,7 @@
       <li><abbr id="testYoungOldSettings2" class="toyoungold" title="2018304000"></abbr> [23360 days]</li>
 
       <li><abbr id="testNoSpaces1" class="nospaces" title="120"></abbr> [120 sec]</li>
+      <li><abbr id="testNullSpaces1" class="nullspaces" title="120"></abbr> [120 sec]</li>
 
       <li><abbr id="testLatinSettings1" class="tolatin" title="-7200"></abbr> [-120 min]</li>
       <li><abbr id="testLatinSettings2" class="tolatin" title="-60"></abbr> [-60 sec]</li>
@@ -242,6 +243,9 @@
 
       loadNoSpaces();
       $("abbr.nospaces").each(toWords);
+
+      loadNullSpaces();
+      $("abbr.nullspaces").each(toWords);
 
       loadPigLatin();
       $("abbr.tolatin").each(toWords);
@@ -562,6 +566,7 @@
 
       test("wordSeparator", function () {
         ok($("#testNoSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
+        ok($("#testNullSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
       });
     })(jQuery);
     //]]>
