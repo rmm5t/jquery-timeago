@@ -153,17 +153,17 @@
 
   function prepareData(element) {
     element = $(element);
+    var datetime = $t.datetime(element);
 
     if (!element.data("timeago")) {
-      var datetime = $t.datetime(element);
-
-      if (!isNaN(datetime)) {
-        element.data("timeago", getDistanceValues(datetime));
-      }
       var text = $.trim(element.text());
       if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
+    }
+
+    if (!isNaN(datetime)) {
+      element.data("timeago", getDistanceValues(datetime));
     }
 
     return element.data("timeago");
