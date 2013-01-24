@@ -13,7 +13,16 @@
  *
  * Copyright (c) 2008-2013, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
-(function($) {
+ 
+ (function(factory) {
+    // Add jQuery via AMD registration or browser globals
+    if (typeof define === 'function' && define.amd) {
+        define([ 'jquery' ], factory);
+    }
+    else {
+        factory(jQuery);
+    }
+}(function($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
@@ -150,4 +159,4 @@
   // fix for IE6 suckage
   document.createElement("abbr");
   document.createElement("time");
-}(jQuery));
+}));
