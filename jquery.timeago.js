@@ -13,16 +13,16 @@
  *
  * Copyright (c) 2008-2013, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
- 
- (function(factory) {
-    // Add jQuery via AMD registration or browser globals
-    if (typeof define === 'function' && define.amd) {
-        define([ 'jquery' ], factory);
-    }
-    else {
-        factory(jQuery);
-    }
-}(function($) {
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery'], factory);
+  } else {
+    // Browser globals
+    factory(jQuery);
+  }
+}(function ($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
