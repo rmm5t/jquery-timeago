@@ -1,26 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JavaScript unit test file</title>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-  <!-- use http://code.jquery.com/jquery-latest.js for the latest jQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
-  <!-- http://dev.jquery.com/view/trunk/qunit/testrunner.js -->
-  <script src="qunit.js" type="text/javascript"></script>
-
-  <script src="../jquery.timeago.js" type="text/javascript"></script>
-
-  <!-- http://dev.jquery.com/view/trunk/qunit/testsuite.css -->
-  <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
+  <meta charset="utf-8">
+  <title>jQuery-Timeago Test Suite</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
 </head>
 <body>
-  <h1 id="qunit-header">jquery-timeago Test Suite</h1>
-  <h2 id="qunit-banner"></h2>
-  <div id="qunit-testrunner-toolbar"></div>
-  <h2 id="qunit-userAgent"></h2>
-  <ol id="qunit-tests"></ol>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
 
   <div id="main">
     <h2>Short term</h2>
@@ -197,6 +184,9 @@
     </ul>
   </div>
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
+  <script src="../jquery.timeago.js"></script>
   <script src="test_helpers.js" type="text/javascript"></script>
   <script type="text/javascript">
     //<![CDATA[
