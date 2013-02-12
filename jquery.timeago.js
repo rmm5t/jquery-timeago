@@ -155,13 +155,13 @@
     element = $(element);
 
     if (!element.data("timeago")) {
-      datetime = $t.datetime(element);
+      var datetime = $t.datetime(element);
       var text = $.trim(element.text());
       if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
     } else {
-      datetime = element.data('timeago').datetime
+      var datetime = element.data('timeago').datetime
     }
 
     if (!isNaN(datetime)) {
