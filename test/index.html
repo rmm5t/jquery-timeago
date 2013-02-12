@@ -204,7 +204,8 @@
       }
 
       function toWords() {
-        var string = $.timeago.inWords(parseInt(this.title, 10) * 1000);
+        var distanceValues = $.timeago.distanceValues(parseInt(this.title, 10) * 1000);
+        var string = distanceValues.inWords;
         $(this).text(string);
       }
 
@@ -289,6 +290,7 @@
       test("should set timeago data object", function () {
         ok(tooltip, "data set");
         ok(tooltip.datetime, "datetime set");
+        ok(tooltip.seconds, "distance set");
       });
 
       module("Tooltip");

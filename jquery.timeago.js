@@ -25,13 +25,13 @@
 }(function ($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
-      return inWords(timestamp);
+      return getDistanceValues(timestamp).inWords;
     } else if (typeof timestamp === "string") {
-      return inWords($.timeago.parse(timestamp));
+      return getDistanceValues(($.timeago.parse(timestamp))).inWords;
     } else if (typeof timestamp === "number") {
-      return inWords(new Date(timestamp));
+      return getDistanceValues((new Date(timestamp))).inWords;
     } else {
-      return inWords($.timeago.datetime(timestamp));
+      return getDistanceValues(($.timeago.datetime(timestamp))).inWords;
     }
   };
   var $t = $.timeago;
@@ -60,25 +60,49 @@
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
-      var $l = this.settings.strings;
-      var prefix = $l.prefixAgo;
-      var suffix = $l.suffixAgo;
-      if (this.settings.allowFuture) {
-        if (distanceMillis < 0) {
-          prefix = $l.prefixFromNow;
-          suffix = $l.suffixFromNow;
-        }
-      }
-
+    distanceValues: function(distanceMillis, datetime) {
       var seconds = Math.abs(distanceMillis) / 1000;
       var minutes = seconds / 60;
       var hours = minutes / 60;
       var days = hours / 24;
       var years = days / 365;
 
+      distanceValues = {
+        milliseconds: distanceMillis,
+        seconds: seconds,
+        minutes: minutes,
+        hours: hours,
+        days: days,
+        years: years
+      }
+
+      distanceValues.inWords = $t.inWords(distanceValues);
+
+      if (datetime) {
+        distanceValues.datetime = datetime;
+      }
+
+      return distanceValues;
+    },
+    inWords: function(distanceValues) {
+      var $l = this.settings.strings;
+      var prefix = $l.prefixAgo;
+      var suffix = $l.suffixAgo;
+      if (this.settings.allowFuture) {
+        if (distanceValues.milliseconds < 0) {
+          prefix = $l.prefixFromNow;
+          suffix = $l.suffixFromNow;
+        }
+      }
+
+      var seconds = distanceValues.seconds;
+      var minutes = distanceValues.minutes;
+      var hours = distanceValues.hours;
+      var days = distanceValues.days;
+      var years = distanceValues.years;
+
       function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
+        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceValues.milliseconds) : stringOrFunction;
         var value = ($l.numbers && $l.numbers[number]) || number;
         return string.replace(/%d/i, value);
       }
@@ -130,26 +154,34 @@
 
   function refresh() {
     var data = prepareData(this);
-    if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+    if (data) {
+      $(this).text(data.inWords);
     }
     return this;
   }
 
   function prepareData(element) {
     element = $(element);
+
     if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
+      var datetime = $t.datetime(element);
       var text = $.trim(element.text());
       if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
+    } else {
+      var datetime = element.data('timeago').datetime
     }
+
+    if (!isNaN(datetime)) {
+      element.data("timeago", getDistanceValues(datetime));
+    }
+
     return element.data("timeago");
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
+  function getDistanceValues(datetime) {
+    return $t.distanceValues(distance(datetime), datetime);
   }
 
   function distance(date) {
