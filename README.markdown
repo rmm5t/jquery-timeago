@@ -49,6 +49,25 @@ As time passes, the timestamps will automatically update.
 
 **For different language configurations**: visit the [`locales`](https://github.com/rmm5t/jquery-timeago/tree/master/locales) directory.
 
+## Changes
+
+| Version | Notes                                                            |
+|---------|------------------------------------------------------------------|
+|   1.0.x | ([compare][compare-1.0])  locale updates; bug fixes; AMD wrapper |
+|  0.11.x | ([compare][compare-0.11]) natural rounding; locale updates;      |
+|  0.10.x | ([compare][compare-0.10]) locale updates                         |
+|   0.9.x | ([compare][compare-0.9]) microsecond support; bug fixes          |
+|   0.8.x | ([compare][compare-0.8]) `<time>` element support; bug fixes     |
+|   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests   |
+|     ... | ...                                                              |
+
+[compare-1.0]: https://github.com/rmm5t/jquery-timeago/compare/v0.11.4...v1.0.2
+[compare-0.11]: https://github.com/rmm5t/jquery-timeago/compare/v0.10.1...v0.11.4
+[compare-0.10]: https://github.com/rmm5t/jquery-timeago/compare/v0.9.3...v0.10.1
+[compare-0.9]: https://github.com/rmm5t/jquery-timeago/compare/v0.8.2...v0.9.3
+[compare-0.8]: https://github.com/rmm5t/jquery-timeago/compare/v0.7.2...v0.8.2
+[compare-0.7]: https://github.com/rmm5t/jquery-timeago/compare/v0.6.2...v0.7.2
+
 ## Author
 
 [Ryan McGeary](http://ryan.mcgeary.org) ([@rmm5t](http://twitter.com/rmm5t))
