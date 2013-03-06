@@ -53,7 +53,8 @@ As time passes, the timestamps will automatically update.
 
 | Version | Notes                                                            |
 |---------|------------------------------------------------------------------|
-|   1.0.x | ([compare][compare-1.0])  locale updates; bug fixes; AMD wrapper |
+|   1.1.x | ([compare][compare-1.1]) Added update function                   |
+|   1.0.x | ([compare][compare-1.0]) locale updates; bug fixes; AMD wrapper  |
 |  0.11.x | ([compare][compare-0.11]) natural rounding; locale updates;      |
 |  0.10.x | ([compare][compare-0.10]) locale updates                         |
 |   0.9.x | ([compare][compare-0.9]) microsecond support; bug fixes          |
@@ -61,6 +62,7 @@ As time passes, the timestamps will automatically update.
 |   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests   |
 |     ... | ...                                                              |
 
+[compare-1.1]: https://github.com/rmm5t/jquery-timeago/compare/v1.0.2...v1.1.0
 [compare-1.0]: https://github.com/rmm5t/jquery-timeago/compare/v0.11.4...v1.0.2
 [compare-0.11]: https://github.com/rmm5t/jquery-timeago/compare/v0.10.1...v0.11.4
 [compare-0.10]: https://github.com/rmm5t/jquery-timeago/compare/v0.9.3...v0.10.1
