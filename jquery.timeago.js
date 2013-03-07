@@ -58,7 +58,9 @@
         years: "%d years",
         wordSeparator: " ",
         numbers: []
-      }
+      },
+      // Don't perform date manipulation if the date is older than this (in seconds)
+      ageOut: 3600 * 6
     },
     inWords: function(distanceMillis) {
       var $l = this.settings.strings;
@@ -150,7 +152,13 @@
   function refresh() {
     var data = prepareData(this);
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+	  if (typeof $t.settings.ageOut == 'number' && ((Math.abs(distance(data.datetime)) / 1000) > $t.settings.ageOut)) {
+	    $(this).text($(this).attr('title'));
+	  }
+	  else {
+    	$(this).text(inWords(data.datetime));	
+	  }
+      
     }
     return this;
   }
