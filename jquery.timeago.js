@@ -39,6 +39,8 @@
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
+      distanceForToWordsLimit: false,
+      formatDate: 'yy-mm-dd', // see 
       allowFuture: false,
       localeTitle: false,
       strings: {
@@ -99,6 +101,9 @@
       var separator = $l.wordSeparator || "";
       if ($l.wordSeparator === undefined) { separator = " "; }
       return $.trim([prefix, words, suffix].join(separator));
+    },
+    dateFormatt(d): function(date){
+      
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
@@ -171,7 +176,14 @@
   }
 
   function inWords(date) {
-    return $t.inWords(distance(date));
+    var d=distance(date);
+    if(this.distanceForToWordsLimit>d){
+      var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+      return date.getDate() + "-" + m_names[date.getMonth()] + "-" + date.getFullYear();
+      //return $.datepicker.formatDate(this.formatDate, date); use this with the jquery ui datepicker
+    }else{
+      return $t.inWords(d);
+    }
   }
 
   function distance(date) {
