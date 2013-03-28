@@ -3,8 +3,8 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.1.0
- * @requires jQuery v1.2.3+
+ * @version 1.2.0
+ * @requires jQuery v1.7.0+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
  *
@@ -36,9 +36,19 @@
   };
   var $t = $.timeago;
 
+  // destroyed event handler comes from:
+  // http://stackoverflow.com/questions/2200494/jquery-trigger-event-when-an-element-is-removed-from-the-dom/10172676#10172676
+  jQuery.event.special.timeagodestroyed = {
+    remove: function(o) {
+      if (o.handler) {
+        o.handler($(this));
+      }
+    }
+  };
+
   $.extend($.timeago, {
     settings: {
-      refreshMillis: 60000,
+      refreshMillis: 6000,
       allowFuture: false,
       localeTitle: false,
       strings: {
@@ -115,6 +125,55 @@
     isTime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
       return $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
+    },
+
+    elements: [],
+
+    initInterval: function() {
+      if (!$(document).data('timeago_interval')) {
+        var intervalId = setInterval(function() {
+          for (var i = 0, elLength = $t.elements.length; i < elLength; i++) {
+            $t.elements[i].trigger('timeago:update');
+          }
+        }, $t.settings.refreshMillis);
+        $(document).data('timeago_interval', intervalId);
+      }
+    },
+
+    removeInterval: function() {
+      clearInterval($(document).data('timeago_interval'));
+      for (var i = 0, elLength = $t.elements.length; i < elLength; i++) {
+        $t.elements[i].off('timeago:update');
+      }
+      $t.elements = [];
+    },
+
+    updateHandler: function(evt) {
+      refresh.apply(this);
+    },
+
+    addElement: function(elem) {
+      var index = $t.elements.length,
+        $elem = $(elem);
+      // prevent double add.
+      if($elem.data('timeagoIndex') !== undefined) {
+        return;
+      }
+      refresh.apply(elem);
+      $elem.data('timeagoIndex', index);
+      $t.elements.push($elem);
+      $elem.on('timeago:update', $t.updateHandler);
+      $elem.on('timeagodestroyed', $t.removeElement);
+    },
+    removeElement: function(elem) {
+      var $elem = $(elem),
+        elemIndex = $elem.data('timeagoIndex');
+      $(elem).off('timeago:update');
+      $t.elements.splice(elemIndex, 1);
+      // update indexes of the remaining elements after the index
+      for (var i = elemIndex, elLength = $t.elements.length; i < elLength; i++) {
+        $t.elements[i].data('timeagoIndex', i);
+      }
     }
   });
 
@@ -123,12 +182,13 @@
   // functions are called with context of a single element
   var functions = {
     init: function(){
-      var refresh_el = $.proxy(refresh, this);
-      refresh_el();
-      var $s = $t.settings;
-      if ($s.refreshMillis > 0) {
-        setInterval(refresh_el, $s.refreshMillis);
-      }
+      $t.addElement(this);
+    },
+    remove: function() {
+      $t.removeElement(this);
+    },
+    removeInterval: function() {
+      $t.removeInterval();
     },
     update: function(time){
       $(this).data('timeago', { datetime: $t.parse(time) });
@@ -137,6 +197,8 @@
   };
 
   $.fn.timeago = function(action, options) {
+    $t.initInterval();
+
     var fn = action ? functions[action] : functions.init;
     if(!fn){
       throw new Error("Unknown function name '"+ action +"' for timeago");
@@ -162,7 +224,7 @@
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
       if ($t.settings.localeTitle) {
-        element.attr("title", element.data('timeago').datetime.toLocaleString())
+        element.attr("title", element.data('timeago').datetime.toLocaleString());
       } else if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
