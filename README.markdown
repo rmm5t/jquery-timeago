@@ -13,7 +13,8 @@ First, load jQuery and the plugin:
 <script src="jquery.timeago.js" type="text/javascript"></script>
 ```
 
-Now, let's attach it to your timestamps on DOM ready - put this in the head section:
+Now, let's attach it to your timestamps on DOM ready - put this in the head
+section:
 
 ```html
 <script type="text/javascript">
