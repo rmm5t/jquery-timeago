@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.1.0
+ * @version 1.0.1
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -13,16 +13,7 @@
  *
  * Copyright (c) 2008-2013, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
-
-(function (factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['jquery'], factory);
-  } else {
-    // Browser globals
-    factory(jQuery);
-  }
-}(function ($) {
+(function($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
@@ -40,7 +31,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
-      localeTitle: false,
+      daysInFuture: 0,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -67,6 +58,14 @@
       var suffix = $l.suffixAgo;
       if (this.settings.allowFuture) {
         if (distanceMillis < 0) {
+          // if more than 3 days out, show the due date.
+          if (this.settings.daysInFuture > 0 && distanceMillis < -(1000*60*60*24*this.settings.daysInFuture)) {
+            var d_names = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+            var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+            var d = new Date();
+            d.setTime(d.getTime()+Math.abs(distanceMillis));
+            return d_names[d.getDay()]+", "+m_names[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+          }
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
         }
@@ -97,7 +96,7 @@
         substitute($l.years, Math.round(years));
 
       var separator = $l.wordSeparator || "";
-      if ($l.wordSeparator === undefined) { separator = " "; }
+      if ($l.wordSeparator === undefined) { separator = " "; } 
       return $.trim([prefix, words, suffix].join(separator));
     },
     parse: function(iso8601) {
@@ -118,34 +117,15 @@
     }
   });
 
-  // functions that can be called via $(el).timeago('action')
-  // init is default when no action is given
-  // functions are called with context of a single element
-  var functions = {
-    init: function(){
-      var refresh_el = $.proxy(refresh, this);
-      refresh_el();
-      var $s = $t.settings;
-      if ($s.refreshMillis > 0) {
-        setInterval(refresh_el, $s.refreshMillis);
-      }
-    },
-    update: function(time){
-      $(this).data('timeago', { datetime: $t.parse(time) });
-      refresh.apply(this);
-    }
-  };
+  $.fn.timeago = function() {
+    var self = this;
+    self.each(refresh);
 
-  $.fn.timeago = function(action, options) {
-    var fn = action ? functions[action] : functions.init;
-    if(!fn){
-      throw new Error("Unknown function name '"+ action +"' for timeago");
+    var $s = $t.settings;
+    if ($s.refreshMillis > 0) {
+      setInterval(function() { self.each(refresh); }, $s.refreshMillis);
     }
-    // each over objects here and call the requested function
-    this.each(function(){
-      fn.call(this, options);
-    });
-    return this;
+    return self;
   };
 
   function refresh() {
@@ -161,9 +141,7 @@
     if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
-      if ($t.settings.localeTitle) {
-        element.attr("title", element.data('timeago').datetime.toLocaleString());
-      } else if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
+      if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
       }
     }
@@ -181,4 +159,4 @@
   // fix for IE6 suckage
   document.createElement("abbr");
   document.createElement("time");
-}));
+}(jQuery));
