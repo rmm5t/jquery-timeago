@@ -1,32 +1,96 @@
-// Language: Arabic
-// Translated By Khaled Attia < Khal3d.com >
 (function() {
-  function numpf(num, w, x, y, z) {
-    if( num == 0 ) {
-      return w;
-    } else if( num == 2 ) {
-      return x;
-    } else if( num >= 3 && num <= 10) {
-      return y; // 3:10
-    } else {
-      return z; // 11+
-    }
+  function numpf(n, a) {
+    return a[plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5];
   }
-  jQuery.timeago.settings.strings = {
+
+jQuery.timeago.settings.strings = {
     prefixAgo: "منذ",
-    prefixFromNow: "يتبقى",
+    prefixFromNow: "بعد",
     suffixAgo: null,
     suffixFromNow: null, // null OR "من الآن"
-    seconds: function(value) { return numpf(value, "لحظات", "ثانيتين", "%d ثواني", "%d ثانيه"); },
-    minute: "دقيقة",
-    minutes: function(value) { return numpf(value, null, "دقيقتين", "%d دقائق", "%d دقيقة"); },
-    hour: "ساعة",
-    hours: function(value) { return numpf(value, null, "ساعتين", "%d ساعات", "%d ساعة"); },
-    day: "يوم",
-    days: function(value) { return numpf(value, null, "يومين", "%d أيام", "%d يوم"); },
-    month: "شهر",
-    months: function(value) { return numpf(value, null, "شهرين", "%d أشهر", "%d شهر"); },
-    year: "سنه",
-    years: function(value) { return numpf(value, null, "سنتين", "%d سنوات", "%d سنه"); }
+    second: function(value) { return numpf(value, [
+      'أقل من ثانية',
+       'ثانية واحدة',
+       'ثانيتين',
+       '%d ثوانٍ',
+       '%d ثانية',
+       '%d ثانية']); },
+    seconds: function(value) { return numpf(value, [
+      'أقل من ثانية',
+       'ثانية واحدة',
+       'ثانيتين',
+       '%d ثوانٍ',
+       '%d ثانية',
+       '%d ثانية']); },
+    minute: function(value) { return numpf(value, [
+      'أقل من دقيقة',
+       'دقيقة واحدة',
+       'دقيقتين',
+       '%d دقائق',
+       '%d دقيقة',
+       'دقيقة']); },
+    minutes: function(value) { return numpf(value, [
+      'أقل من دقيقة',
+       'دقيقة واحدة',
+       'دقيقتين',
+       '%d دقائق',
+       '%d دقيقة',
+       'دقيقة']); },
+    hour:  function(value) { return numpf(value, [
+      'أقل من ساعة',
+       'ساعة واحدة',
+       'ساعتين',
+       '%d ساعات',
+       '%d ساعة',
+       '%d ساعة']); },
+    hours: function(value) { return numpf(value, [
+      'أقل من ساعة',
+       'ساعة واحدة',
+       'ساعتين',
+       '%d ساعات',
+       '%d ساعة',
+       '%d ساعة']); },
+    day:  function(value) { return numpf(value, [
+      'أقل من يوم',
+       'يوم واحد',
+       'يومين',
+       '%d أيام',
+       '%d يومًا',
+       '%d يوم']); },
+    days: function(value) { return numpf(value, [
+      'أقل من يوم',
+       'يوم واحد',
+       'يومين',
+       '%d أيام',
+       '%d يومًا',
+       '%d يوم']); },
+    month:  function(value) { return numpf(value, [
+      'أقل من شهر',
+       'شهر واحد',
+       'شهرين',
+       '%d أشهر',
+       '%d شهرًا',
+       '%d شهر']); },
+    months: function(value) { return numpf(value, [
+      'أقل من شهر',
+       'شهر واحد',
+       'شهرين',
+       '%d أشهر',
+       '%d شهرًا',
+       '%d شهر']); },
+    year:  function(value) { return numpf(value,  [
+      'أقل من عام',
+       'عام واحد',
+       '%d عامين',
+       '%d أعوام',
+       '%d عامًا']);
+     },
+    years: function(value) { return numpf(value,  [
+      'أقل من عام',
+       'عام واحد',
+       'عامين',
+       '%d أعوام',
+       '%d عامًا',
+       '%d عام']);}
   };
 })();
