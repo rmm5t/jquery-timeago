@@ -4,7 +4,10 @@ Timeago is a jQuery plugin that makes it easy to support automatically updating
 fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago") from ISO 8601
 formatted dates and times embedded in your HTML (à la microformats).
 
-**Please donate some Bitcoin**: `1wzBnMjWVZfpiFMc5i2nzKT7sCBaZNfLK`
+**If you like this project, please help by donating.**
+
+* Gittip: https://www.gittip.com/rmm5t/
+* Bitcoin: `1wzBnMjWVZfpiFMc5i2nzKT7sCBaZNfLK`
 
 ## Usage
 
