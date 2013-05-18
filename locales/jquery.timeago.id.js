@@ -12,7 +12,7 @@ jQuery.timeago.settings.strings = {
   day: "sehari",
   days: "%d hari",
   month: "sekitar sebulan",
-  months: "%d tahun",
+  months: "%d bulan",
   year: "sekitar setahun",
   years: "%d tahun"
 };
