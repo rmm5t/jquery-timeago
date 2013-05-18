@@ -41,6 +41,7 @@
       refreshMillis: 60000,
       allowFuture: false,
       localeTitle: false,
+      cutoff: 0,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -150,8 +151,12 @@
 
   function refresh() {
     var data = prepareData(this);
+    var $s = $t.settings;
+
     if (!isNaN(data.datetime)) {
-      $(this).text(inWords(data.datetime));
+      if ( $s.cutoff == 0 || distance(data.datetime) < $s.cutoff) {
+        $(this).text(inWords(data.datetime));
+      }
     }
     return this;
   }
