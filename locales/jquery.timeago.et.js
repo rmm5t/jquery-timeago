@@ -3,26 +3,16 @@ jQuery.timeago.settings.strings = {
   prefixAgo: null,
   prefixFromNow: null,
   suffixAgo: "tagasi",
-  suffixFromNow: "tulevikus",
-  seconds: "vähem kui minut",
-  minute: "umbes minut",
-  minutes: "%d minutit",
-  hour: "umbes tund aega",
-  hours: "%d tundi",
-  day: "päev",
-  days: "%d päeva",
-  month: "kuu",
-  months: "%d kuud",
-  year: "umbes aasta",
-  years: "%d aastat"
+  suffixFromNow: "pärast",
+  seconds: function(n, d) { return d < 0 ? "vähem kui minuti aja" : "vähem kui minut aega" },
+  minute: function(n, d) { return d < 0 ? "umbes minuti aja" : "umbes minut aega" },
+  minutes: function(n, d) { return d < 0 ? "%d minuti" : "%d minutit" },
+  hour: function(n, d) { return d < 0 ? "umbes tunni aja" : "umbes tund aega" },
+  hours: function(n, d) { return d < 0 ? "%d tunni" : "%d tundi" },
+  day: function(n, d) { return d < 0 ? "umbes päeva" : "umbes päev" },
+  days: function(n, d) { return d < 0 ? "%d päeva" : "%d päeva" },
+  month: function(n, d) { return d < 0 ? "umbes kuu aja" : "umbes kuu aega" },
+  months: function(n, d) { return d < 0 ? "%d kuu" : "%d kuud" },
+  year: function(n, d) { return d < 0 ? "umbes aasta aja" : "umbes aasta aega" },
+  years: function(n, d) { return d < 0 ? "%d aasta" : "%d aastat" }
 };
-
-// The above is not a great localization because one would usually
-// write "2 minutes ago" in Estonian as "2 minutit tagasi", however
-// one would write "2 minutes into the future" as "2 minuti pärast"
-// which cannot be achieved with localization support this simple.
-// This is because Estonian has case suffixes attached directly
-// to the end of the word). As a workaround, the above localizations
-// will say "2 minutit tulevikus" which is understandable but
-// not as fluent.
-// (Explanation borrowed from Finnish, with adaptations.)
