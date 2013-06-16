@@ -134,6 +134,10 @@
     update: function(time){
       $(this).data('timeago', { datetime: $t.parse(time) });
       refresh.apply(this);
+    },
+    updateFromDOM: function(){
+      $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
+      refresh.apply(this);
     }
   };
 
