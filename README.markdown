@@ -59,6 +59,7 @@ As time passes, the timestamps will automatically update.
 
 | Version | Notes                                                            |
 |---------|------------------------------------------------------------------|
+|   1.3.x | ([compare][compare-1.3]) Added updateFromDOM function            |
 |   1.2.x | ([compare][compare-1.2]) Added cutoff setting                    |
 |   1.1.x | ([compare][compare-1.1]) Added update function                   |
 |   1.0.x | ([compare][compare-1.0]) locale updates; bug fixes; AMD wrapper  |
@@ -69,6 +70,7 @@ As time passes, the timestamps will automatically update.
 |   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests   |
 |     ... | ...                                                              |
 
+[compare-1.3]: https://github.com/rmm5t/jquery-timeago/compare/v1.2.0...v1.3.0
 [compare-1.2]: https://github.com/rmm5t/jquery-timeago/compare/v1.1.0...v1.2.0
 [compare-1.1]: https://github.com/rmm5t/jquery-timeago/compare/v1.0.2...v1.1.0
 [compare-1.0]: https://github.com/rmm5t/jquery-timeago/compare/v0.11.4...v1.0.2
