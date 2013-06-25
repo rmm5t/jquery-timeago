@@ -128,7 +128,7 @@
       refresh_el();
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
-        setInterval(refresh_el, $s.refreshMillis);
+        this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
       }
     },
     update: function(time){
@@ -138,6 +138,12 @@
     updateFromDOM: function(){
       $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
       refresh.apply(this);
+    },
+    dispose: function () {
+      if (this._timeagoInterval) {
+        window.clearInterval(this._timeagoInterval);
+        this._timeagoInterval = null;
+      }
     }
   };
 
