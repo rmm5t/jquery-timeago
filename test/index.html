@@ -188,6 +188,10 @@
       <li><abbr id="testMillisSettings8" class="tomillis" title="90"></abbr> [90 sec]</li>
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
     </ul>
+
+    <h2>Disposal</h2>
+    <p><abbr class="disposal disposed"></abbr></p>
+    <p><abbr class="disposal notDisposed"></abbr></p>
   </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -237,6 +241,8 @@
       loadNumbers();
       $("abbr.tonumbers").each(toWords);
       unloadNumbers();
+
+      setupDisposal();
 
       loadYoungOldYears();
       $("abbr.toyoungold").each(toWords);
@@ -581,6 +587,28 @@
       test("wordSeparator", function () {
         ok($("#testNoSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
         ok($("#testNullSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
+      });
+
+      module("Disposal");
+
+      asyncTest("disposal", function() {
+        $(".disposal.disposed").timeago('dispose');
+        var initialTime_disposedTimeago = $(".disposal.disposed").html();
+        var initialTime_activeTimeago = $(".disposal.notDisposed").html();
+        
+        expect(2);
+        setTimeout(function() {
+          var updatedTime_disposedTimeago = $(".disposal.disposed").html();
+          var updatedTime_activeTimeago = $(".disposal.notDisposed").html();
+          
+          ok(initialTime_disposedTimeago === updatedTime_disposedTimeago, "A disposed timeago didn't get updated");
+          ok(initialTime_activeTimeago !== updatedTime_activeTimeago, "A non-disposed timeago continued to be updated");
+
+          // Dispose still-active timeago
+          $(".disposal.notDisposed").timeago('dispose');
+          resetRefreshMillis();
+          start();
+        }, 50);
       });
     })(jQuery);
     //]]>
