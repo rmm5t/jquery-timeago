@@ -30,6 +30,11 @@ function unloadCutoffSetting() {
 	jQuery.timeago.settings.cutoff = 0;
 }
 
+function setupDisposal() {
+  jQuery.timeago.settings.refreshMillis = 50;
+  $('abbr.disposal').attr("title", iso8601(new Date())).timeago();
+}
+
 function loadPigLatin() {
   jQuery.timeago.settings.strings = {
     suffixAgo: "ago-hay",
@@ -82,6 +87,10 @@ function loadRussian() {
       years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
     };
   })();
+}
+
+function resetRefreshMillis() {
+  jQuery.timeago.settings.refreshMillis = 60000;
 }
 
 function loadMillis() {
