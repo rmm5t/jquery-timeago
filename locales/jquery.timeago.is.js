@@ -7,7 +7,7 @@ jQuery.timeago.settings.strings = {
   minute: "mínútu",
   minutes: "%d mínútum",
   hour: "klukkutíma",
-  hours: "um %d klukkutímum",°
+  hours: "um %d klukkutímum",
   day: "degi",
   days: "%d dögum",
   month: "mánuði",
