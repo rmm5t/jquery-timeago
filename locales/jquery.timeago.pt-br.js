@@ -1,16 +1,18 @@
 // Brazilian Portuguese 
 jQuery.timeago.settings.strings = {
+   prefixAgo: "há",
+   prefixFromNow: "em",
    suffixAgo: "atrás",
-   suffixFromNow: "nesse momento",
+   suffixFromNow: null,
    seconds: "alguns segundos",
-   minute: "há um minuto",
-   minutes: "há %d minutos",
-   hour: "há uma hora",
-   hours: "há %d horas",
-   day: "há um dia",
-   days: "há %d dias",
-   month: "há um mês",
-   months: "há %d meses",
-   year: "há um ano",
-   years: "há %d anos"
+   minute: "um minuto",
+   minutes: "%d minutos",
+   hour: "uma hora",
+   hours: "%d horas",
+   day: "um dia",
+   days: "%d dias",
+   month: "um mês",
+   months: "%d meses",
+   year: "um ano",
+   years: "%d anos"
 };
