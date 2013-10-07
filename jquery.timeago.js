@@ -132,7 +132,9 @@
       }
     },
     update: function(time){
-      $(this).data('timeago', { datetime: $t.parse(time) });
+      var parsedTime = $t.parse(time);
+      $(this).data('timeago', { datetime: parsedTime });
+      if($t.settings.localeTitle) $(this).attr("title", parsedTime.toLocaleString());
       refresh.apply(this);
     },
     updateFromDOM: function(){
