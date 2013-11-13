@@ -400,6 +400,10 @@
         ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
       });
 
+      test("Alternate Date() formats", function() {
+        ok($.timeago("Tue Nov 12 20:45:30 2013").indexOf('NaN') == -1, "Correctly ignored the 'T' in 'Tue'");
+      });
+
       module("Wording");
 
       test("-120 min", function () {
