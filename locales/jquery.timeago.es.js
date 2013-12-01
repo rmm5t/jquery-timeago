@@ -1,18 +1,18 @@
-// Galician
+// Spanish
 jQuery.timeago.settings.strings = {
-   prefixAgo: "hai",
+   prefixAgo: "hace",
    prefixFromNow: "dentro de",
    suffixAgo: "",
    suffixFromNow: "",
-   seconds: "menos dun minuto",
+   seconds: "menos de un minuto",
    minute: "un minuto",
-   minutes: "uns %d minutos",
-   hour: "unha hora",
+   minutes: "unos %d minutos",
+   hour: "una hora",
    hours: "%d horas",
    day: "un día",
    days: "%d días",
    month: "un mes",
    months: "%d meses",
-   year: "un ano",
-   years: "%d anos"
+   year: "un año",
+   years: "%d años"
 };
