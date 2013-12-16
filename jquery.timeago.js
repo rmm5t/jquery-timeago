@@ -124,9 +124,10 @@
   // functions are called with context of a single element
   var functions = {
     init: function(){
+      var $s = $t.settings;
+      $.extend($s, options);
       var refresh_el = $.proxy(refresh, this);
       refresh_el();
-      var $s = $t.settings;
       if ($s.refreshMillis > 0) {
         this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
       }
