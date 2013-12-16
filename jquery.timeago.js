@@ -23,7 +23,8 @@
     factory(jQuery);
   }
 }(function ($) {
-  $.timeago = function(timestamp) {
+  $.timeago = function(timestamp, options) {
+    $.extend( $.timeago.settings, options );
     if (timestamp instanceof Date) {
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
