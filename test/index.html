@@ -346,154 +346,154 @@
 
       test("From Z", function () {
         var time = $("#testParsing1");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From -00:00", function () {
         var time = $("#testParsing2");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From -05:00", function () {
         var time = $("#testParsing3");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From -0500", function () {
         var time = $("#testParsing4");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From +09:00", function () {
         var time = $("#testParsing5");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From +0900", function () {
         var time = $("#testParsing6");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From blank TZ", function () {
         var time = $("#testParsing7");
         var correctMatch = /Mon, 18 Dec 1978 \d\d:17:00 (GMT|UTC)/;
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From Z with milliseconds", function () {
         var time = $("#testParsing8");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From Z with microseconds", function () {
         var time = $("#testParsing9");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From Z with tenths of a second", function () {
         var time = $("#testParsing10");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       test("From Z with hundreths of a second", function () {
         var time = $("#testParsing11");
-        ok((time.html().match(correctMatch)), "Correctly parsed " + time.attr("title"));
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
       module("Wording");
 
       test("-120 min", function () {
-        ok(($("#testWording1").html() === "about 2 hours from now"), "Correctly parsed");
+        ok(($("#testWording1").html() === "about 2 hours from now"), "Incorrectly parsed");
       });
 
       test("-60 sec", function () {
-        ok(($("#testWording2").html() === "about a minute from now"), "Correctly parsed");
+        ok(($("#testWording2").html() === "about a minute from now"), "Incorrectly parsed");
       });
 
       test("-30 sec", function () {
-        ok(($("#testWording3").html() === "less than a minute from now"), "Correctly parsed");
+        ok(($("#testWording3").html() === "less than a minute from now"), "Incorrectly parsed");
       });
 
       test("-1 sec", function () {
-        ok(($("#testWording4").html() === "less than a minute from now"), "Correctly parsed");
+        ok(($("#testWording4").html() === "less than a minute from now"), "Incorrectly parsed");
       });
 
       test("0 sec", function () {
-        ok(($("#testWording5").html() === "less than a minute ago"), "Correctly parsed");
+        ok(($("#testWording5").html() === "less than a minute ago"), "Incorrectly parsed");
       });
 
       test("30 sec", function () {
-        ok(($("#testWording6").html() === "less than a minute ago"), "Correctly parsed");
+        ok(($("#testWording6").html() === "less than a minute ago"), "Incorrectly parsed");
       });
 
       test("45 sec", function () {
-        ok(($("#testWording7").html() === "about a minute ago"), "Correctly parsed");
+        ok(($("#testWording7").html() === "about a minute ago"), "Incorrectly parsed");
       });
 
       test("90 sec", function () {
-        ok(($("#testWording8").html() === "2 minutes ago"), "Correctly parsed");
+        ok(($("#testWording8").html() === "2 minutes ago"), "Incorrectly parsed");
       });
 
       test("120 sec", function () {
-        ok(($("#testWording9").html() === "2 minutes ago"), "Correctly parsed");
+        ok(($("#testWording9").html() === "2 minutes ago"), "Incorrectly parsed");
       });
 
       test("45 min", function () {
-        ok(($("#testWording10").html() === "about an hour ago"), "Correctly parsed");
+        ok(($("#testWording10").html() === "about an hour ago"), "Incorrectly parsed");
       });
 
       test("89 min", function () {
-        ok(($("#testWording11").html() === "about an hour ago"), "Correctly parsed");
+        ok(($("#testWording11").html() === "about an hour ago"), "Incorrectly parsed");
       });
 
       test("90 min", function () {
-        ok(($("#testWording12").html() === "about 2 hours ago"), "Correctly parsed");
+        ok(($("#testWording12").html() === "about 2 hours ago"), "Incorrectly parsed");
       });
 
       test("120 min", function () {
-        ok(($("#testWording13").html() === "about 2 hours ago"), "Correctly parsed");
+        ok(($("#testWording13").html() === "about 2 hours ago"), "Incorrectly parsed");
       });
 
       test("1380 min", function () {
-        ok(($("#testWording14").html() === "about 23 hours ago"), "Correctly parsed");
+        ok(($("#testWording14").html() === "about 23 hours ago"), "Incorrectly parsed");
       });
 
       test("25 hours", function () {
-        ok(($("#testWording15").html() === "a day ago"), "Correctly parsed");
+        ok(($("#testWording15").html() === "a day ago"), "Incorrectly parsed");
       });
 
       test("41 hour", function () {
-        ok(($("#testWording16a").html() === "a day ago"), "Correctly parsed");
+        ok(($("#testWording16a").html() === "a day ago"), "Incorrectly parsed");
       });
       test("42 hours", function () {
-        ok(($("#testWording16b").html() === "2 days ago"), "Correctly parsed");
+        ok(($("#testWording16b").html() === "2 days ago"), "Incorrectly parsed");
       });
       test("48 hours", function () {
-        ok(($("#testWording16c").html() === "2 days ago"), "Correctly parsed");
+        ok(($("#testWording16c").html() === "2 days ago"), "Incorrectly parsed");
       });
 
       test("696 hours", function () {
-        ok(($("#testWording17").html() === "29 days ago"), "Correctly parsed");
+        ok(($("#testWording17").html() === "29 days ago"), "Incorrectly parsed");
       });
 
       test("30 days", function () {
-        ok(($("#testWording18").html() === "about a month ago"), "Correctly parsed");
+        ok(($("#testWording18").html() === "about a month ago"), "Incorrectly parsed");
       });
 
       test("190 days", function () {
-        ok(($("#testWording19").html() === "6 months ago"), "Correctly parsed");
+        ok(($("#testWording19").html() === "6 months ago"), "Incorrectly parsed");
       });
 
       test("366 days", function () {
-        ok(($("#testWording20").html() === "about a year ago"), "Correctly parsed");
+        ok(($("#testWording20").html() === "about a year ago"), "Incorrectly parsed");
       });
 
       test("725 days", function () {
-        ok(($("#testWording21").html() === "2 years ago"), "Correctly parsed");
+        ok(($("#testWording21").html() === "2 years ago"), "Incorrectly parsed");
       });
 
       test("1095 days", function () {
-        ok(($("#testWording22").html() === "3 years ago"), "Correctly parsed");
+        ok(($("#testWording22").html() === "3 years ago"), "Incorrectly parsed");
       });
 
       module("Settings");
@@ -595,12 +595,12 @@
         $(".disposal.disposed").timeago('dispose');
         var initialTime_disposedTimeago = $(".disposal.disposed").html();
         var initialTime_activeTimeago = $(".disposal.notDisposed").html();
-        
+
         expect(2);
         setTimeout(function() {
           var updatedTime_disposedTimeago = $(".disposal.disposed").html();
           var updatedTime_activeTimeago = $(".disposal.notDisposed").html();
-          
+
           ok(initialTime_disposedTimeago === updatedTime_disposedTimeago, "A disposed timeago didn't get updated");
           ok(initialTime_activeTimeago !== updatedTime_activeTimeago, "A non-disposed timeago continued to be updated");
 
