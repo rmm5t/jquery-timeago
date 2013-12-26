@@ -90,6 +90,7 @@
       <li><abbr id="testParsing9" class="todate" title="1978-12-18 17:17:00.021432Z"></abbr> [from Z with microseconds]</li>
       <li><abbr id="testParsing10" class="todate" title="1978-12-18 17:17:00.0Z"></abbr> [from Z with tenths of a second]</li>
       <li><abbr id="testParsing11" class="todate" title="1978-12-18 17:17:00.02Z"></abbr> [from Z with hundreths of a second]</li>
+      <li><abbr id="testParsing12" class="todate" title="1978-12-19T02:17:00+09"></abbr> [from +09]</li>
     </ul>
 
     <h2>Wording</h2>
@@ -397,6 +398,11 @@
 
       test("From Z with hundreths of a second", function () {
         var time = $("#testParsing11");
+        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
+      });
+
+      test("From +09", function () {
+        var time = $("#testParsing12");
         ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
