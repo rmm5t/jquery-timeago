@@ -106,8 +106,8 @@
       s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
-      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
-      s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
+      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/,"$1$2"); // -04:00 -> -0400
+      s = s.replace(/([\+\-]\d\d)$/,"$100"); // +09 -> +0900
       return new Date(s);
     },
     datetime: function(elem) {
