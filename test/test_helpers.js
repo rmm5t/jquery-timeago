@@ -32,7 +32,12 @@ function unloadCutoffSetting() {
 
 function setupDisposal() {
   jQuery.timeago.settings.refreshMillis = 50;
-  $('abbr.disposal').attr("title", iso8601(new Date())).timeago();
+
+  $('abbr.disposal').attr("title", iso8601(new Date()));
+  jQuery.timeago.settings.autoDisposal = true;
+  $('abbr.disposal').timeago();
+  jQuery.timeago.settings.autoDisposal = false;
+  $('abbr.notAutoDisposed').timeago();
 }
 
 function loadPigLatin() {
