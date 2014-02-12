@@ -3,9 +3,10 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.3.1
+ * @version 1.3.2
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
+ * @modified by Eitan Stadtlander-Miller
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
  *
  * For usage and examples, visit:
@@ -120,6 +121,13 @@
     }
   });
 
+
+  var $win = $(window), globalTimeout = false;
+    if ($.globalTimeout) {
+        globalTimeout = true;
+        $.globalTimeout({ rate: 60000, name: 'mTimeout' }); //timeout every second 60s * 1000 ms
+        $.globalTimeout({ rate: 1800000, name: 'hhTimeout' }); //timeout every 30 mintues 30m * 60s * 1000ms
+    }
   // functions that can be called via $(el).timeago('action')
   // init is default when no action is given
   // functions are called with context of a single element
@@ -129,7 +137,17 @@
       refresh_el();
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
-        this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
+        if (globalTimeout) {
+            var newText = $(this).text();
+            if (newText.indexOf("minute") != -1) {
+                $win.on('fast.timeago', refresh_el);
+            } else if (newText.indexOf("hour") != -1) {
+                $win.on('slow.timeago', refresh_el);
+            }
+            //else don't bother updating, no one will leave the same page open for more than a day
+        } else {
+            this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
+        }
       }
     },
     update: function(time){
