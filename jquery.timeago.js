@@ -140,9 +140,9 @@
         if (globalTimeout) {
             var newText = $(this).text();
             if (newText.indexOf("minute") != -1) {
-                $win.on('fast.timeago', refresh_el);
+                $win.on('mTimeout.timeago', refresh_el);
             } else if (newText.indexOf("hour") != -1) {
-                $win.on('slow.timeago', refresh_el);
+                $win.on('hhTimeout.timeago', refresh_el);
             }
             //else don't bother updating, no one will leave the same page open for more than a day
         } else {
