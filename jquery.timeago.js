@@ -125,8 +125,18 @@
   var $win = $(window), globalTimeout = false;
     if ($.globalTimeout) {
         globalTimeout = true;
-        $.globalTimeout({ rate: 60000, name: 'mTimeout' }); //timeout every second 60s * 1000 ms
-        $.globalTimeout({ rate: 1800000, name: 'hhTimeout' }); //timeout every 30 mintues 30m * 60s * 1000ms
+        //$.globalTimeout({rate: 250, name: 'timeago'}); //timeout every 250 ms (initialize timeago class)
+        $.globalTimeout({ rate: 60000, name: 'timeagoMin' }); //timeout every second 60s * 1000 ms
+        $.globalTimeout({ rate: 1800000, name: 'timeagoHour' }); //timeout every 30 mintues 30m * 60s * 1000ms
+        //$win.on('timeago.timeago', function(){
+        //  $('.timeago').timeago();
+        //});
+        $win.on('timeagoMin.timeago', function(){
+          $('.timeagoMin').timeago();
+        });
+        $win.on('timeagoHour.timeago', function(){
+          $('.timeagoHour').timeago();
+        });
     }
   // functions that can be called via $(el).timeago('action')
   // init is default when no action is given
@@ -138,11 +148,12 @@
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
         if (globalTimeout) {
-            var newText = $(this).text();
+            var $this = $(this).removeClass('timeago','timeagoMin', 'timeagoHour'),
+                newText = $this.text();
             if (newText.indexOf("minute") != -1) {
-                $win.on('mTimeout.timeago', refresh_el);
+                $this.addClass('timeagoMin');
             } else if (newText.indexOf("hour") != -1) {
-                $win.on('hhTimeout.timeago', refresh_el);
+                $this.addClass('timeagoHour');
             }
             //else don't bother updating, no one will leave the same page open for more than a day
         } else {
