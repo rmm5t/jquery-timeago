@@ -126,7 +126,7 @@
       }
 
       var seconds = Math.abs(distanceMillis) / 1000,
-          secondLength = Math.floor(seconds).toString().length,
+          secondLength = Math.floor(seconds/10)+1,
           words = typeof makeString[secondLength] != "undefined" ? makeString[secondLength](seconds, $l, distanceMillis) : makeString[8](seconds, $l, distanceMillis);
 
       var separator = $l.wordSeparator || "";
