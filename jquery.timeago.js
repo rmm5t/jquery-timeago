@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.3.2
+ * @version 2.0.0
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
  * @modified by Eitan Stadtlander-Miller
