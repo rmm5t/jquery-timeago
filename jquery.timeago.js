@@ -3,9 +3,10 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.3.1
+ * @version 2.0.0
  * @requires jQuery v1.2.3+
  * @author Ryan McGeary
+ * @modified by Eitan Stadtlander-Miller
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
  *
  * For usage and examples, visit:
@@ -34,7 +35,59 @@
       return inWords($.timeago.datetime(timestamp));
     }
   };
-  var $t = $.timeago;
+  var $t = $.timeago,
+      substitute = function (stringOrFunction, number, $l) {
+          var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
+              value = ($l.numbers && $l.numbers[number]) || number;
+          return string.replace(/%d/i, value);
+      },
+      makeString = [
+          function (time, $l) {
+              throw new Error("Not a valid number '" + time);
+          },
+          function (time, $l) {
+              //time is 1 digit long
+              return substitute($l.seconds, Math.round(time), $l);
+          },
+          function (time, $l) {
+              //time is 2 digits long
+              return time < 45 && makeString[1](time, $l) ||
+                  time < 90 && substitute($l.minute, 1, $l) ||
+                  makeString[3](time, $l);
+          },
+          function (time, $l) {
+              //time is 3 digits long
+              return substitute($l.minutes, Math.round(time / 60), $l);
+          },
+          function (time, $l) {
+              //time is 4 digits long
+              return time < 2700 && makeString[3](time, $l) ||
+                  time < 5400 && substitute($l.hour, 1, $l) ||
+                  makeString[5](time, $l);
+          },
+          function (time, $l) {
+              //time is 5 digits long
+              return time < 8600 && substitute($l.hours, Math.round(time / 60 / 60), $l) ||
+                  substitute($l.day, 1, $l);
+          },
+          function (time, $l) {
+              //time is 6 digits long
+              return time < 151200 && substitute($l.day, 1, $l) ||
+                  substitute($l.days, Math.round(time / 60 / 60 / 24), $l);
+          },
+          function (time, $l) {
+              //time is 7 digits long
+              return time < 2592000 && makeString[6](time, $l) ||
+                  time < 3888000 && substitute($l.month, 1, $l) ||
+                  substitute($l.months, Math.round(time / 60 / 60 / 24 / 30), $l);
+          },
+          function (time, $l) {
+              //time is 8 digits long
+              return time < 31536000 && makeString[7](time, $l) ||
+                  time < 47304000 && substitute($l.year, 1, $l) ||
+                  substitute($l.years, Math.round(time / 60 / 60 / 24 / 365));
+          }
+      ];
 
   $.extend($.timeago, {
     settings: {
@@ -73,29 +126,9 @@
         }
       }
 
-      var seconds = Math.abs(distanceMillis) / 1000;
-      var minutes = seconds / 60;
-      var hours = minutes / 60;
-      var days = hours / 24;
-      var years = days / 365;
-
-      function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
-        var value = ($l.numbers && $l.numbers[number]) || number;
-        return string.replace(/%d/i, value);
-      }
-
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.round(days / 30)) ||
-        years < 1.5 && substitute($l.year, 1) ||
-        substitute($l.years, Math.round(years));
+      var seconds = Math.abs(distanceMillis) / 1000,
+          secondLength = Math.floor(seconds).toString().length,
+          words = typeof makeString[secondLength] != "undefined" ? makeString[secondLength](seconds, $l) : makeString[8](seconds, $l);
 
       var separator = $l.wordSeparator || "";
       if ($l.wordSeparator === undefined) { separator = " "; }
@@ -120,6 +153,23 @@
     }
   });
 
+
+  var $win = $(window), globalTimeout = false;
+    if ($.globalTimeout) {
+        globalTimeout = true;
+        //$.globalTimeout({rate: 250, name: 'timeago'}); //timeout every 250 ms (initialize timeago class)
+        $.globalTimeout({ rate: 60000, name: 'timeagoMin' }); //timeout every second 60s * 1000 ms
+        $.globalTimeout({ rate: 1800000, name: 'timeagoHour' }); //timeout every 30 mintues 30m * 60s * 1000ms
+        //$win.on('timeago.timeago', function(){
+        //  $('.timeago').removeClass('timeago').timeago();
+        //});
+        $win.on('timeagoMin.timeago', function(){
+          $('.timeagoMin').removeClass('timeagoMin').timeago();
+        });
+        $win.on('timeagoHour.timeago', function(){
+          $('.timeagoHour').removeClass('timeagoHour').timeago();
+        });
+    }
   // functions that can be called via $(el).timeago('action')
   // init is default when no action is given
   // functions are called with context of a single element
@@ -129,7 +179,18 @@
       refresh_el();
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
-        this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
+        if (globalTimeout) {
+            var $this = $(this),
+                newText = $this.text();
+            if (newText.indexOf("minute") != -1) {
+                $this.addClass('timeagoMin');
+            } else if (newText.indexOf("hour") != -1) {
+                $this.addClass('timeagoHour');
+            }
+            //else don't bother updating, no one will leave the same page open for more than a day
+        } else {
+            this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
+        }
       }
     },
     update: function(time){
