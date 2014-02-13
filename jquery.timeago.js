@@ -34,7 +34,59 @@
       return inWords($.timeago.datetime(timestamp));
     }
   };
-  var $t = $.timeago;
+  var $t = $.timeago,
+      substitute = function (stringOrFunction, number, $l, distanceMillis) {
+          var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction,
+              value = ($l.numbers && $l.numbers[number]) || number;
+          return string.replace(/%d/i, value);
+      },
+      makeString = [
+          function (time, $l, distanceMillis) {
+              throw new Error("Not a valid number '" + time);
+          },
+          function (time, $l, distanceMillis) {
+              //time is 1 digit long
+              return substitute($l.seconds, Math.round(time), $l, distanceMillis);
+          },
+          function (time, $l, distanceMillis) {
+              //time is 2 digits long
+              return time < 45 && makeString[1](time, $l, distanceMillis) ||
+                  time < 90 && substitute($l.minute, 1, $l, distanceMillis) ||
+                  makeString[3](time, $l, distanceMillis);
+          },
+          function (time, $l, distanceMillis) {
+              //time is 3 digits long
+              return substitute($l.minutes, Math.round(time / 60), $l, distanceMillis); //minute
+          },
+          function (time, $l, distanceMillis) {
+              //time is 4 digits long
+              return time < 2700 && makeString[3](time, $l, distanceMillis) ||
+                  time < 5400 && substitute($l.hour, 1, $l, distanceMillis) ||
+                  makeString[5](time, $l, distanceMillis);
+          },
+          function (time, $l, distanceMillis) {
+              //time is 5 digits long
+              return time < 86400 && substitute($l.hours, Math.round(time / 60 / 60), $l, distanceMillis) || //hour
+                  substitute($l.day, 1, $l, distanceMillis);
+          },
+          function (time, $l, distanceMillis) {
+              //time is 6 digits long
+              return time < 151200 && substitute($l.day, 1, $l, distanceMillis) ||
+                  substitute($l.days, Math.round(time / 60 / 60 / 24), $l, distanceMillis); //day
+          },
+          function (time, $l, distanceMillis) {
+              //time is 7 digits long
+              return time < 2592000 && makeString[6](time, $l, distanceMillis) ||
+                  time < 3888000 && substitute($l.month, 1, $l, distanceMillis) ||
+                  substitute($l.months, Math.round(time / 60 / 60 / 24 / 30), $l, distanceMillis); //month
+          },
+          function (time, $l, distanceMillis) {
+              //time is 8 digits long
+              return time < 31536000 && makeString[7](time, $l, distanceMillis) ||
+                  time < 47304000 && substitute($l.year, 1, $l, distanceMillis) ||
+                  substitute($l.years, Math.round(time / 60 / 60 / 24 / 365), $l, distanceMillis); //year
+          }
+      ];
 
   $.extend($.timeago, {
     settings: {
@@ -73,29 +125,9 @@
         }
       }
 
-      var seconds = Math.abs(distanceMillis) / 1000;
-      var minutes = seconds / 60;
-      var hours = minutes / 60;
-      var days = hours / 24;
-      var years = days / 365;
-
-      function substitute(stringOrFunction, number) {
-        var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
-        var value = ($l.numbers && $l.numbers[number]) || number;
-        return string.replace(/%d/i, value);
-      }
-
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.round(days / 30)) ||
-        years < 1.5 && substitute($l.year, 1) ||
-        substitute($l.years, Math.round(years));
+      var seconds = Math.abs(distanceMillis) / 1000,
+          secondLength = Math.floor(seconds).toString().length,
+          words = typeof makeString[secondLength] != "undefined" ? makeString[secondLength](seconds, $l, distanceMillis) : makeString[8](seconds, $l, distanceMillis);
 
       var separator = $l.wordSeparator || "";
       if ($l.wordSeparator === undefined) { separator = " "; }
