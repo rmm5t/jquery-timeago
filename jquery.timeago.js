@@ -86,17 +86,21 @@
         return string.replace(/%d/i, value);
       }
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.round(days / 30)) ||
-        years < 1.5 && substitute($l.year, 1) ||
-        substitute($l.years, Math.round(years));
+      var words;
+      if (minutes < 90) {
+          words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
+                  seconds < 90 && substitute($l.minute, 1) ||
+                  minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
+                  minutes < 90 && substitute($l.hour, 1);
+      } else {
+          words = hours < 24 && substitute($l.hours, Math.round(hours)) ||
+                  hours < 42 && substitute($l.day, 1) || 
+                  days < 30 && substitute($l.days, Math.round(days)) ||
+                  days < 45 && substitute($l.month, 1) ||
+                  days < 365 && substitute($l.months, Math.round(days / 30)) ||
+                  years < 1.5 && substitute($l.year, 1) ||
+                  substitute($l.years, Math.round(years));
+      }
 
       var separator = $l.wordSeparator || "";
       if ($l.wordSeparator === undefined) { separator = " "; }
@@ -129,13 +133,13 @@
         $.globalTimeout({ rate: 60000, name: 'timeagoMin' }); //timeout every second 60s * 1000 ms
         $.globalTimeout({ rate: 1800000, name: 'timeagoHour' }); //timeout every 30 mintues 30m * 60s * 1000ms
         //$win.on('timeago.timeago', function(){
-        //  $('.timeago').timeago();
+        //  $('.timeago').removeClass('timeago').timeago();
         //});
         $win.on('timeagoMin.timeago', function(){
-          $('.timeagoMin').timeago();
+          $('.timeagoMin').removeClass('timeagoMin').timeago();
         });
         $win.on('timeagoHour.timeago', function(){
-          $('.timeagoHour').timeago();
+          $('.timeagoHour').removeClass('timeagoHour').timeago();
         });
     }
   // functions that can be called via $(el).timeago('action')
@@ -148,7 +152,7 @@
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
         if (globalTimeout) {
-            var $this = $(this).removeClass('timeago','timeagoMin', 'timeagoHour'),
+            var $this = $(this),
                 newText = $this.text();
             if (newText.indexOf("minute") != -1) {
                 $this.addClass('timeagoMin');
