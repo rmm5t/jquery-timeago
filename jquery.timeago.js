@@ -86,14 +86,6 @@
                   time < 47304000 && substitute($l.year, 1, $l, distanceMillis) ||
                   substitute($l.years, Math.round(time / 60 / 60 / 24 / 365), $l, distanceMillis); //year
           }
-      ],
-      regex = [
-          /\.\d+/, // milliseconds
-          /-/,
-          /T/,
-          /Z/,
-          /([\+\-]\d\d)\:?(\d\d)/, // -04:00 -> -0400
-          /([\+\-]\d\d)$/ // +09 -> +0900
       ];
 
   $.extend($.timeago, {
@@ -143,13 +135,14 @@
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601)
-          .replace(regex[0], "") // remove milliseconds
-          .replace(regex[1], "/")
-          .replace(regex[1], "/")
-          .replace(regex[2], " ")
-          .replace(regex[3], " UTC")
-          .replace(regex[4], " $1$2") // -04:00 -> -0400
-          .replace(regex[5], " $100"); // +09 -> +0900
+          .replace(/\.\d+/, "") // remove milliseconds
+          .replace(/-/, "/")
+          .replace(/-/, "/")
+          .replace(/T/, " ")
+          .replace(/Z/, " UTC")
+          .replace(/([\+\-]\d\d)\:?(\d\d)/, " $1$2") // -04:00 -> -0400
+          .replace(/([\+\-]\d\d)$/, " $100"); // +09 -> +0900
+          
       return new Date(s);
     },
     datetime: function(elem) {
