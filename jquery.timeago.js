@@ -34,8 +34,8 @@
       return inWords($.timeago.datetime(timestamp));
     }
   };
-  var $t = $.timeago,
-    noIso8601Support = !Date.prototype.toISOString;
+  var $t = $.timeago;
+  var iso8601Support = Date.prototype.toISOString;
 
   $.extend($.timeago, {
     settings: {
@@ -104,13 +104,13 @@
     },
     parse: function(iso8601) {
       var s = $.trim(iso8601);
-      if(noIso8601Support){
+      if (!iso8601Support) {
         s = s.replace(/\.\d+/,""); // remove milliseconds
         s = s.replace(/-/,"/").replace(/-/,"/");
         s = s.replace(/T/," ").replace(/Z/," UTC");
         s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
-        s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
       }
+      s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
       return new Date(s);
     },
     datetime: function(elem) {
