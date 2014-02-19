@@ -1,0 +1,11 @@
+{
+    "name": "jquery-timeago",
+    "version": "1.4.0",
+    "ignore": [
+        "test",
+        "vendor"
+    ],
+    "dependencies": {
+        "jquery": ">=1.6"
+    }
+}
