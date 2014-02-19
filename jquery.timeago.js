@@ -126,7 +126,7 @@
       }
 
       var seconds = Math.abs(distanceMillis) / 1000,
-          secondLength = (Math.log(seconds) / Math.log(10)) | 0 + 1,
+          secondLength = ((Math.log(seconds) / Math.log(10)) | 0) + 1,
           words = secondLength < 9 ? makeString[secondLength](seconds, $l, distanceMillis) : makeString[8](seconds, $l, distanceMillis);
 
       var separator = $l.wordSeparator || "";
