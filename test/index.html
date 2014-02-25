@@ -190,6 +190,12 @@
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
     </ul>
 
+    <h2>Future</h2>
+
+    <ul>
+      <li><abbr id="testAllowFutureFalse1" class="doNotAllowFuture" title="2012-01-01T09:24:17Z">(you shouldn't see this)</abbr></li>
+    </ul>
+
     <h2>Disposal</h2>
     <p><abbr class="disposal disposed"></abbr></p>
     <p><abbr class="disposal notDisposed"></abbr></p>
@@ -242,6 +248,10 @@
       loadNumbers();
       $("abbr.tonumbers").each(toWords);
       unloadNumbers();
+
+      loadDoNotAllowFuture();
+      $("abbr.doNotAllowFuture").timeago();
+      unloadDoNotAllowFuture();
 
       setupDisposal();
 
@@ -594,6 +604,20 @@
         ok($("#testNoSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
         ok($("#testNullSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
       });
+
+      module("Do Not Allow Future");
+
+      // if allowFuture is false, then a minute into the future is altually reported as a minute in the past.
+      // we did not want to alter the current behavior and break backwards compatability
+      test("allow future false with a future date moves time backwards", function () {
+        equal($("#testAllowFutureFalse1").html(), "2 years ago");
+      });
+
+      module("Allow Future");
+
+      // test("allow future false with a future date moves time backwards", function () {
+      //   ok($("#testAllowFutureFalse1").html().match(/years ago$/));
+      // });
 
       module("Disposal");
 
