@@ -143,6 +143,20 @@ function unloadDoNotAllowFuture() {
   disableMockedDate();
 }
 
+function loadDoNotAllowPast() {
+  var mockDateToUse = "2010-01-01";
+  $.timeago.settings.allowFuture = true;
+  $.timeago.settings.allowPast = false;
+  $.timeago.settings.strings.inPast = "in the past";
+  enableMockedDate(mockDateToUse);
+}
+
+function unloadDoNotAllowPast() {
+  $.timeago.settings.allowFuture = true;
+  $.timeago.settings.allowPast = true;
+  disableMockedDate();
+}
+
 function enableMockedDate(dateToReturn) {
   var mockDate = dateToReturn;
   window.NativeDate = Date;

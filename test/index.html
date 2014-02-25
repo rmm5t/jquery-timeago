@@ -190,10 +190,17 @@
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
     </ul>
 
-    <h2>Future</h2>
+    <h2>Do Not Allow Future</h2>
 
     <ul>
       <li><abbr id="testAllowFutureFalse1" class="doNotAllowFuture" title="2012-01-01T09:24:17Z">(you shouldn't see this)</abbr></li>
+    </ul>
+
+    <h2>Do Not Allow Past</h2>
+
+    <ul>
+      <li><abbr id="testAllowPastFalse1" class="doNotAllowPast" title="2008-01-01T09:24:17Z">(you shouldn't see this)</abbr></li>
+      <li><abbr id="testAllowPastAndFutureFalse" title="2008-01-01T09:24:17Z"></abbr></li>
     </ul>
 
     <h2>Disposal</h2>
@@ -252,6 +259,10 @@
       loadDoNotAllowFuture();
       $("abbr.doNotAllowFuture").timeago();
       unloadDoNotAllowFuture();
+
+      loadDoNotAllowPast();
+      $("abbr.doNotAllowPast").timeago();
+      unloadDoNotAllowPast();
 
       setupDisposal();
 
@@ -605,19 +616,35 @@
         ok($("#testNullSpaces1").html().match(/^2minutesago$/), "Settings correctly applied");
       });
 
-      module("Do Not Allow Future");
+      module("Allow Future and Past");
 
-      // if allowFuture is false, then a minute into the future is altually reported as a minute in the past.
+      // if allowFuture is false, then a minute into the future is actually reported as a minute in the past.
       // we did not want to alter the current behavior and break backwards compatability
       test("allow future false with a future date moves time backwards", function () {
         equal($("#testAllowFutureFalse1").html(), "2 years ago");
       });
 
-      module("Allow Future");
+      test("allow future false with a future date moves time backwards", function () {
+        equal($("#testAllowPastFalse1").html(), "in the past");
+      });
 
-      // test("allow future false with a future date moves time backwards", function () {
-      //   ok($("#testAllowFutureFalse1").html().match(/years ago$/));
-      // });
+      test("throws if allowPast and allowFuture are both false", function () {
+        // setup
+        var origAllowFuture = $.timeago.settings.allowFuture;
+        var origAllowPast = $.timeago.settings.allowPast;
+        $.timeago.settings.allowFuture = false;
+        $.timeago.settings.allowPast = false;
+
+        try {
+          throws(function () {
+            $("#testAllowPastAndFutureFalse").timeago();
+          });
+        } finally {
+          // teardown
+          $.timeago.settings.allowFuture = origAllowFuture;
+          $.timeago.settings.allowPast = origAllowPast;
+        }
+      });
 
       module("Disposal");
 
