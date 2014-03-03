@@ -131,3 +131,49 @@ function loadYoungOldYears() {
     years: function(value) { return (value < 21) ? "%d young years" : "%d old years"; }
   });
 }
+
+function loadDoNotAllowFuture() {
+  var mockDateToUse = "2010-01-01";
+  $.timeago.settings.allowFuture = false;
+  enableMockedDate(mockDateToUse);
+}
+
+function unloadDoNotAllowFuture() {
+  $.timeago.settings.allowFuture = true;
+  disableMockedDate();
+}
+
+function loadDoNotAllowPast() {
+  var mockDateToUse = "2010-01-01";
+  $.timeago.settings.allowFuture = true;
+  $.timeago.settings.allowPast = false;
+  $.timeago.settings.strings.inPast = "in the past";
+  enableMockedDate(mockDateToUse);
+}
+
+function unloadDoNotAllowPast() {
+  $.timeago.settings.allowFuture = true;
+  $.timeago.settings.allowPast = true;
+  disableMockedDate();
+}
+
+function enableMockedDate(dateToReturn) {
+  var mockDate = dateToReturn;
+  window.NativeDate = Date;
+  window.Date = function () {
+    if(arguments.length === 0) {
+      return new window.NativeDate(mockDate);
+    } else if(arguments.length === 1) {
+      return new window.NativeDate(arguments[0]);
+    } else  if(arguments.length === 7) {
+      return new window.NativeDate(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6]);
+    } else {
+      throw "Mocking Date with this number of parameters is not implemented.";
+    }
+  }
+}
+
+function disableMockedDate() {
+  window.Date = window.NativeDate;
+  delete window.NativeDate;
+}
