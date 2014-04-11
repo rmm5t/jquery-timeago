@@ -23,15 +23,16 @@
     factory(jQuery);
   }
 }(function ($) {
-  $.timeago = function(timestamp) {
+  $.timeago = function(timestamp, settins) {
+    $s = $.extend(true, {}, $timeago.settings, settings);
     if (timestamp instanceof Date) {
-      return inWords(timestamp);
+      return inWords(timestamp, $s);
     } else if (typeof timestamp === "string") {
-      return inWords($.timeago.parse(timestamp));
+      return inWords($.timeago.parse(timestamp), $s);
     } else if (typeof timestamp === "number") {
-      return inWords(new Date(timestamp));
+      return inWords(new Date(timestamp), $s);
     } else {
-      return inWords($.timeago.datetime(timestamp));
+      return inWords($.timeago.datetime(timestamp), $s);
     }
   };
   var $t = $.timeago;
@@ -49,6 +50,7 @@
         suffixAgo: "ago",
         suffixFromNow: "from now",
         inPast: 'any moment now',
+        inFuture: 'just now',
         seconds: "less than a minute",
         minute: "about a minute",
         minutes: "%d minutes",
@@ -65,23 +67,25 @@
       }
     },
 
-    inWords: function(distanceMillis) {
-      if(!this.settings.allowPast && ! this.settings.allowFuture) {
+    inWords: function(distanceMillis, settings) {
+      if(!settings.allowPast && !settings.allowFuture) {
           throw 'timeago allowPast and allowFuture settings can not both be set to false.';
       }
-
-      var $l = this.settings.strings;
+      var $l = settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
-      if (this.settings.allowFuture) {
+      if (settings.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
         }
       }
 
-      if(!this.settings.allowPast && distanceMillis >= 0) {
-        return this.settings.strings.inPast;
+      if(!settings.allowPast && distanceMillis >= 0) {
+        return settings.strings.inPast;
+      }
+      if (!settings.allowFuture && distanceMillis <= 0){
+        return settings.strings.inFuture;
       }
 
       var seconds = Math.abs(distanceMillis) / 1000;
@@ -136,23 +140,28 @@
   // init is default when no action is given
   // functions are called with context of a single element
   var functions = {
-    init: function(){
+    init: function(settings){
+      settings = $.extend(true, {}, $t.settings, settings)
       var refresh_el = $.proxy(refresh, this);
-      refresh_el();
-      var $s = $t.settings;
-      if ($s.refreshMillis > 0) {
-        this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
+      refresh_el(settings);
+      if (settings.refreshMillis > 0) {
+        this._timeagoInterval = setInterval(function(){ refresh_el(settings) }, settings.refreshMillis);
       }
     },
     update: function(time){
+      var settings = $(this).data('timeago').settings
       var parsedTime = $t.parse(time);
-      $(this).data('timeago', { datetime: parsedTime });
-      if($t.settings.localeTitle) $(this).attr("title", parsedTime.toLocaleString());
-      refresh.apply(this);
+      $(this).data('timeago', { datetime: parsedTime, settings: settings });
+      if(settings.localeTitle) $(this).attr("title", parsedTime.toLocaleString());
+      refresh.call(this, settings);
     },
     updateFromDOM: function(){
-      $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
-      refresh.apply(this);
+      var settings = $(this).data('timeago').settings
+      $(this).data('timeago', { 
+        datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ),
+        settings: settings
+      });
+      refresh.call(this, settings);
     },
     dispose: function () {
       if (this._timeagoInterval) {
@@ -163,7 +172,15 @@
   };
 
   $.fn.timeago = function(action, options) {
-    var fn = action ? functions[action] : functions.init;
+    var fn;
+    if (!action){
+      fn = functions.init;
+    } else if (typeof(action) === "object"){
+        fn = functions.init;
+        options = action;
+    } else {
+        fn = functions[action];
+    }
     if(!fn){
       throw new Error("Unknown function name '"+ action +"' for timeago");
     }
@@ -174,24 +191,23 @@
     return this;
   };
 
-  function refresh() {
-    var data = prepareData(this);
-    var $s = $t.settings;
+  function refresh(settings) {
+    var data = prepareData(this, settings);
 
     if (!isNaN(data.datetime)) {
-      if ( $s.cutoff == 0 || distance(data.datetime) < $s.cutoff) {
-        $(this).text(inWords(data.datetime));
+      if (settings.cutoff == 0 || distance(data.datetime) < settings.cutoff) {
+        $(this).text(inWords(data.datetime, settings));
       }
     }
     return this;
   }
 
-  function prepareData(element) {
+  function prepareData(element, settings) {
     element = $(element);
     if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
+      element.data("timeago", { datetime: $t.datetime(element), settings: settings });
       var text = $.trim(element.text());
-      if ($t.settings.localeTitle) {
+      if (settings.localeTitle) {
         element.attr("title", element.data('timeago').datetime.toLocaleString());
       } else if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
         element.attr("title", text);
@@ -200,8 +216,8 @@
     return element.data("timeago");
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
+  function inWords(date, settings) {
+    return $t.inWords(distance(date), settings);
   }
 
   function distance(date) {
