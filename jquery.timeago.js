@@ -43,6 +43,7 @@
       allowFuture: false,
       localeTitle: false,
       cutoff: 0,
+      cutoffMessage: false,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -181,6 +182,9 @@
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff == 0 || distance(data.datetime) < $s.cutoff) {
         $(this).text(inWords(data.datetime));
+      }
+      else if ($s.cutoffMessage && distance(data.datetime) >= $s.cutoff) {
+        $(this).text($s.cutoffMessage.concat(" ", inWords(new Date(new Date().getTime() - $s.cutoff))));
       }
     }
     return this;

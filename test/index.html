@@ -66,6 +66,8 @@
     <h2>Cutoff</h2>
 
     <p>Date that is older than cutoff: <abbr class="timeago cutoff doCutoff" title="1978-12-18">(this should be displayed)</abbr></p>
+    
+    <p>Date that is older than cutoff with message: <abbr class="timeago cutoff withCutoffMessage doCutoffWithCutoffMessage" title="1978-12-18">(you shouldn't see this)</abbr></p>
 
     <p>Date that is newer than cutoff: <abbr class="timeago loaded cutoff dontCutoff">(you shouldn't see this)</abbr></p>
 
@@ -241,7 +243,11 @@
 
       loadCutoffSetting();
       $("abbr.cutoff").timeago();
+      loadCutoffMessageSetting();
+      $("abbr.cutoff.withCutoffMessage").timeago();
+      unloadCutoffMessageSetting();
       unloadCutoffSetting();
+
 
       var tooltip = $("#testTooltip").data("timeago");
 
@@ -335,6 +341,12 @@
         ok(testElements("abbr.doCutoff", function (element) {
           return (element.html() === "(this should be displayed)");
         }), "Cutoff setting working fine");
+      });
+
+      test("should give cutoff message for dates older than cutoff setting", function() {
+        ok(testElements("abbr.doCutoffWithCutoffMessage", function (element) {
+          return (element.html() === "over 7 days ago");
+        }), "Cutoff message setting working fine");
       });
 
       test("should change dates newer than cutoff setting", function () {

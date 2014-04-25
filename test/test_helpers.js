@@ -30,6 +30,14 @@ function unloadCutoffSetting() {
 	jQuery.timeago.settings.cutoff = 0;
 }
 
+function loadCutoffMessageSetting() {
+	jQuery.timeago.settings.cutoffMessage = "over";
+}
+
+function unloadCutoffMessageSetting() {
+	jQuery.timeago.settings.cutoffMessage = false;
+}
+
 function setupDisposal() {
   jQuery.timeago.settings.refreshMillis = 50;
   $('abbr.disposal').attr("title", iso8601(new Date())).timeago();
