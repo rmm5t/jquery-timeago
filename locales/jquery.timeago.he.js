@@ -1,7 +1,7 @@
 // Hebrew
 jQuery.timeago.settings.strings = {
   prefixAgo: "לפני",
-  prefixFromNow: "מעכשיו",
+  prefixFromNow: "עוד",
   suffixAgo: "",
   suffixFromNow: "",
   seconds: "פחות מדקה",
