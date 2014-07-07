@@ -175,6 +175,13 @@
   };
 
   function refresh() {
+    //check if it's still visible
+    if(!$.contains(document.documentElement,this)){
+      //stop if it has been removed
+      $(this).timeago("dispose");
+      return this;
+    }
+
     var data = prepareData(this);
     var $s = $t.settings;
 
