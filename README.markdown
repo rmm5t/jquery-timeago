@@ -39,7 +39,7 @@ section:
 
 ```html
 <script type="text/javascript">
-   jQuery(document).ready(function() {
+   $(function() {
      $("abbr.timeago").timeago();
    });
 </script>
