@@ -210,6 +210,8 @@
     <h2>Disposal</h2>
     <p><abbr class="disposal disposed"></abbr></p>
     <p><abbr class="disposal notDisposed"></abbr></p>
+    <p><abbr class="disposal autoDisposed"></abbr></p>
+    <p><abbr class="disposal notAutoDisposed"></abbr></p>
   </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -668,20 +670,30 @@
         $(".disposal.disposed").timeago('dispose');
         var initialTime_disposedTimeago = $(".disposal.disposed").html();
         var initialTime_activeTimeago = $(".disposal.notDisposed").html();
+        var autoDisposedNode = $(".disposal.autoDisposed").remove();
+        var initialTime_autoDisposedTimeago = autoDisposedNode.html();
+        var notAutoDisposedNode = $(".disposal.notAutoDisposed").remove();
+        var initialTime_notAutoDisposedTimeago = notAutoDisposedNode.html();
 
-        expect(2);
+        expect(4);
         setTimeout(function() {
           var updatedTime_disposedTimeago = $(".disposal.disposed").html();
           var updatedTime_activeTimeago = $(".disposal.notDisposed").html();
+          var updatedTime_autoDisposedTimeago = autoDisposedNode.html();
+          var updatedTime_notAutoDisposedTimeago = notAutoDisposedNode.html();
 
           ok(initialTime_disposedTimeago === updatedTime_disposedTimeago, "A disposed timeago didn't get updated");
           ok(initialTime_activeTimeago !== updatedTime_activeTimeago, "A non-disposed timeago continued to be updated");
+          ok(initialTime_autoDisposedTimeago === updatedTime_autoDisposedTimeago, "A auto-disposed timeago didn't get updated");
+          ok(initialTime_notAutoDisposedTimeago !== updatedTime_notAutoDisposedTimeago, "A non-auto-disposed timeago continued to be updated");
 
           // Dispose still-active timeago
           $(".disposal.notDisposed").timeago('dispose');
+          $(notAutoDisposedNode).timeago('dispose');
           resetRefreshMillis();
           start();
         }, 50);
+
       });
     })(jQuery);
     //]]>
