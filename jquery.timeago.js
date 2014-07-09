@@ -43,6 +43,7 @@
       allowFuture: false,
       localeTitle: false,
       cutoff: 0,
+      stopIfRemoved: true,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -117,7 +118,7 @@
       var s = $.trim(iso8601);
       s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
-      s = s.replace(/T/," ").replace(/Z/," UTC");
+      s = s.replace(/(\d{2})T/,"$1 ").replace(/(\d{2})Z/,"$1 UTC");
       s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
       s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
       return new Date(s);
@@ -175,15 +176,16 @@
   };
 
   function refresh() {
+
+    var data = prepareData(this);
+    var $s = $t.settings;
+
     //check if it's still visible
-    if(!$.contains(document.documentElement,this)){
+    if($s.stopIfRemoved && !$.contains(document.documentElement,this)){
       //stop if it has been removed
       $(this).timeago("dispose");
       return this;
     }
-
-    var data = prepareData(this);
-    var $s = $t.settings;
 
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff == 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
