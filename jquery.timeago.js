@@ -214,6 +214,13 @@
   function distance(date) {
     return (new Date().getTime() - date.getTime());
   }
+    
+$(document).ready(function () {
+    var lang = $("abbr").attr("lang");
+    $('head').append("<script src='locales/jquery.timeago." + lang + ".js' type='text/javascript'></script>");
+});
+
+
 
   // fix for IE6 suckage
   document.createElement("abbr");
