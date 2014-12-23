@@ -214,18 +214,18 @@
 
   function distance(date) {
     if ($t.settings.useUTC) {
-    var now = new Date();
-		var utc = new Date(
-			now.getUTCFullYear(),
-			now.getUTCMonth(),
-			now.getUTCDate(),
-			now.getUTCHours(),
-			now.getUTCMinutes(),
-			now.getUTCSeconds());
-		return (utc.getTime() - date.getTime());
-	} else {
-		return (new Date().getTime() - date.getTime());
-	}
+      var now = new Date();
+      var utc = new Date(
+      	now.getUTCFullYear(),
+	now.getUTCMonth(),
+	now.getUTCDate(),
+	now.getUTCHours(),
+	now.getUTCMinutes(),
+	now.getUTCSeconds());
+	return (utc.getTime() - date.getTime());
+    } else {
+	return (new Date().getTime() - date.getTime());
+    }
   }
 
   // fix for IE6 suckage
