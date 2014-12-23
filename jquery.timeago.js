@@ -213,8 +213,8 @@
   }
 
   function distance(date) {
+    var now = new Date();
     if ($t.settings.useUTC) {
-      var now = new Date();
       var utc = new Date(
       	now.getUTCFullYear(),
 	now.getUTCMonth(),
@@ -224,7 +224,7 @@
 	now.getUTCSeconds());
 	return (utc.getTime() - date.getTime());
     } else {
-	return (new Date().getTime() - date.getTime());
+	return (now.getTime() - date.getTime());
     }
   }
 
