@@ -412,11 +412,18 @@
         ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
       });
 
-      test("From blank TZ", function () {
-        var time = $("#testParsing7");
-        var correctMatch = /Mon, 18 Dec 1978 \d\d:17:00 (GMT|UTC)/;
-        ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
-      });
+      // We no longer support blank TZs. From ISO 8601: If no UTC relation
+      // information is given with a time representation, the time is assumed to
+      // be in local time. While it may be safe to assume local time when
+      // communicating in the same time zone, it is ambiguous when used in
+      // communicating across different time zones. It is usually preferable to
+      // indicate a time zone (zone designator) using the standard's notation.
+      //
+      // test("From blank TZ", function () {
+      //   var time = $("#testParsing7");
+      //   var correctMatch = /Mon, 18 Dec 1978 \d\d:17:00 (GMT|UTC)/;
+      //   ok((time.html().match(correctMatch)), "Incorrectly parsed " + time.attr("title"));
+      // });
 
       test("From Z with milliseconds", function () {
         var time = $("#testParsing8");
