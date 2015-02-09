@@ -17,7 +17,7 @@
 		day:     function(n, d) {return f(n, d, ['%d dnem', '%d den'])},
 		days:    function(n, d) {return f(n, d, ['%d dny', '%d dny', '%d dní'])},
 		month:   function(n, d) {return f(n, d, ['%d měsícem', '%d měsíc'])},
-		months:  function(n, d) {return f(n, d, ['%d měsící', '%d měsíce', '%d měsíců'])},
+		months:  function(n, d) {return f(n, d, ['%d měsíci', '%d měsíce', '%d měsíců'])},
 		year:    function(n, d) {return f(n, d, ['%d rokem', '%d rok'])},
 		years:   function(n, d) {return f(n, d, ['%d lety', '%d roky', '%d let'])}
 	};
