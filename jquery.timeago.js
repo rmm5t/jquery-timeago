@@ -214,7 +214,20 @@
   function distance(date) {
     return (new Date().getTime() - date.getTime());
   }
-
+    //add autoLocale based On lang attr in html tag 
+    // you should add the attr tag to hatml like: <html lang="en" Or lang="en-Us">
+  $(document).ready(function () {
+      var locale;
+      if ($('html').attr('lang').indexOf("-") > -1) {
+          locale = $('html').attr('lang').substr(0, 2);
+      } else {
+          locale = $('html').attr('lang');
+      }
+      var s = document.createElement("script");
+      s.type = "text/javascript";
+      s.src = "locales/jquery.timeago." + locale + ".js";
+      $("head").append(s);
+  });
   // fix for IE6 suckage
   document.createElement("abbr");
   document.createElement("time");
