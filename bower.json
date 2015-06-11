@@ -1,6 +1,5 @@
 {
   "name": "jquery-timeago",
-  "version": "1.4.1",
   "license": "MIT",
   "main": "jquery.timeago.js",
   "ignore": [
