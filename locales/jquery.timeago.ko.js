@@ -4,7 +4,7 @@ jQuery.timeago.settings.strings = {
   prefixFromNow: null,
   suffixAgo: "전",
   suffixFromNow: "후",
-  seconds: "1분 이내",
+  seconds: "1분",
   minute: "약 1분",
   minutes: "%d분",
   hour: "약 1시간",
