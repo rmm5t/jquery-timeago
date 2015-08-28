@@ -83,7 +83,7 @@ As time passes, the timestamps will automatically update.
 |   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests                  |
 |     ... | ...                                                                             |
 
-[compare-1.4]: https://github.com/rmm5t/jquery-timeago/compare/v1.3.2...v1.4.1
+[compare-1.4]: https://github.com/rmm5t/jquery-timeago/compare/v1.3.2...v1.4.2
 [compare-1.3]: https://github.com/rmm5t/jquery-timeago/compare/v1.2.0...v1.3.2
 [compare-1.2]: https://github.com/rmm5t/jquery-timeago/compare/v1.1.0...v1.2.0
 [compare-1.1]: https://github.com/rmm5t/jquery-timeago/compare/v1.0.2...v1.1.0
