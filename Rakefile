@@ -9,6 +9,7 @@ task :publish do
   sh("git push origin master")
   sh("git push origin gh-pages")
   sh("git push --tags")
+  sh("npm publish")
 end
 
 desc "Open your default browser with the test page"
