@@ -25,7 +25,8 @@
     factory(jQuery);
   }
 }(function ($) {
-  $.timeago = function(timestamp) {
+  $.timeago = function(timestamp, options) {
+    $.extend( $.timeago.settings, options );
     if (timestamp instanceof Date) {
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
@@ -138,10 +139,11 @@
   // init is default when no action is given
   // functions are called with context of a single element
   var functions = {
-    init: function(){
+    init: function(options){
+      var $s = $t.settings;
+      $.extend($s, options);
       var refresh_el = $.proxy(refresh, this);
       refresh_el();
-      var $s = $t.settings;
       if ($s.refreshMillis > 0) {
         this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
       }
