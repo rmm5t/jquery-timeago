@@ -45,6 +45,7 @@
       allowFuture: false,
       localeTitle: false,
       cutoff: 0,
+      checkVisibility: true,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -177,15 +178,16 @@
   };
 
   function refresh() {
+    var $s = $t.settings;
+
     //check if it's still visible
-    if(!$.contains(document.documentElement,this)){
+    if($s.checkVisibility && !$.contains(document.documentElement,this)){
       //stop if it has been removed
       $(this).timeago("dispose");
       return this;
     }
 
     var data = prepareData(this);
-    var $s = $t.settings;
 
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff == 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
