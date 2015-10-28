@@ -45,7 +45,7 @@
       allowFuture: false,
       localeTitle: false,
       cutoff: 0,
-      checkVisibility: true,
+      autoDispose: true,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -181,7 +181,7 @@
     var $s = $t.settings;
 
     //check if it's still visible
-    if($s.checkVisibility && !$.contains(document.documentElement,this)){
+    if($s.autoDispose && !$.contains(document.documentElement,this)){
       //stop if it has been removed
       $(this).timeago("dispose");
       return this;
