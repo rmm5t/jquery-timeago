@@ -1,6 +1,5 @@
 {
   "name": "rmm5t/jquery-timeago",
-  "type": "component",
   "description": "jQuery plugin that makes it easy to support automatically updating fuzzy timestamps (e.g. \"4 minutes ago\" or \"about 1 day ago\").",
   "license": "MIT",
   "homepage": "http://timeago.yarp.com/",
@@ -17,7 +16,11 @@
     "time",
     "microformat"
   ],
-  "require": {
-    "robloach/component-installer": "*"
+  "extra": {
+    "component": {
+      "scripts": [
+        "jquery.timeago.js"
+      ]
+    }
   }
 }
