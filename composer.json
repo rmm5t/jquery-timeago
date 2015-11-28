@@ -20,6 +20,9 @@
     "component": {
       "scripts": [
         "jquery.timeago.js"
+      ],
+      "files": [
+        "locales/jquery.timeago.*.js"
       ]
     }
   }
