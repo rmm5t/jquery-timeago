@@ -16,6 +16,9 @@
     "time",
     "microformat"
   ],
+  "require": {
+    "components/jquery": ">=1.2.3"
+  },
   "extra": {
     "component": {
       "scripts": [
