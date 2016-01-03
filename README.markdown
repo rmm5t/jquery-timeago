@@ -41,7 +41,9 @@ section:
 </script>
 ```
 
-This will turn all `<time>` elements with a class of `timeago` and a [datetime attribute formatted according to ISO 8601](http://microformats.org/wiki/datetime-design-pattern):
+This will turn all `<time>` elements with a class of `timeago` and a
+`datetime` attribute formatted according to the
+[ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) standard:
 
 ```html
 <time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
@@ -50,12 +52,13 @@ This will turn all `<time>` elements with a class of `timeago` and a [datetime a
 into something like this:
 
 ```html
-<time class="timeago" datetime="December 17, 2011">about 1 day ago</time>
+<time class="timeago" datetime="2011-12-17T09:24:17Z" title="December 17, 2011">about 1 day ago</time>
 ```
 
-`<abbr>` elements are also supported (this is for legacy browsers and was
-originally supported by the library before `time` element was introduced to
-HTML):
+`<abbr>` elements are also supported (this is for
+[legacy microformat support](http://microformats.org/wiki/datetime-design-pattern)
+and was originally supported by the library before the `time` element was
+introduced to HTML5):
 
 ```html
 <abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
