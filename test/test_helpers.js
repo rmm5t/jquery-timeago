@@ -11,8 +11,8 @@ var iso8601 = function (date) {
 };
 
 function prepareDynamicDates() {
-  $('abbr.loaded').attr("title", iso8601(new Date()));
-  $('abbr.modified').attr("title", iso8601(new Date(document.lastModified)));
+  $('time.loaded').attr("datetime", iso8601(new Date()));
+  $('time.modified').attr("datetime", iso8601(new Date(document.lastModified)));
 }
 
 function loadNumbers() {
@@ -23,11 +23,11 @@ function unloadNumbers() {
 }
 
 function loadCutoffSetting() {
-	jQuery.timeago.settings.cutoff = 7*24*60*60*1000;
+  jQuery.timeago.settings.cutoff = 7*24*60*60*1000;
 }
 
 function unloadCutoffSetting() {
-	jQuery.timeago.settings.cutoff = 0;
+  jQuery.timeago.settings.cutoff = 0;
 }
 
 function setupDisposal() {

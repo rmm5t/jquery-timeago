@@ -10,7 +10,7 @@
     <script type="text/javascript">
       jQuery(document).ready(function($) {
         prepareDynamicDates();
-        $("abbr.timeago").timeago();
+        $(".timeago").timeago();
 
         $("#prog_date").text(jQuery.timeago(new Date()));
         $("#prog_string").text(jQuery.timeago("2008-07-17"));
@@ -33,7 +33,7 @@
       pre { background-color: #333; color: #fff; margin: 12px 0; font-size: 12px; padding: 0 6px; }
       pre em { font-style: normal; background-color: #554; }
       pre, tt { font-family: monaco,"courier new",mono; }
-      abbr { border-bottom: 1px dotted #333; }
+      abbr[title], time[title] { border-bottom: 1px dotted #333; }
       tt { font-size: 14px; }
       a { color: #06e; padding: 1px; }
       em { font-style: normal; background-color: #feb }
@@ -56,13 +56,13 @@
       </p>
       <noscript><p class="example"><strong>Whoah, whoah, whoah. You see the irony here, don't you? You're looking for a jQuery plugin, yet you surf the Internet with JavaScript turned off. This confuses the Interwebs. Afterall, there might be some useful demos and such that you could enjoy, but instead, you're wasting your time reading this. I'm so sorry.</strong></p></noscript>
       <p class="example">
-        You opened this page <abbr class="loaded timeago">when you opened the page</abbr>. <span class="help">(This will update every minute. Wait for it.)</span>
+        You opened this page <time class="loaded timeago">when you opened the page</time>. <span class="help">(This will update every minute. Wait for it.)</span>
       </p>
       <p class="example">
-        This page was last modified <abbr class="modified timeago">sometime before now [browser might not support document.lastModified]</abbr>.
+        This page was last modified <time class="modified timeago">sometime before now [browser might not support document.lastModified]</time>.
       </p>
       <p class="example">
-        Ryan was born <abbr class="timeago" title="1978-12-18T17:17:00Z">Dec 18, 1978</abbr>.
+        Ryan was born <time class="timeago" datetime="1978-12-18T17:17:00Z">Dec 18, 1978</time>.
       </p>
 
       <h3>Why?</h3>
@@ -70,7 +70,7 @@
       <ul>
         <li>Avoid timestamps dated "1 minute ago" even though the page was opened 10 minutes ago; <em>timeago refreshes automatically</em>.</li>
         <li>You can <em>take full advantage of page caching</em> in your web applications, because the timestamps aren't calculated on the server.</li>
-        <li>You get to <em>use <a href="http://microformats.org/wiki/datetime-design-pattern">microformats</a></em> like the cool kids.</li>
+        <li>You get to <em>use standard HTML5 tags</em>.</li>
       </ul>
 
       <h3>How?</h3>
@@ -85,21 +85,21 @@
       </p>
       <pre>
 jQuery(document).ready(function() {
-  jQuery("abbr.timeago").timeago();
+  jQuery("time.timeago").timeago();
 });</pre>
       <p class="how">
-        This will turn all <tt>abbr</tt> elements with a class
-        of <tt>timeago</tt> and an <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp in the title:
+        This will turn all <tt>time</tt> elements with a class
+        of <tt>timeago</tt> and an <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp in the datetime:
       </p>
       <pre>
-&lt;abbr class=&quot;<em>timeago</em>&quot; title=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/abbr&gt;</pre>
+&lt;time class=&quot;<em>timeago</em>&quot; datetime=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/time&gt;</pre>
       <p class="how">
         into something like this:
       </p>
       <pre>
-&lt;abbr class=&quot;timeago&quot; title=&quot;July 17, 2008&quot;&gt;<em><abbr class="timeago" title="2008-07-17T09:24:17Z">time ago</abbr></em>&lt;/abbr&gt;</pre>
+&lt;time class=&quot;timeago&quot; datetime=&quot;<em>2008-07-17T09:24:17Z</em>&quot; title=&quot;July 17, 2008&quot;&gt;<em><time class="timeago" datetime="2008-07-17T09:24:17Z">time ago</time></em>&lt;/time&gt;</pre>
       <p>
-        which yields: <abbr class="timeago" title="2008-07-17T09:24:17Z">July 17, 2008</abbr>.  As time passes, the timestamps will automatically update.
+        which yields: <time class="timeago" datetime="2008-07-17T09:24:17Z">July 17, 2008</time>.  As time passes, the timestamps will automatically update.
       </p>
 
       <p class="how">
@@ -108,7 +108,7 @@ jQuery(document).ready(function() {
       <pre>
 jQuery.timeago(new Date());             //=> &quot;<span id="prog_date"></span>&quot;
 jQuery.timeago("2008-07-17");           //=> &quot;<span id="prog_string"></span>&quot;
-jQuery.timeago(jQuery("abbr#some_id")); //=> &quot;<span id="prog_element"></span>&quot;     // [title=&quot;2008-07-20&quot;]</pre>
+jQuery.timeago(jQuery("time#some_id")); //=> &quot;<span id="prog_element"></span>&quot;     // [title=&quot;2008-07-20&quot;]</pre>
 
       <p class="how">
         To support timestamps in the future, use the <tt>allowFuture</tt> setting:
@@ -151,21 +151,21 @@ jQuery.timeago.settings.allowPast = false;</pre>
 
       <h3>When?</h3>
       <p>
-        Timeago was conceived <abbr class="timeago" title="2008-07-17T02:30:00-0500">on July 17, 2008</abbr>.  <span class="help">(Yup, that's powered by timeago too)</span>
+        Timeago was conceived <time class="timeago" title="2008-07-17T02:30:00-0500">on July 17, 2008</time>.  <span class="help">(Yup, that's powered by timeago too)</span>
       </p>
 
       <h3>What else?</h3>
       <p class="example">
-        HTML5 has a new <tt>time</tt> tag and timeago supports it too.
+        The HTML5 <tt>time</tt> tag is strongly recommended, but the legacy <a href="http://microformats.org/wiki/datetime-design-pattern">datetime microformat</a> using the <tt>abbr</tt> tag is also supported:
       </p>
       <pre>
-&lt;time class=&quot;<em>timeago</em>&quot; datetime=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/time&gt;</pre>
+&lt;abbr class=&quot;<em>timeago</em>&quot; title=&quot;<em>2008-07-17T09:24:17Z</em>&quot;&gt;July 17, 2008&lt;/abbr&gt;</pre>
       <p class="how">
         Attach timeago like so:
       </p>
       <pre>
 jQuery(document).ready(function() {
-  jQuery("time.timeago").timeago();
+  jQuery("abbr.timeago").timeago();
 });</pre>
 
       <p>
@@ -180,12 +180,12 @@ jQuery(document).ready(function() {
 
       <h3>Huh?</h3>
       <p class="last">
-        Need a Rails helper to make those fancy microformat <tt>abbr</tt> tags?  Fine, here ya go:
+        Need a Rails helper to make those fancy microformat <tt>time</tt> tags?  Fine, here ya go:
       </p>
       <pre>
 def timeago(time, options = {})
   options[:class] ||= "timeago"
-  content_tag(:abbr, time.to_s, options.merge(:title => time.getutc.iso8601)) if time
+  content_tag(:time, time.to_s, options.merge(datetime: time.getutc.iso8601)) if time
 end</pre>
 
       <h3>Do you use Timeago?</h3>
