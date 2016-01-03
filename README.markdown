@@ -41,26 +41,24 @@ section:
 </script>
 ```
 
-This will turn all time elements with a class of timeago and an ISO 8601
-timestamp in the title (conforming to the
-[datetime design pattern microformat](http://microformats.org/wiki/datetime-design-pattern)):
+This will turn all `<time>` elements with a class of `timeago` and a [datetime attribute formatted according to ISO 8601](http://microformats.org/wiki/datetime-design-pattern):
 
 ```html
-<time class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</time>
+<time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
 ```
 
 into something like this:
 
 ```html
-<time class="timeago" title="December 17, 2011">about 1 day ago</time>
+<time class="timeago" datetime="December 17, 2011">about 1 day ago</time>
 ```
 
-HTML5 `<abbr>` elements are also supported (this is for legacy browsers and was
+`<abbr>` elements are also supported (this is for legacy browsers and was
 originally supported by the library before `time` element was introduced to
 HTML):
 
 ```html
-<abbr class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</abbr>
+<abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
 ```
 
 As time passes, the timestamps will automatically update.
