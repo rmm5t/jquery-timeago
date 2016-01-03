@@ -36,29 +36,29 @@ section:
 ```html
 <script type="text/javascript">
    jQuery(document).ready(function() {
-     $("abbr.timeago").timeago();
+     $("time.timeago").timeago();
    });
 </script>
 ```
 
-This will turn all abbr elements with a class of timeago and an ISO 8601
-timestamp in the title (conforming to the
-[datetime design pattern microformat](http://microformats.org/wiki/datetime-design-pattern)):
+This will turn all `<time>` elements with a class of `timeago` and a [datetime attribute formatted according to ISO 8601](http://microformats.org/wiki/datetime-design-pattern):
 
 ```html
-<abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
+<time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
 ```
 
 into something like this:
 
 ```html
-<abbr class="timeago" title="December 17, 2011">about 1 day ago</abbr>
+<time class="timeago" datetime="December 17, 2011">about 1 day ago</time>
 ```
 
-HTML5 `<time>` elements are also supported:
+`<abbr>` elements are also supported (this is for legacy browsers and was
+originally supported by the library before `time` element was introduced to
+HTML):
 
 ```html
-<time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
+<abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
 ```
 
 As time passes, the timestamps will automatically update.
