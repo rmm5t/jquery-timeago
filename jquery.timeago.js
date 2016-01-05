@@ -46,6 +46,7 @@
       localeTitle: false,
       cutoff: 0,
       autoDispose: true,
+	  asEpoch: false, // specifies that the value for datetime attribute is specified in milliseconds (unix epoch)
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -117,13 +118,18 @@
     },
 
     parse: function(iso8601) {
-      var s = $.trim(iso8601);
-      s = s.replace(/\.\d+/,""); // remove milliseconds
-      s = s.replace(/-/,"/").replace(/-/,"/");
-      s = s.replace(/T/," ").replace(/Z/," UTC");
-      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
-      s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
-      return new Date(s);
+	  if(!this.settings.asEpoch) {
+        var s = $.trim(iso8601);
+        s = s.replace(/\.\d+/,""); // remove milliseconds
+        s = s.replace(/-/,"/").replace(/-/,"/");
+        s = s.replace(/T/," ").replace(/Z/," UTC");
+        s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
+        s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
+        return new Date(s);
+	  }
+	  
+	  // return the date from milliseconds
+	  return new Date(Number(iso8601));
     },
     datetime: function(elem) {
       var iso8601 = $t.isTime(elem) ? $(elem).attr("datetime") : $(elem).attr("title");
