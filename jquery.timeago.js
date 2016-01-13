@@ -18,7 +18,7 @@
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
-  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+  } if (typeof module === 'object' && typeof module.exports === 'object') {
     factory(require('jquery'));
   } else {
     // Browser globals
@@ -42,8 +42,11 @@
     settings: {
       refreshMillis: 60000,
       allowPast: true,
-      allowFuture: false,
+      allowFuture: true,
       localeTitle: false,
+      allowColors: true,
+      inPast: true,
+      inPastColor: { past: 'timeago-past', future: 'timeago-future' },
       cutoff: 0,
       autoDispose: true,
       strings: {
@@ -68,6 +71,8 @@
       }
     },
 
+
+
     inWords: function(distanceMillis) {
       if(!this.settings.allowPast && ! this.settings.allowFuture) {
           throw 'timeago allowPast and allowFuture settings can not both be set to false.';
@@ -76,12 +81,17 @@
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
+      inPast = true;
+
       if (this.settings.allowFuture) {
         if (distanceMillis < 0) {
           prefix = $l.prefixFromNow;
           suffix = $l.suffixFromNow;
+          inPast = false;
         }
       }
+
+      this.settings.inPast = inPast;
 
       if(!this.settings.allowPast && distanceMillis >= 0) {
         return this.settings.strings.inPast;
@@ -98,6 +108,7 @@
         var value = ($l.numbers && $l.numbers[number]) || number;
         return string.replace(/%d/i, value);
       }
+
 
       var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
         seconds < 90 && substitute($l.minute, 1) ||
@@ -142,6 +153,7 @@
     init: function(){
       var refresh_el = $.proxy(refresh, this);
       refresh_el();
+      refresh.apply(this);
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
         this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
@@ -177,6 +189,15 @@
     return this;
   };
 
+  function getTime(set, tense) {
+    if(!set) {
+      return $.timeago.settings.inPast;
+
+    } else {
+      $.timeago.settings.inPast = tense;
+    }
+  };
+
   function refresh() {
     var $s = $t.settings;
 
@@ -208,6 +229,16 @@
         element.attr("title", text);
       }
     }
+    if($t.settings.allowColors) {
+      var colorClass;
+      if($t.settings.inPast) {
+        colorClass = $t.settings.inPastColor.past;
+      } else {
+        colorClass = $t.settings.inPastColor.future;
+      }
+      element.addClass(colorClass);
+    }
+    
     return element.data("timeago");
   }
 
