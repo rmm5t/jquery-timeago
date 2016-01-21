@@ -69,7 +69,7 @@
     },
 
     inWords: function(distanceMillis) {
-      if(!this.settings.allowPast && ! this.settings.allowFuture) {
+      if (!this.settings.allowPast && ! this.settings.allowFuture) {
           throw 'timeago allowPast and allowFuture settings can not both be set to false.';
       }
 
@@ -83,7 +83,7 @@
         }
       }
 
-      if(!this.settings.allowPast && distanceMillis >= 0) {
+      if (!this.settings.allowPast && distanceMillis >= 0) {
         return this.settings.strings.inPast;
       }
 
@@ -139,7 +139,7 @@
   // init is default when no action is given
   // functions are called with context of a single element
   var functions = {
-    init: function(){
+    init: function() {
       var refresh_el = $.proxy(refresh, this);
       refresh_el();
       var $s = $t.settings;
@@ -147,13 +147,13 @@
         this._timeagoInterval = setInterval(refresh_el, $s.refreshMillis);
       }
     },
-    update: function(time){
-      var parsedTime = $t.parse(time);
-      $(this).data('timeago', { datetime: parsedTime });
-      if($t.settings.localeTitle) $(this).attr("title", parsedTime.toLocaleString());
+    update: function(timestamp) {
+      var date = (timestamp instanceof Date) ? timestamp : $t.parse(timestamp);
+      $(this).data('timeago', { datetime: date });
+      if ($t.settings.localeTitle) $(this).attr("title", date.toLocaleString());
       refresh.apply(this);
     },
-    updateFromDOM: function(){
+    updateFromDOM: function() {
       $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
       refresh.apply(this);
     },
@@ -167,11 +167,11 @@
 
   $.fn.timeago = function(action, options) {
     var fn = action ? functions[action] : functions.init;
-    if(!fn){
+    if (!fn) {
       throw new Error("Unknown function name '"+ action +"' for timeago");
     }
     // each over objects here and call the requested function
-    this.each(function(){
+    this.each(function() {
       fn.call(this, options);
     });
     return this;
@@ -181,7 +181,7 @@
     var $s = $t.settings;
 
     //check if it's still visible
-    if($s.autoDispose && !$.contains(document.documentElement,this)){
+    if ($s.autoDispose && !$.contains(document.documentElement,this)) {
       //stop if it has been removed
       $(this).timeago("dispose");
       return this;
