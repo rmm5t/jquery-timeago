@@ -66,6 +66,12 @@ introduced to HTML5):
 
 As time passes, the timestamps will automatically update.
 
+If you want to update a timestamp, just do something like
+
+```html
+jQuery("time#timeago").timeago('update', new_ISO8601_string);
+```
+
 **For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
 
 **For different language configurations**: visit the [`locales`](https://github.com/rmm5t/jquery-timeago/tree/master/locales) directory.
