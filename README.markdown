@@ -66,10 +66,13 @@ introduced to HTML5):
 
 As time passes, the timestamps will automatically update.
 
-If you want to update a timestamp, just do something like
+If you want to update a timestamp programatically later, call the `update`
+function with a new ISO8601 timestamp of `Date` object. For example:
 
-```html
-jQuery("time#timeago").timeago('update', new_ISO8601_string);
+```javascript
+$("time#some_id").timeago("update", "2013-12-17T09:24:17Z");
+// or
+$("time#some_id").timeago("update", new Date());
 ```
 
 **For more usage and examples**: [http://timeago.yarp.com/](http://timeago.yarp.com/)
