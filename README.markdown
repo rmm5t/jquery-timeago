@@ -83,11 +83,11 @@ $("time#some_id").timeago("update", new Date());
 
 | Version | Notes                                                                           |
 |---------|---------------------------------------------------------------------------------|
-|   1.5.x | ([compare][compare-1.5]) Added Date object as argument to update function       |
-|   1.4.x | ([compare][compare-1.4]) Added allowPast setting                                |
+|   1.5.x | ([compare][compare-1.5]) Added Date as argument to update function; locales     |
+|   1.4.x | ([compare][compare-1.4]) Added allowPast setting; locale updates                |
 |   1.3.x | ([compare][compare-1.3]) Added updateFromDOM function; bug fixes; bower support |
-|   1.2.x | ([compare][compare-1.2]) Added cutoff setting                                   |
-|   1.1.x | ([compare][compare-1.1]) Added update function                                  |
+|   1.2.x | ([compare][compare-1.2]) Added cutoff setting; locale updates                   |
+|   1.1.x | ([compare][compare-1.1]) Added update function; locale updates                  |
 |   1.0.x | ([compare][compare-1.0]) locale updates; bug fixes; AMD wrapper                 |
 |  0.11.x | ([compare][compare-0.11]) natural rounding; locale updates;                     |
 |  0.10.x | ([compare][compare-0.10]) locale updates                                        |
@@ -96,7 +96,7 @@ $("time#some_id").timeago("update", new Date());
 |   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests                  |
 |     ... | ...                                                                             |
 
-[compare-1.5]: https://github.com/rmm5t/jquery-timeago/compare/v1.4.3...v1.5.0
+[compare-1.5]: https://github.com/rmm5t/jquery-timeago/compare/v1.4.3...v1.5.1
 [compare-1.4]: https://github.com/rmm5t/jquery-timeago/compare/v1.3.2...v1.4.3
 [compare-1.3]: https://github.com/rmm5t/jquery-timeago/compare/v1.2.0...v1.3.2
 [compare-1.2]: https://github.com/rmm5t/jquery-timeago/compare/v1.1.0...v1.2.0
