@@ -83,6 +83,15 @@ $("time#some_id").timeago("update", new Date());
 
 **For different language configurations**: visit the [`locales`](https://github.com/rmm5t/jquery-timeago/tree/master/locales) directory.
 
+## Settings
+
+**`cutoff`** : Return the original date if time distance is older than `cutoff` (miliseconds).
+
+```javascript
+// Display original dates older than 24 hours
+jQuery.timeago.settings.cutoff = 1000*60*60*24;
+```
+
 ## Changes
 
 | Version | Notes                                                                           |
