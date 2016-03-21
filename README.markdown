@@ -3,9 +3,10 @@
 [![NPM](https://img.shields.io/npm/v/timeago.svg)](https://www.npmjs.com/package/timeago)
 [![Bower](https://img.shields.io/bower/v/jquery-timeago.svg)](http://bower.io/search/?q=jquery-timeago)
 
-Timeago is a jQuery plugin that makes it easy to support automatically updating
-fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago") from ISO 8601
-formatted dates and times embedded in your HTML (à la microformats).
+Timeago is a jQuery plugin for adding automatically updating fuzzy timestamps 
+(e.g. "4 minutes ago" or "about 1 day ago") from ISO 8601 formatted dates
+and times to HTML (à la microformats). It processes and auto-formats
+date and times found in either `<time>` or `<abbr>` elements.
 
 ---
 
@@ -34,7 +35,17 @@ First, load jQuery and the plugin:
 <script src="jquery.timeago.js" type="text/javascript"></script>
 ```
 
-Now, let's attach it to your timestamps on DOM ready - put this in the head
+Next, mark up your HTML by placing [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601)-formatted
+timestamps in `datetime` attributes on either `<time>` or `<abbr>`* elements, like so:
+
+```html
+<time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
+```
+
+*Note: * `<abbr>` is for [legacy microformat use](http://microformats.org/wiki/datetime-design-pattern). 
+Elements other than `<time>` or `<abbr>` are not supported.*
+
+Finally, attach the plugin to your timestamps on DOM ready - put this in the head
 section:
 
 ```html
@@ -45,27 +56,11 @@ section:
 </script>
 ```
 
-This will turn all `<time>` elements with a class of `timeago` and a
-`datetime` attribute formatted according to the
-[ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) standard:
-
-```html
-<time class="timeago" datetime="2011-12-17T09:24:17Z">December 17, 2011</time>
-```
-
-into something like this:
+This will turn all `<time>` elements with a class of `timeago` and an
+ISO 8601 `datetime` attribute into something like this:
 
 ```html
 <time class="timeago" datetime="2011-12-17T09:24:17Z" title="December 17, 2011">about 1 day ago</time>
-```
-
-`<abbr>` elements are also supported (this is for
-[legacy microformat support](http://microformats.org/wiki/datetime-design-pattern)
-and was originally supported by the library before the `time` element was
-introduced to HTML5):
-
-```html
-<abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
 ```
 
 As time passes, the timestamps will automatically update.
