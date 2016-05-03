@@ -46,6 +46,8 @@ function loadPigLatin() {
     hours: "about-hay %d hours-hay",
     day: "a-hay ay-day",
     days: "%d ays-day",
+    week: "a-hay ay-week",
+    weeks: "%d ays-weeks",
     month: "about-hay a-hay onth-may",
     months: "%d onths-may",
     year: "about-hay a-hay ear-yay",
