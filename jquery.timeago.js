@@ -59,6 +59,8 @@
         hours: "about %d hours",
         day: "a day",
         days: "%d days",
+        week: "a week",
+        weeks: "%d weeks",
         month: "about a month",
         months: "%d months",
         year: "about a year",
@@ -91,6 +93,7 @@
       var minutes = seconds / 60;
       var hours = minutes / 60;
       var days = hours / 24;
+      var weeks = days / 7;
       var years = days / 365;
 
       function substitute(stringOrFunction, number) {
@@ -105,8 +108,10 @@
         minutes < 90 && substitute($l.hour, 1) ||
         hours < 24 && substitute($l.hours, Math.round(hours)) ||
         hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
+        days < 7 && substitute($l.days, Math.round(days)) ||
+        days < 11 && substitute($l.week, 1) ||
+        weeks < 4 && substitute($l.weeks, Math.round(weeks)) ||
+        weeks < 5 && substitute($l.month, 1) ||
         days < 365 && substitute($l.months, Math.round(days / 30)) ||
         years < 1.5 && substitute($l.year, 1) ||
         substitute($l.years, Math.round(years));
