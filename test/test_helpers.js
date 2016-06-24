@@ -170,7 +170,7 @@ function enableMockedDate(dateToReturn) {
     } else {
       throw "Mocking Date with this number of parameters is not implemented.";
     }
-  }
+  };
 }
 
 function disableMockedDate() {
