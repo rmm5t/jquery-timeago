@@ -1,5 +1,7 @@
 // Bosnian
 (function() {
+  'use strict';
+
   var numpf;
 
   numpf = function(n, f, s, t) {

@@ -1,5 +1,7 @@
 // Macedonian
 (function() {
+ 'use strict';
+
  jQuery.timeago.settings.strings={
     prefixAgo: "пред",
     prefixFromNow: "за",
