@@ -15,6 +15,7 @@
  */
 
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
@@ -25,6 +26,7 @@
     factory(jQuery);
   }
 }(function ($) {
+  'use strict';
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
@@ -150,7 +152,9 @@
     update: function(timestamp) {
       var date = (timestamp instanceof Date) ? timestamp : $t.parse(timestamp);
       $(this).data('timeago', { datetime: date });
-      if ($t.settings.localeTitle) $(this).attr("title", date.toLocaleString());
+      if ($t.settings.localeTitle) {
+        $(this).attr("title", date.toLocaleString());
+      }
       refresh.apply(this);
     },
     updateFromDOM: function() {

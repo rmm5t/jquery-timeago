@@ -33,11 +33,11 @@
       li { line-height: 24px; }
       pre { background-color: #333; color: #fff; margin: 12px 0; font-size: 12px; padding: 0 6px; }
       pre em { font-style: normal; background-color: #554; }
-      pre, tt { font-family: monaco,"courier new",mono; }
+      pre, tt { font-family: monaco, "courier new", mono, monospace; }
       abbr[title], time[title] { border-bottom: 1px dotted #333; }
       tt { font-size: 14px; }
       a { color: #06e; padding: 1px; }
-      em { font-style: normal; background-color: #feb }
+      em { font-style: normal; background-color: #feb; }
       a:hover { background-color: #06c; color: #fff; text-decoration: none; }
       #content { margin:0 auto; padding: 24px; width:700px; background-color:#fff; border: 1px solid #999; border-width: 0 1px 1px 1px; }
       #footer { margin:0 auto 24px; padding: 12px; width:700px; line-height: 24px; }
@@ -211,8 +211,8 @@ end</pre>
     <a class="github-fork-ribbon" href="http://github.com/rmm5t/jquery-timeago" title="Fork me on GitHub">Fork me on GitHub</a>
 
     <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    var gaJsHost = ((document.location.protocol === "https:") ? "https://ssl." : "http://www.");
+    document.write(decodeURI("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
     </script>
     <script type="text/javascript">
     var pageTracker = _gat._getTracker("UA-2856277-2");

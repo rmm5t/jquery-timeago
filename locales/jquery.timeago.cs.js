@@ -1,7 +1,9 @@
 // Czech
 (function() {
+	'use strict';
+
 	function f(n, d, a) {
-		return a[d>=0 ? 0 : a.length==2 || n<5 ? 1 : 2];
+		return a[d >= 0 ? 0 : a.length === 2 || n < 5 ? 1 : 2];
 	}
 
 	jQuery.timeago.settings.strings = {

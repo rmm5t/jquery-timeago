@@ -6,11 +6,23 @@ jQuery.timeago.settings.strings = {
   minute: "דקה",
   minutes: "%d דקות",
   hour: "שעה",
-  hours: function(number){return (number==2) ? "שעתיים" : "%d שעות";},
+  hours: function(number){
+    'use strict';
+    return (number==2) ? "שעתיים" : "%d שעות";
+  },
   day: "יום",
-  days: function(number){return (number==2) ? "יומיים" : "%d ימים";},
+  days: function(number){
+    'use strict';
+    return (number==2) ? "יומיים" : "%d ימים";
+  },
   month: "חודש",
-  months: function(number){return (number==2) ? "חודשיים" : "%d חודשים";},
+  months: function(number){
+    'use strict';
+    return (number==2) ? "חודשיים" : "%d חודשים";
+  },
   year: "שנה",
-  years: function(number){return (number==2) ? "שנתיים" : "%d שנים";}
+  years: function(number){
+    'use strict';
+    return (number==2) ? "שנתיים" : "%d שנים";
+  }
 };

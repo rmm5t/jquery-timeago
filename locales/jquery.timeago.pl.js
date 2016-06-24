@@ -1,5 +1,7 @@
 // Polish
 (function() {
+  'use strict';
+
   function numpf(n, s, t) {
     // s - 2-4, 22-24, 32-34 ...
     // t - 5-21, 25-31, ...
