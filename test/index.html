@@ -672,20 +672,22 @@
       module("Disposal");
 
       asyncTest("disposal", function() {
-        $(".disposal.disposed").timeago('dispose');
-        var initialTime_disposedTimeago = $(".disposal.disposed").html();
-        var initialTime_activeTimeago = $(".disposal.notDisposed").html();
+        var disposed = $(".disposal.disposed");
+        var active = $(".disposal.notDisposed");
+        disposed.timeago('dispose');
+        var initialTime_disposedTimeago = disposed.html();
+        var initialTime_activeTimeago = active.html();
 
         expect(2);
         setTimeout(function() {
-          var updatedTime_disposedTimeago = $(".disposal.disposed").html();
-          var updatedTime_activeTimeago = $(".disposal.notDisposed").html();
+          var updatedTime_disposedTimeago = disposed.html();
+          var updatedTime_activeTimeago = active.html();
 
           ok(initialTime_disposedTimeago === updatedTime_disposedTimeago, "A disposed timeago didn't get updated");
           ok(initialTime_activeTimeago !== updatedTime_activeTimeago, "A non-disposed timeago continued to be updated");
 
           // Dispose still-active timeago
-          $(".disposal.notDisposed").timeago('dispose');
+          active.timeago('dispose');
           resetRefreshMillis();
           start();
         }, 50);
