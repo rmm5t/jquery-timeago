@@ -150,7 +150,9 @@
     update: function(timestamp) {
       var date = (timestamp instanceof Date) ? timestamp : $t.parse(timestamp);
       $(this).data('timeago', { datetime: date });
-      if ($t.settings.localeTitle) $(this).attr("title", date.toLocaleString());
+      if ($t.settings.localeTitle) {
+        $(this).attr("title", date.toLocaleString());
+      }
       refresh.apply(this);
     },
     updateFromDOM: function() {
