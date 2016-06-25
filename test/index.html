@@ -362,11 +362,11 @@
       module("Tooltip");
 
       test("should set title to original text contents", function () {
-        ok($("#testTooltip").attr("title") == "February 26th", "correctly set");
+        ok($("#testTooltip").attr("title") === "February 26th", "correctly set");
       });
 
       test("should leave title alone if no text text content", function () {
-        ok($("#defaultTooltip").attr("title") == "2008-02-26", "correctly set");
+        ok($("#defaultTooltip").attr("title") === "2008-02-26", "correctly set");
       });
 
       test("should preserve title in time tags", function () {
