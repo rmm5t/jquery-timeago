@@ -17,5 +17,6 @@ jQuery.timeago.settings.strings = {
   months: "%d ماه",
   year: "حدود یک سال",
   years: "%d سال",
-  wordSeparator: " "
+  wordSeparator: " ",
+  numbers: ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
 };
