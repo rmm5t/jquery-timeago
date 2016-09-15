@@ -1,18 +1,20 @@
 // Catalan
 jQuery.timeago.settings.strings = {
   prefixAgo: "fa",
-  prefixFromNow: "d'aqui a",
+  prefixFromNow: "d'aquí",
   suffixAgo: null,
   suffixFromNow: null,
-  seconds: "menys d'1 minut",
-  minute: "1 minut",
-  minutes: "uns %d minuts",
-  hour: "1 hora",
-  hours: "unes %d hores",
-  day: "1 dia",
+  seconds: "menys d'un minut",
+  minute: "un minut",
+  minutes: "%d minuts",
+  hour: "una hora",
+  hours: "%d hores",
+  day: "un dia",
   days: "%d dies",
-  month: "aproximadament un mes",
+  month: "un mes",
   months: "%d mesos",
-  year: "aproximadament un any",
-  years: "%d anys"
+  year: "un any",
+  years: "%d anys",
+  wordSeparator: " ",
+  numbers: []
 };
