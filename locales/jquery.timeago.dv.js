@@ -4,9 +4,9 @@
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['jquery'], factory);
+    define(['jquery', 'jquery.timeago'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
-    factory(require('jquery'));
+    factory(require('jquery', 'jquery.timeago'));
   } else {
     // Browser globals
     factory(jQuery);
