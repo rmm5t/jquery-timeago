@@ -1,8 +1,16 @@
 // Bosnian
-(function() {
-  var numpf;
-
-  numpf = function(n, f, s, t) {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    // Browser globals
+    factory(jQuery);
+  }
+}(function ($) {
+  function numpf(n, f, s, t) {
     var n10;
     n10 = n % 10;
     if (n10 === 1 && (n === 1 || n > 20)) {
@@ -13,8 +21,7 @@
       return t;
     }
   };
-
-  jQuery.timeago.settings.strings = {
+  $.timeago.settings.strings = {
     prefixAgo: "prije",
     prefixFromNow: "za",
     suffixAgo: null,
@@ -45,5 +52,4 @@
     },
     wordSeparator: " "
   };
-
-}).call(this);
+}));
