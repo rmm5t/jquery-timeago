@@ -1,5 +1,15 @@
 // Russian
-(function() {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery', 'jquery.timeago'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery', 'jquery.timeago'));
+  } else {
+    // Browser globals
+    factory(jQuery);
+  }
+}(function ($) {
   function numpf(n, f, s, t) {
     // f - 1, 21, 31, ...
     // s - 2-4, 22-24, 32-34 ...
@@ -14,7 +24,7 @@
     }
   }
 
-  jQuery.timeago.settings.strings = {
+  $.timeago.settings.strings = {
     prefixAgo: null,
     prefixFromNow: "через",
     suffixAgo: "мурун",
@@ -31,4 +41,4 @@
     year: "жыл",
     years: function(value) { return numpf(value, "%d жыл", "%d жыл", "%d жыл"); }
   };
-})();
+}));

@@ -1,6 +1,16 @@
 // Macedonian
-(function() {
- jQuery.timeago.settings.strings={
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery', 'jquery.timeago'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery', 'jquery.timeago'));
+  } else {
+    // Browser globals
+    factory(jQuery);
+  }
+}(function ($) {
+ $.timeago.settings.strings={
     prefixAgo: "пред",
     prefixFromNow: "за",
     suffixAgo: null,
@@ -17,4 +27,4 @@
     year: "%d година",
     years: "%d години"
  };
-})();
+}));

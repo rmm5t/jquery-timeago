@@ -1,5 +1,15 @@
 // Polish
-(function() {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery', 'jquery.timeago'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery', 'jquery.timeago'));
+  } else {
+    // Browser globals
+    factory(jQuery);
+  }
+}(function ($) {
   function numpf(n, s, t) {
     // s - 2-4, 22-24, 32-34 ...
     // t - 5-21, 25-31, ...
@@ -11,7 +21,7 @@
     }
   }
 
-  jQuery.timeago.settings.strings = {
+  $.timeago.settings.strings = {
     prefixAgo: null,
     prefixFromNow: "za",
     suffixAgo: "temu",
@@ -28,4 +38,4 @@
     year: "rok",
     years: function(value) { return numpf(value, "%d lata", "%d lat"); }
   };
-})();
+}));
