@@ -4,6 +4,7 @@
     // f - 1, 21, 31, ...
     // s - 2-4, 22-24, 32-34 ...
     // t - 5-20, 25-30, ...
+    n = n % 100;
     var n10 = n % 10;
     if ( (n10 === 1) && ( (n === 1) || (n > 20) ) ) {
       return f;
@@ -21,7 +22,7 @@
     suffixFromNow: null,
     seconds: "меньше минуты",
     minute: "минуту",
-    minutes: function(value) { return numpf(value, "%d минута", "%d минуты", "%d минут"); },
+    minutes: function(value) { return numpf(value, "%d минуту", "%d минуты", "%d минут"); },
     hour: "час",
     hours: function(value) { return numpf(value, "%d час", "%d часа", "%d часов"); },
     day: "день",
