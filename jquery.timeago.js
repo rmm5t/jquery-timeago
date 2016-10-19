@@ -70,10 +70,12 @@
        * Secondary Fuzzing routine for post-processing.
        * Should take in the element in question, the originally intended TimeAgo text and the distanceMillis between
        * now and the given date.
+       * 
+       * function(el, originalText, distanceMillis) {
+       *  return originalText;
+       * }
        */
-      secondaryFuzzing: function(el, originalText, distanceMillis) {
-    	  return originalText;
-      }
+      secondaryFuzzing: false
     },
 
     inWords: function(distanceMillis) {
