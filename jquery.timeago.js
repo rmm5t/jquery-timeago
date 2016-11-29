@@ -13,6 +13,8 @@
  *
  * Copyright (c) 2008-2015, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
+
+
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -41,7 +43,7 @@
         settings: {
             refreshMillis: 60000,
             allowPast: true,
-            allowFuture: false,
+            allowFuture: true,
             localeTitle: true,
             cutoff: 0,
             autoDispose: true,
@@ -92,11 +94,11 @@
             var hours = minutes / 60;
             var days = hours / 24;
             var years = days / 365;
-            if(hours > 42){
+            if (hours > 42) {
                 day = date.getDate();
-                month = date.getMonth();
+                month = date.getMonth() + 1;
                 year = date.getFullYear();
-                return day+'\\'+ month +'\\'+year;
+                return year + '-' + month + '-' + day;
             }
             function substitute(stringOrFunction, number) {
                 var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
@@ -104,7 +106,7 @@
                 return string.replace(/%d/i, value);
             }
 
-            var  words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
+            var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
                 seconds < 90 && substitute($l.minute, 1) ||
                 minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
                 minutes < 90 && substitute($l.hour, 1) ||
@@ -215,6 +217,7 @@
                 element.attr("title", text);
             }
         }
+
         return element.data("timeago");
     }
 
@@ -223,22 +226,31 @@
         return $t.inWords(localDate);
     }
 
-    function convertToLocalTime(date) {
-        newDate = new Date();
-        utc = date.getTime();
-        utc = date.getTime() - (newDate.getTimezoneOffset() * 60000);
-        var localDate = new Date(utc);
-        return localDate;
+    function convertToLocalTime(utcDate) {
+        return new Date(utcDate + ' UTC');
     }
 
-    function convertToPrettyTime(localDate) {
-        var localDate = new Date(utc);
-        var curr_hours =localDate.getHours();
-        var curr_min = localDate.getMinutes();
-        var curr_date = localDate.getDate();
-        var curr_month = localDate.getMonth() + 1; //Months are zero based
-        var curr_year = localDate.getFullYear();
-        return curr_date + "-" + curr_month + "-" + curr_year + " " + curr_hours + ":" + curr_min;
+    function convertToPrettyTime(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear(),
+            hour = d.getHours(),
+            minute = d.getMinutes(),
+            second = d.getSeconds();
+        if (month < 10) month = '0' + month;
+        if (day < 10) day = '0' + day;
+        // For American time format, we will not have a leading zero on the hour.
+        // if (hour < 10) hour = '0'+hour;
+        if (minute < 10) minute = '0' + minute;
+        if (second < 10) second = '0' + second;
+
+        // American AM/PM time format.
+        var ampm = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12;
+        hour = hour ? hour : 12;
+
+        return [year, month, day].join('-') +' '+[hour, minute, second].join(':') + ' ' + ampm;
     }
 
     function distance(date) {
