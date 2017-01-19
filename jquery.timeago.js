@@ -140,6 +140,7 @@
   // functions are called with context of a single element
   var functions = {
     init: function() {
+      functions.dispose.call(this);
       var refresh_el = $.proxy(refresh, this);
       refresh_el();
       var $s = $t.settings;
