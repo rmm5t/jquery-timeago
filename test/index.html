@@ -206,6 +206,13 @@
       <li><abbr id="testAllowPastFalse1" class="doNotAllowPast" title="2008-01-01T09:24:17Z">(you shouldn't see this)</abbr></li>
       <li><abbr id="testAllowPastAndFutureFalse" title="2008-01-01T09:24:17Z"></abbr></li>
     </ul>
+	
+	<h2>Using absolute epoch times</h2>
+	
+	<ul>
+		<li><abbr id="epoch1" class="asEpoch" title="1451608200066">(you shouldn't see this)</abbr> (from Jan 1, 2016, 00:30 hrs) </li>
+		<li><abbr id="epoch2" class="asEpoch" title="7762955400756">(you shouldn't see this)</abbr> (from Jan 1, 2216, 00:30 hrs, future) </li>
+	</ul>
 
     <h2>Disposal</h2>
     <p><abbr class="disposal disposed"></abbr></p>
@@ -222,7 +229,7 @@
         var elements       = $(selector);
         var numberOfTests  = elements.length;
         var numberOfPasses = 0;
-
+		
         elements.each(function () {
           if (test($(this))) { numberOfPasses++; }
         });
@@ -234,6 +241,9 @@
         var string = $.timeago.inWords(parseInt(this.title, 10) * 1000);
         $(this).text(string);
       }
+
+	  var defaultSettings = {};
+	  $.extend(defaultSettings, jQuery.timeago.settings);
 
       $.timeago.settings.allowFuture = true;
 
@@ -267,6 +277,14 @@
       $("abbr.doNotAllowPast").timeago();
       unloadDoNotAllowPast();
 
+	  // reload settings
+	  var currentSettings = {};
+	  $.extend(currentSettings, jQuery.timeago.settings);
+	  jQuery.timeago.settings = defaultSettings;
+	  jQuery.timeago.settings.asEpoch = true;
+	  $("abbr.asEpoch").timeago();
+	  jQuery.timeago.settings = currentSettings;
+	  
       setupDisposal();
 
       loadYoungOldYears();
@@ -666,6 +684,13 @@
           $.timeago.settings.allowFuture = origAllowFuture;
           $.timeago.settings.allowPast = origAllowPast;
         }
+      });
+	  
+	  module("As Epoch");
+	  test("Text in abbr tag should be replaced correctly when time is specified in epoch millis", function () {
+        ok(testElements("abbr.asEpoch", function (element) {
+          return (element.html() !== "(you shouldn't see this)");
+        }), "All text was replaced");
       });
 
       module("Disposal");
