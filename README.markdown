@@ -7,6 +7,8 @@ Timeago is a jQuery plugin that makes it easy to support automatically updating
 fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago") from ISO 8601
 formatted dates and times embedded in your HTML (à la microformats).
 
+***NOTE: The npm module previously published under the timeago name was actually [node-timeago](https://github.com/ecto/node-timeago) and is a node compatible wrapper around this version. If you need the node-timeago version, you can still find it on npm as timeago@0.2.0 for now.***
+
 ---
 
 **How You Can Help**
