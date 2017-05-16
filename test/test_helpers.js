@@ -1,3 +1,5 @@
+'use strict';
+
 var zeropad = function (num) {
   return ((num < 10) ? '0' : '') + num;
 };

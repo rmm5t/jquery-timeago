@@ -15,6 +15,7 @@
  */
 
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
@@ -25,6 +26,7 @@
     factory(jQuery);
   }
 }(function ($) {
+  'use strict';
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
