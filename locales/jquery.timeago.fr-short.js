@@ -1,16 +1,20 @@
 // French shortened
 jQuery.timeago.settings.strings = {
-   prefixAgo: "il y a",
-   prefixFromNow: "d'ici",
-   seconds: "moins d'une minute",
-   minute: "une minute",
-   minutes: "%d minutes",
-   hour: "une heure",
-   hours: "%d heures",
-   day: "un jour",
-   days: "%d jours",
-   month: "un mois",
+   prefixAgo: "",
+   prefixFromNow: "",
+   suffixAgo: "",
+   suffixFromNow: "",
+   seconds: "1m",
+   minute: "1m",
+   minutes: "%dm",
+   hour: "1h",
+   hours: "%dh",
+   day: "1j",
+   days: "%dj",
+   month: "1 mois",
    months: "%d mois",
-   year: "un an",
-   years: "%d ans"
+   year: "1 an",
+   years: "%d ans",
+   wordSeparator: " ",
+   numbers: []
 };

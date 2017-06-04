@@ -5,13 +5,15 @@ jQuery.timeago.settings.strings = {
    prefixFromNow: "d'ici",
    seconds: "moins d'une minute",
    minute: "environ une minute",
-   minutes: "environ %d minutes",
+   minutes: "%d minutes",
    hour: "environ une heure",
-   hours: "environ %d heures",
+   hours: "%d heures",
    day: "environ un jour",
-   days: "environ %d jours",
+   days: "%d jours",
    month: "environ un mois",
-   months: "environ %d mois",
-   year: "un an",
-   years: "%d ans"
+   months: "%d mois",
+   year: "environ un an",
+   years: "%d ans",
+   wordSeparator: " ",
+   numbers: []
 };
