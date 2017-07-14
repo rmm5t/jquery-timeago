@@ -1,5 +1,13 @@
-// Russian
-(function() {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    factory(jQuery);
+  }
+}(function (jQuery) {
+  // Russian
   function numpf(n, f, s, t) {
     // f - 1, 21, 31, ...
     // s - 2-4, 22-24, 32-34 ...
@@ -31,4 +39,4 @@
     year: "жыл",
     years: function(value) { return numpf(value, "%d жыл", "%d жыл", "%d жыл"); }
   };
-})();
+});

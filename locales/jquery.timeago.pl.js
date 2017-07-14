@@ -1,5 +1,13 @@
-// Polish
-(function() {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    factory(jQuery);
+  }
+}(function (jQuery) {
+  // Polish
   function numpf(n, s, t) {
     // s - 2-4, 22-24, 32-34 ...
     // t - 5-21, 25-31, ...
@@ -28,4 +36,4 @@
     year: "rok",
     years: function(value) { return numpf(value, "%d lata", "%d lat"); }
   };
-})();
+});

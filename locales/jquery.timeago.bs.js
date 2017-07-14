@@ -1,8 +1,14 @@
-// Bosnian
-(function() {
-  var numpf;
-
-  numpf = function(n, f, s, t) {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    factory(jQuery);
+  }
+}(function (jQuery) {
+  // Bosnian  
+  var numpf = function(n, f, s, t) {
     var n10;
     n10 = n % 10;
     if (n10 === 1 && (n === 1 || n > 20)) {
@@ -45,5 +51,5 @@
     },
     wordSeparator: " "
   };
-
-}).call(this);
+  
+});
