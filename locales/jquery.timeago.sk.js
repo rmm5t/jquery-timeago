@@ -31,4 +31,4 @@
   		years:   function(n, d) {return f(n, d, ['%d rokmi', '%d roky', '%d rokov']);}
   	};
   })();
-});
+}));

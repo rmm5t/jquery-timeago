@@ -23,4 +23,4 @@
      year: "un an",
      years: "%d ans"
   };
-});
+}));

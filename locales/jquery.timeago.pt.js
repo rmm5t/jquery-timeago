@@ -23,4 +23,4 @@
      year: "cerca de um ano",
      years: "%d anos"
   };
-});
+}));

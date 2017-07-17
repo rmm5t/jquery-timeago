@@ -25,4 +25,4 @@
      year: "un ano",
      years: "%d anos"
   };
-});
+}));

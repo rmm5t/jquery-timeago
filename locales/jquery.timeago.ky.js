@@ -39,4 +39,4 @@
     year: "жыл",
     years: function(value) { return numpf(value, "%d жыл", "%d жыл", "%d жыл"); }
   };
-});
+}));

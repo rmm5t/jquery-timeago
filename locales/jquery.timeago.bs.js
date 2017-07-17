@@ -52,4 +52,4 @@
     wordSeparator: " "
   };
   
-});
+}));

@@ -25,4 +25,4 @@
     year: "etwa einem Jahr",
     years: "%d Jahren"
   };
-});
+}));

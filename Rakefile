@@ -34,7 +34,7 @@ task :umd, [:files] do |t, args|
           }
         }(function (jQuery) {
         #{indent(str)}
-        });
+        }));
       HEREDOC
     end
     

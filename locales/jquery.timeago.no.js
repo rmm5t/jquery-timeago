@@ -25,4 +25,4 @@
     year: "ca. et år",
     years: "%d år"
   };
-});
+}));

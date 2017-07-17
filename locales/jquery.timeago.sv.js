@@ -25,4 +25,4 @@
     year: "ungefär ett år",
     years: "%d år"
   };
-});
+}));

@@ -24,4 +24,5 @@
      year: "urte bat",
      years: "%d urte"
   };
-});
+}));
+
