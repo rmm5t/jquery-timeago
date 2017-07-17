@@ -27,4 +27,4 @@
     wordSeparator: "",
     numbers: []
   };
-});
+}));

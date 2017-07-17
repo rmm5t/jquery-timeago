@@ -25,4 +25,4 @@
     year: function(n, d) { return d < 0 ? "umbes aasta aja" : "umbes aasta aega"; },
     years: function(n, d) { return d < 0 ? "%d aasta" : "%d aastat"; }
   };
-});
+}));

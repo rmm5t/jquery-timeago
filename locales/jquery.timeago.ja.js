@@ -26,4 +26,4 @@
     years: "約 %d 年",
     wordSeparator: ""
   };
-});
+}));

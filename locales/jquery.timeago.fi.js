@@ -35,4 +35,4 @@
   // As workaround, the above localizations will say
   // "2 päivää tulevaisuudessa" which is understandable but
   // not as fluent.
-});
+}));

@@ -25,4 +25,4 @@
     year: "kurang luwih setahun",
     years: "%d tahun"
   };
-});
+}));

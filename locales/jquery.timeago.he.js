@@ -23,4 +23,4 @@
     year: "שנה",
     years: function(number){return (number===2) ? "שנתיים" : "%d שנים";}
   };
-});
+}));

@@ -23,4 +23,4 @@
     year: "circa un anno",
     years: "%d anni"
   };
-});
+}));

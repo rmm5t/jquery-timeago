@@ -36,4 +36,4 @@
     year: "rok",
     years: function(value) { return numpf(value, "%d lata", "%d lat"); }
   };
-});
+}));

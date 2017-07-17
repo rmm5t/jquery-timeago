@@ -25,4 +25,5 @@
      year: "un año",
      years: "%d años"
   };
-});
+}));
+

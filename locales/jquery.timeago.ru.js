@@ -40,4 +40,4 @@
     year: "год",
     years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
   };
-});
+}));

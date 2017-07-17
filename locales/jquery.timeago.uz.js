@@ -26,4 +26,4 @@
     years: function(value) { return "%d yil"; },
     wordSeparator: " "
   };
-});
+}));

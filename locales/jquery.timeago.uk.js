@@ -39,4 +39,4 @@
     year: "рік",
     years: function(value) { return numpf(value, "%d рік", "%d роки", "%d років"); }
   };
-});
+}));

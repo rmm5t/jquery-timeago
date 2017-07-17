@@ -25,4 +25,4 @@
     year: "körülbelül egy éve",
     years: "%d éve"
   };
-});
+}));

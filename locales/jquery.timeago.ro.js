@@ -25,4 +25,5 @@
     year: "un an",
     years: "%d ani"
   };
-});
+}));
+

@@ -25,4 +25,5 @@
     year: "sekitar setahun",
     years: "%d tahun"
   };
-});
+}));
+
