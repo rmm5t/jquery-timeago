@@ -13,7 +13,7 @@
     prefixFromNow: null,
     suffixAgo: "",
     suffixFromNow: "",
-    seconds: "1sn",
+    seconds: "1dk",
     minute: "1d",
     minutes: "%dd",
     hour: "1s",
