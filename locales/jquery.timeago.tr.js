@@ -11,7 +11,7 @@
   jQuery.timeago.settings.strings = {
     suffixAgo: 'önce',
     suffixFromNow: null,
-    seconds: '1 dakikadan',
+    seconds: 'birkaç saniye',
     minute: '1 dakika',
     minutes: '%d dakika',
     hour: '1 saat',
