@@ -127,8 +127,6 @@ jQuery.timeago.settings.cutoff = 1000*60*60*24;
 
 [Ryan McGeary](http://ryan.mcgeary.org) ([@rmm5t](http://twitter.com/rmm5t))
 
-## Other
+## License
 
-[MIT License](http://www.opensource.org/licenses/mit-license.php)
-
-Copyright (c) 2008-2017, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
+[MIT License](https://rmm5t.mit-license.org/)
