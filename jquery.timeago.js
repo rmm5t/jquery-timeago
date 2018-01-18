@@ -46,6 +46,7 @@
       localeTitle: false,
       cutoff: 0,
       autoDispose: true,
+      timeOffset: 0,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -223,7 +224,7 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    return (new Date().getTime() + ($t.settings.timeOffset ? $t.settings.timeOffset * 60*60*1000 : 0 ) - date.getTime());
   }
 
   // fix for IE6 suckage
