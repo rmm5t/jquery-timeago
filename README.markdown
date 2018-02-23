@@ -96,7 +96,7 @@ jQuery.timeago.settings.cutoff = 1000*60*60*24;
 
 | Version | Notes                                                                           |
 |---------|---------------------------------------------------------------------------------|
-|   1.6.x | ([compare][compare-1.6]) Wraped locales in UMD wrappers                         |
+|   1.6.x | ([compare][compare-1.6]) Wraped locales in UMD wrappers; locale improvements    |
 |   1.5.x | ([compare][compare-1.5]) Added Date as argument to update function; locales     |
 |   1.4.x | ([compare][compare-1.4]) Added allowPast setting; locale updates                |
 |   1.3.x | ([compare][compare-1.3]) Added updateFromDOM function; bug fixes; bower support |
