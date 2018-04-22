@@ -12,7 +12,7 @@
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "之前",
-    suffixFromNow: "後",
+    suffixFromNow: "之後",
     seconds: "不到1分鐘",
     minute: "大約1分鐘",
     minutes: "%d分鐘",
