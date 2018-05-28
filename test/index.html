@@ -192,6 +192,28 @@
       <li><abbr id="testMillisSettings7" class="tomillis" title="45"></abbr> [45 sec]</li>
       <li><abbr id="testMillisSettings8" class="tomillis" title="90"></abbr> [90 sec]</li>
       <li><abbr id="testMillisSettings9" class="tomillis" title="120"></abbr> [120 sec]</li>
+
+      <li><abbr id="testBelarusianSettings1" class="tobelarusian" title="-7200"></abbr> [-120 min]</li>
+      <li><abbr id="testBelarusianSettings2" class="tobelarusian" title="-60"></abbr> [-60 sec]</li>
+      <li><abbr id="testBelarusianSettings3" class="tobelarusian" title="-30"></abbr> [-30 sec]</li>
+      <li><abbr id="testBelarusianSettings4" class="tobelarusian" title="-1"></abbr> [-1 sec]</li>
+      <li><abbr id="testBelarusianSettings5" class="tobelarusian" title="0"></abbr> [0 sec]</li>
+      <li><abbr id="testBelarusianSettings6" class="tobelarusian" title="30"></abbr> [30 sec]</li>
+      <li><abbr id="testBelarusianSettings7" class="tobelarusian" title="45"></abbr> [45 sec]</li>
+      <li><abbr id="testBelarusianSettings8" class="tobelarusian" title="90"></abbr> [90 sec]</li>
+      <li><abbr id="testBelarusianSettings9" class="tobelarusian" title="120"></abbr> [120 sec]</li>
+      <li><abbr id="testBelarusianSettings10" class="tobelarusian" title="2700"></abbr> [45 min]</li>
+      <li><abbr id="testBelarusianSettings11" class="tobelarusian" title="5340"></abbr> [89 min]</li>
+      <li><abbr id="testBelarusianSettings12" class="tobelarusian" title="5400"></abbr> [90 min]</li>
+      <li><abbr id="testBelarusianSettings13" class="tobelarusian" title="7200"></abbr> [120 min]</li>
+      <li><abbr id="testBelarusianSettings14" class="tobelarusian" title="82800"></abbr> [1380 min]</li>
+      <li><abbr id="testBelarusianSettings15" class="tobelarusian" title="90000"></abbr> [25 hours]</li>
+      <li><abbr id="testBelarusianSettings16" class="tobelarusian" title="172800"></abbr> [48 hours]</li>
+      <li><abbr id="testBelarusianSettings17" class="tobelarusian" title="2505600"></abbr> [696 hours]</li>
+      <li><abbr id="testBelarusianSettings18" class="tobelarusian" title="2592000"></abbr> [30 days]</li>
+      <li><abbr id="testBelarusianSettings19" class="tobelarusian" title="16416000"></abbr> [190 days]</li>
+      <li><abbr id="testBelarusianSettings20" class="tobelarusian" title="31622400"></abbr> [366 days]</li>
+      <li><abbr id="testBelarusianSettings21" class="tobelarusian" title="94608000"></abbr> [1095 days]</li>
     </ul>
 
     <h2>Do Not Allow Future</h2>
@@ -286,6 +308,9 @@
 
       loadMillis();
       $("abbr.tomillis").each(toWords);
+
+      loadBelarusian();
+      $("abbr.tobelarusian").each(toWords);
 
       module("Valid date");
 
@@ -555,68 +580,81 @@
       test("suffixAgo", function () {
         ok($("#testLatinSettings5").html().match(/ago-hay$/), "Settings correctly applied");
         ok($("#testRussianSettings5").html().match(/назад$/), "Settings correctly applied");
+        ok($("#testBelarusianSettings5").html().match(/таму$/), "Settings correctly applied");
         ok($("#testMillisSettings5").html().match(/ago/), "Settings correctly applied");
       });
 
       test("prefixFromNow", function () {
         ok($("#testRussianSettings2").html().match(/^через/), "Settings correctly applied");
+        ok($("#testBelarusianSettings2").html().match(/^праз/), "Settings correctly applied");
       });
 
       test("seconds", function () {
         ok($("#testLatinSettings5").html().match(/^ess-lay an-thay a-hay inute-may/), "Settings correctly applied");
         ok($("#testRussianSettings5").html().match(/^меньше минуты/), "Settings correctly applied");
         ok($("#testMillisSettings5").html().match(/0 milliseconds/), "Settings correctly applied");
+        ok($("#testBelarusianSettings5").html().match(/менш хвіліны/), "Settings correctly applied");
       });
 
       test("minute", function () {
         ok($("#testLatinSettings7").html().match(/^about-hay a-hay inute-may/), "Settings correctly applied");
         ok($("#testRussianSettings7").html().match(/^минуту/), "Settings correctly applied");
         ok($("#testMillisSettings7").html().match(/45000 milliseconds/), "Settings correctly applied");
+        ok($("#testBelarusianSettings7").html().match(/хвіліну/), "Settings correctly applied");
       });
 
       test("minutes", function () {
         ok($("#testLatinSettings8").html().match(/^2 inutes-may/), "Settings correctly applied");
         ok($("#testRussianSettings8").html().match(/^2 минуты/), "Settings correctly applied");
+        ok($("#testBelarusianSettings8").html().match(/^2 хвіліны/), "Settings correctly applied");
         // TODO: Test "минута" and "минут"
       });
 
       test("hour", function () {
         ok($("#testLatinSettings10").html().match(/^about-hay an-hay hour-hay/), "Settings correctly applied");
         ok($("#testRussianSettings10").html().match(/^час/), "Settings correctly applied");
+        ok($("#testBelarusianSettings10").html().match(/^гадзіну/), "Settings correctly applied");
       });
 
       test("hours", function () {
         ok($("#testLatinSettings12").html().match(/^about-hay 2 hours-hay/), "Settings correctly applied");
         ok($("#testRussianSettings12").html().match(/^2 часа/), "Settings correctly applied");
+        ok($("#testBelarusianSettings12").html().match(/^2 гадзіны/), "Settings correctly applied");
         // TODO: Test "час" and "часов"
       });
 
       test("day", function () {
         ok($("#testLatinSettings15").html().match(/^a-hay ay-day/), "Settings correctly applied");
         ok($("#testRussianSettings15").html().match(/^день/), "Settings correctly applied");
+        ok($("#testBelarusianSettings15").html().match(/^дзень/), "Settings correctly applied");
       });
 
       test("days", function () {
         ok($("#testLatinSettings16").html().match(/^2 ays-day/), "Settings correctly applied");
         ok($("#testRussianSettings16").html().match(/^2 дня/), "Settings correctly applied");
         ok($("#testRussianSettings17").html().match(/^29 дней/), "Settings correctly applied");
+        ok($("#testBelarusianSettings16").html().match(/^2 дні/), "Settings correctly applied");
+        ok($("#testBelarusianSettings17").html().match(/^29 дзён/), "Settings correctly applied");
         // TODO: Test "день"
       });
 
       test("month", function () {
         ok($("#testLatinSettings18").html().match(/^about-hay a-hay onth-may/), "Settings correctly applied");
         ok($("#testRussianSettings18").html().match(/^месяц/), "Settings correctly applied");
+        ok($("#testBelarusianSettings18").html().match(/^месяц/), "Settings correctly applied");
       });
 
       test("months", function () {
         ok($("#testLatinSettings19").html().match(/^6 onths-may/), "Settings correctly applied");
         ok($("#testRussianSettings19").html().match(/^6 месяцев/), "Settings correctly applied");
+        ok($("#testBelarusianSettings19").html().match(/^6 месяцаў/), "Settings correctly applied");
         // TODO: Test "месяца" and "месяц"
       });
 
       test("year", function () {
         ok($("#testLatinSettings20").html().match(/^about-hay a-hay ear-yay/), "Settings correctly applied");
         ok($("#testRussianSettings20").html().match(/^год/), "Settings correctly applied");
+        ok($("#testBelarusianSettings20").html().match(/^год/), "Settings correctly applied");
       });
 
       test("years", function () {
@@ -624,6 +662,7 @@
         ok($("#testYoungOldSettings2").html().match(/^64 old years/), "Settings correctly applied");
         ok($("#testLatinSettings21").html().match(/^3 years-yay/), "Settings correctly applied");
         ok($("#testRussianSettings21").html().match(/^3 года/), "Settings correctly applied");
+        ok($("#testBelarusianSettings21").html().match(/^3 гады/), "Settings correctly applied");
         // TODO: Test "год" and "лет"
       });
 
