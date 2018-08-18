@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -7,7 +8,8 @@
     factory(jQuery);
   }
 }(function (jQuery) {
-  //Latvian
+  // Latvian
+  'use strict';
   jQuery.timeago.settings.strings = {
     prefixAgo: "pirms",
     prefixFromNow: null,

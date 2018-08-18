@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -7,9 +8,10 @@
     factory(jQuery);
   }
 }(function (jQuery) {
-  ﻿// Persian
+  // Persian
   // Use DIR attribute for RTL text in Persian Language for ABBR tag .
   // By MB.seifollahi@gmail.com
+  'use strict';
   jQuery.timeago.settings.strings = {
     prefixAgo: null,
     prefixFromNow: null,

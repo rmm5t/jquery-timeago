@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -8,14 +9,15 @@
   }
 }(function (jQuery) {
   // Ukrainian
+  'use strict';
   function numpf(n, f, s, t) {
     // f - 1, 21, 31, ...
     // s - 2-4, 22-24, 32-34 ...
     // t - 5-20, 25-30, ...
     var n10 = n % 10;
-    if ( (n10 === 1) && ( (n === 1) || (n > 20) ) ) {
+    if ((n10 === 1) && ((n === 1) || (n > 20))) {
       return f;
-    } else if ( (n10 > 1) && (n10 < 5) && ( (n > 20) || (n < 10) ) ) {
+    } else if ((n10 > 1) && (n10 < 5) && ((n > 20) || (n < 10))) {
       return s;
     } else {
       return t;
@@ -29,14 +31,14 @@
     suffixFromNow: null,
     seconds: "менше хвилини",
     minute: "хвилина",
-    minutes: function(value) { return numpf(value, "%d хвилина", "%d хвилини", "%d хвилин"); },
+    minutes: function (value) { return numpf(value, "%d хвилина", "%d хвилини", "%d хвилин"); },
     hour: "година",
-    hours: function(value) { return numpf(value, "%d година", "%d години", "%d годин"); },
+    hours: function (value) { return numpf(value, "%d година", "%d години", "%d годин"); },
     day: "день",
-    days: function(value) { return numpf(value, "%d день", "%d дні", "%d днів"); },
+    days: function (value) { return numpf(value, "%d день", "%d дні", "%d днів"); },
     month: "місяць",
-    months: function(value) { return numpf(value, "%d місяць", "%d місяці", "%d місяців"); },
+    months: function (value) { return numpf(value, "%d місяць", "%d місяці", "%d місяців"); },
     year: "рік",
-    years: function(value) { return numpf(value, "%d рік", "%d роки", "%d років"); }
+    years: function (value) { return numpf(value, "%d рік", "%d роки", "%d років"); }
   };
 }));

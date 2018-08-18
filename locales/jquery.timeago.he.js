@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -8,6 +9,7 @@
   }
 }(function (jQuery) {
   // Hebrew
+  'use strict';
   jQuery.timeago.settings.strings = {
     prefixAgo: "לפני",
     prefixFromNow: "עוד",
@@ -15,12 +17,12 @@
     minute: "דקה",
     minutes: "%d דקות",
     hour: "שעה",
-    hours: function(number){return (number===2) ? "שעתיים" : "%d שעות";},
+    hours: function (number) {return (number === 2) ? "שעתיים" : "%d שעות"; },
     day: "יום",
-    days: function(number){return (number===2) ? "יומיים" : "%d ימים";},
+    days: function (number) {return (number === 2) ? "יומיים" : "%d ימים"; },
     month: "חודש",
-    months: function(number){return (number===2) ? "חודשיים" : "%d חודשים";},
+    months: function (number) {return (number === 2) ? "חודשיים" : "%d חודשים"; },
     year: "שנה",
-    years: function(number){return (number===2) ? "שנתיים" : "%d שנים";}
+    years: function (number) {return (number === 2) ? "שנתיים" : "%d שנים"; }
   };
 }));
