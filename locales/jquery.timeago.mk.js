@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -8,8 +9,9 @@
   }
 }(function (jQuery) {
   // Macedonian
-  (function() {
-   jQuery.timeago.settings.strings={
+  'use strict';
+  (function () {
+    jQuery.timeago.settings.strings={
       prefixAgo: "пред",
       prefixFromNow: "за",
       suffixAgo: null,
@@ -20,11 +22,11 @@
       hour: "%d час",
       hours: "%d часа",
       day: "%d ден",
-      days: "%d денови" ,
+      days: "%d денови",
       month: "%d месец",
       months: "%d месеци",
       year: "%d година",
       years: "%d години"
-   };
-  })();
+    };
+  }());
 }));

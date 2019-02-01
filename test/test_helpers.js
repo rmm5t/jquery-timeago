@@ -1,9 +1,11 @@
 var zeropad = function (num) {
+  'use strict';
   return ((num < 10) ? '0' : '') + num;
 };
 var iso8601 = function (date) {
+  'use strict';
   return date.getUTCFullYear()
-    + "-" + zeropad(date.getUTCMonth()+1)
+    + "-" + zeropad(date.getUTCMonth() + 1)
     + "-" + zeropad(date.getUTCDate())
     + "T" + zeropad(date.getUTCHours())
     + ":" + zeropad(date.getUTCMinutes())
@@ -11,31 +13,38 @@ var iso8601 = function (date) {
 };
 
 function prepareDynamicDates() {
+  'use strict';
   $('time.loaded').attr("datetime", iso8601(new Date()));
   $('time.modified').attr("datetime", iso8601(new Date(document.lastModified)));
 }
 
 function loadNumbers() {
+  'use strict';
   jQuery.timeago.settings.strings.numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 }
 function unloadNumbers() {
+  'use strict';
   jQuery.timeago.settings.strings.numbers = [];
 }
 
 function loadCutoffSetting() {
+  'use strict';
   jQuery.timeago.settings.cutoff = 7*24*60*60*1000;
 }
 
 function unloadCutoffSetting() {
+  'use strict';
   jQuery.timeago.settings.cutoff = 0;
 }
 
 function setupDisposal() {
+  'use strict';
   jQuery.timeago.settings.refreshMillis = 50;
   $('abbr.disposal').attr("title", iso8601(new Date())).timeago();
 }
 
 function loadPigLatin() {
+  'use strict';
   jQuery.timeago.settings.strings = {
     suffixAgo: "ago-hay",
     suffixFromNow: "omNow-fray",
@@ -54,7 +63,8 @@ function loadPigLatin() {
 }
 
 function loadRussian() {
-  (function() {
+  'use strict';
+  (function () {
     function numpf(n, f, s, t) {
       // f - 1, 21, 31, ...
       // s - 2-4, 22-24, 32-34 ...
@@ -76,15 +86,15 @@ function loadRussian() {
       suffixFromNow: null,
       seconds: "меньше минуты",
       minute: "минуту",
-      minutes: function(value) { return numpf(value, "%d минута", "%d минуты", "%d минут"); },
+      minutes: function (value) { return numpf(value, "%d минута", "%d минуты", "%d минут"); },
       hour: "час",
-      hours: function(value) { return numpf(value, "%d час", "%d часа", "%d часов"); },
+      hours: function (value) { return numpf(value, "%d час", "%d часа", "%d часов"); },
       day: "день",
-      days: function(value) { return numpf(value, "%d день", "%d дня", "%d дней"); },
+      days: function (value) { return numpf(value, "%d день", "%d дня", "%d дней"); },
       month: "месяц",
-      months: function(value) { return numpf(value, "%d месяц", "%d месяца", "%d месяцев"); },
+      months: function (value) { return numpf(value, "%d месяц", "%d месяца", "%d месяцев"); },
       year: "год",
-      years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
+      years: function (value) { return numpf(value, "%d год", "%d года", "%d лет"); }
     };
   })();
 }
@@ -122,15 +132,17 @@ function loadBelarusian() {
       year: "год",
       years: function(value) { return numpf(value, "%d год", "%d гады", "%d гадоў"); }
     };
-  })();
+  }());
 }
 
 function resetRefreshMillis() {
+  'use strict';
   jQuery.timeago.settings.refreshMillis = 60000;
 }
 
 function loadMillis() {
-  var millisSubstitution = function(number, millis) { return millis + " milliseconds"; };
+  'use strict';
+  var millisSubstitution = function (number, millis) { return millis + " milliseconds"; };
   jQuery.timeago.settings.strings = {
     suffixAgo: "ago",
     suffixFromNow: "from now",
@@ -149,6 +161,7 @@ function loadMillis() {
 }
 
 function loadNoSpaces() {
+  'use strict';
   jQuery.extend(jQuery.timeago.settings.strings, {
     minutes: "%dminutes",
     wordSeparator: ""

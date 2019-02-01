@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -7,6 +8,7 @@
     factory(jQuery);
   }
 }(function (jQuery) {
+  'use strict';
   jQuery.timeago.settings.strings = {
     prefixAgo: "fyrir",
     prefixFromNow: "eftir",

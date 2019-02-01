@@ -1,4 +1,5 @@
 (function (factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -8,6 +9,7 @@
   }
 }(function (jQuery) {
   // Dutch
+  'use strict';
   jQuery.timeago.settings.strings = {
     prefixAgo: null,
     prefixFromNow: "over",
