@@ -37,7 +37,7 @@ task :umd, [:files] do |t, args|
         }));
       HEREDOC
     end
-    
+
     matches = Dir.glob(args[:files])
     puts "Pattern did not match any file" if matches.length == 0
     matches.each do |file|

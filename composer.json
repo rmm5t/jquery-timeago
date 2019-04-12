@@ -17,7 +17,7 @@
     "microformat"
   ],
   "require": {
-    "components/jquery": ">=1.2.3"
+    "components/jquery": ">=1.2.3 <3.4"
   },
   "extra": {
     "component": {
