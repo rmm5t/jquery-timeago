@@ -3,7 +3,7 @@
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
  *
  * @name timeago
- * @version 1.6.6
+ * @version 1.6.7
  * @requires jQuery >=1.5.0 <4.0
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php

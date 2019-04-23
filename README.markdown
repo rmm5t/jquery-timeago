@@ -110,7 +110,7 @@ jQuery.timeago.settings.cutoff = 1000*60*60*24;
 |   0.7.x | ([compare][compare-0.7]) locale function overrides; unit tests                  |
 |     ... | ...                                                                             |
 
-[compare-1.6]: https://github.com/rmm5t/jquery-timeago/compare/v1.5.4...v1.6.6
+[compare-1.6]: https://github.com/rmm5t/jquery-timeago/compare/v1.5.4...v1.6.7
 [compare-1.5]: https://github.com/rmm5t/jquery-timeago/compare/v1.4.3...v1.5.4
 [compare-1.4]: https://github.com/rmm5t/jquery-timeago/compare/v1.3.2...v1.4.3
 [compare-1.3]: https://github.com/rmm5t/jquery-timeago/compare/v1.2.0...v1.3.2
