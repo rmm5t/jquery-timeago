@@ -230,8 +230,7 @@
     </ul>
 
     <h2>Disposal</h2>
-    <p><abbr class="disposal disposed"></abbr></p>
-    <p><abbr class="disposal notDisposed"></abbr></p>
+    <p><abbr id="testDisposed" class="disposal"></abbr></p>
   </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -713,22 +712,14 @@
       module("Disposal");
 
       asyncTest("disposal", function() {
-        var disposed = $(".disposal.disposed");
-        var active = $(".disposal.notDisposed");
-        disposed.timeago('dispose');
+        var disposed = $("#testDisposed");
+        disposed.timeago("dispose");
         var initialTime_disposedTimeago = disposed.html();
-        var initialTime_activeTimeago = active.html();
 
-        expect(2);
+        expect(1);
         setTimeout(function() {
           var updatedTime_disposedTimeago = disposed.html();
-          var updatedTime_activeTimeago = active.html();
-
-          ok(initialTime_disposedTimeago === updatedTime_disposedTimeago, "A disposed timeago didn't get updated");
-          ok(initialTime_activeTimeago !== updatedTime_activeTimeago, "A non-disposed timeago continued to be updated");
-
-          // Dispose still-active timeago
-          active.timeago('dispose');
+          ok(initialTime_disposedTimeago === updatedTime_disposedTimeago, "A disposed timeago continued to update");
           resetRefreshMillis();
           start();
         }, 50);

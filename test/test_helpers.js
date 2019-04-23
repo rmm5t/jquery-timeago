@@ -31,7 +31,7 @@ function unloadCutoffSetting() {
 }
 
 function setupDisposal() {
-  jQuery.timeago.settings.refreshMillis = 50;
+  jQuery.timeago.settings.refreshMillis = 25;
   $('abbr.disposal').attr("title", iso8601(new Date())).timeago();
 }
 
