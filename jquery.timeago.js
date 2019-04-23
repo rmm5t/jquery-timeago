@@ -4,7 +4,7 @@
  *
  * @name timeago
  * @version 1.6.6
- * @requires jQuery >=1.5.0 <3.4
+ * @requires jQuery >=1.5.0 <4.0
  * @author Ryan McGeary
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
  *
