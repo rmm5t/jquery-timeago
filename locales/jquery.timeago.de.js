@@ -13,6 +13,7 @@
     prefixFromNow: "in",
     suffixAgo: "",
     suffixFromNow: "",
+    inPast: "jetzt gleich",
     seconds: "wenigen Sekunden",
     minute: "etwa einer Minute",
     minutes: "%d Minuten",
