@@ -59,7 +59,7 @@ into something like this:
 <time class="timeago" datetime="2011-12-17T09:24:17Z" title="December 17, 2011">about 1 day ago</time>
 ```
 
-`<abbr>` elements are also supported (this is for
+`<abbr>` elements (or any other HTML elements) are also supported (this is for
 [legacy microformat support](http://microformats.org/wiki/datetime-design-pattern)
 and was originally supported by the library before the `time` element was
 introduced to HTML5):
