@@ -161,6 +161,28 @@
       <li><abbr id="testLatinSettings20" class="tolatin" title="31622400"></abbr> [366 days]</li>
       <li><abbr id="testLatinSettings21" class="tolatin" title="94608000"></abbr> [1095 days]</li>
 
+      <li><abbr id="testPolishSettings1" class="topolish" title="-7200"></abbr> [-120 min]</li>
+      <li><abbr id="testPolishSettings2" class="topolish" title="-60"></abbr> [-60 sec]</li>
+      <li><abbr id="testPolishSettings3" class="topolish" title="-30"></abbr> [-30 sec]</li>
+      <li><abbr id="testPolishSettings4" class="topolish" title="-1"></abbr> [-1 sec]</li>
+      <li><abbr id="testPolishSettings5" class="topolish" title="0"></abbr> [0 sec]</li>
+      <li><abbr id="testPolishSettings6" class="topolish" title="30"></abbr> [30 sec]</li>
+      <li><abbr id="testPolishSettings7" class="topolish" title="45"></abbr> [45 sec]</li>
+      <li><abbr id="testPolishSettings8" class="topolish" title="90"></abbr> [90 sec]</li>
+      <li><abbr id="testPolishSettings9" class="topolish" title="120"></abbr> [120 sec]</li>
+      <li><abbr id="testPolishSettings10" class="topolish" title="2700"></abbr> [45 min]</li>
+      <li><abbr id="testPolishSettings11" class="topolish" title="5340"></abbr> [89 min]</li>
+      <li><abbr id="testPolishSettings12" class="topolish" title="5400"></abbr> [90 min]</li>
+      <li><abbr id="testPolishSettings13" class="topolish" title="7200"></abbr> [120 min]</li>
+      <li><abbr id="testPolishSettings14" class="topolish" title="82800"></abbr> [1380 min]</li>
+      <li><abbr id="testPolishSettings15" class="topolish" title="90000"></abbr> [25 hours]</li>
+      <li><abbr id="testLatinSettings16" class="topolish" title="172800"></abbr> [48 hours]</li>
+      <li><abbr id="testPolishSettings17" class="topolish" title="2505600"></abbr> [696 hours]</li>
+      <li><abbr id="testPolishSettings18" class="topolish" title="2592000"></abbr> [30 days]</li>
+      <li><abbr id="testPolishSettings19" class="topolish" title="16416000"></abbr> [190 days]</li>
+      <li><abbr id="testPolishSettings20" class="topolish" title="31622400"></abbr> [366 days]</li>
+      <li><abbr id="testPolishSettings21" class="topolish" title="94608000"></abbr> [1095 days]</li>
+
       <li><abbr id="testRussianSettings1" class="torussian" title="-7200"></abbr> [-120 min]</li>
       <li><abbr id="testRussianSettings2" class="torussian" title="-60"></abbr> [-60 sec]</li>
       <li><abbr id="testRussianSettings3" class="torussian" title="-30"></abbr> [-30 sec]</li>
@@ -315,6 +337,9 @@
 
       loadBelarusian();
       $("abbr.tobelarusian").each(toWords);
+
+      loadPolish();
+      $("abbr.topolish").each(toWords);
 
       module("Valid date");
 
@@ -586,11 +611,13 @@
         ok($("#testRussianSettings5").html().match(/назад$/), "Settings correctly applied");
         ok($("#testBelarusianSettings5").html().match(/таму$/), "Settings correctly applied");
         ok($("#testMillisSettings5").html().match(/ago/), "Settings correctly applied");
+        ok($("#testPolishSettings5").html().match(/temu/), "Settings correctly applied");
       });
 
       test("prefixFromNow", function () {
         ok($("#testRussianSettings2").html().match(/^через/), "Settings correctly applied");
         ok($("#testBelarusianSettings2").html().match(/^праз/), "Settings correctly applied");
+        ok($("#testPolishSettings2").html().match(/za/), "Settings correctly applied");
       });
 
       test("seconds", function () {
