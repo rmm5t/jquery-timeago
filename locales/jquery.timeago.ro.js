@@ -10,17 +10,17 @@
   // Romanian
   jQuery.timeago.settings.strings = {
     prefixAgo: "acum",
-    prefixFromNow: "in timp de",
+    prefixFromNow: "peste",
     suffixAgo: "",
     suffixFromNow: "",
-    seconds: "mai putin de un minut",
+    seconds: "mai puțin de un minut",
     minute: "un minut",
     minutes: "%d minute",
-    hour: "o ora",
+    hour: "o oră",
     hours: "%d ore",
     day: "o zi",
     days: "%d zile",
-    month: "o luna",
+    month: "o lună",
     months: "%d luni",
     year: "un an",
     years: "%d ani"
