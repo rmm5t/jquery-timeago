@@ -113,11 +113,11 @@
 
       var separator = $l.wordSeparator || "";
       if ($l.wordSeparator === undefined) { separator = " "; }
-      return String.prototype.trim.call([prefix, words, suffix].join(separator));
+      return [prefix, words, suffix].join(separator).trim();
     },
 
     parse: function(iso8601) {
-      var s = String.prototype.trim.call(iso8601);
+      var s = iso8601.trim();
       s = s.replace(/\.\d+/,""); // remove milliseconds
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
@@ -208,7 +208,7 @@
     element = $(element);
     if (!element.data("timeago")) {
       element.data("timeago", { datetime: $t.datetime(element) });
-      var text = String.prototype.trim.call(element.text());
+      var text = element.text().trim();
       if ($t.settings.localeTitle) {
         element.attr("title", element.data('timeago').datetime.toLocaleString());
       } else if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
