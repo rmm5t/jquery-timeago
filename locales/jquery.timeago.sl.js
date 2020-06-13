@@ -12,7 +12,7 @@
       return a[n%100===1 ? 1 : n%100===2 ? 2 : n%100===3 || n%100===4 ? 3 : 0];
   };
 
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["sl"] = {
       prefixAgo: null,
       prefixFromNow: "čez",
       suffixAgo: "nazaj",

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Vietnamese
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["vi"] = {
     prefixAgo: 'cách đây',
     prefixFromNow: null,
     suffixAgo: "trước",

@@ -13,7 +13,7 @@
   		return a[d>=0 ? 0 : a.length===2 || n<5 ? 1 : 2];
   	}
   
-  	jQuery.timeago.settings.strings = {
+  	jQuery.timeago.settings.strings["sk"] = {
   		prefixAgo:     'pred',
   		prefixFromNow: 'o',
   		suffixAgo:     null,

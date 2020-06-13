@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Indonesian
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["id"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "yang lalu",
