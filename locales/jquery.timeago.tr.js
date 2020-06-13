@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Turkish
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["tr"] = {
     suffixAgo: 'önce',
     suffixFromNow: null,
     seconds: 'birkaç saniye',

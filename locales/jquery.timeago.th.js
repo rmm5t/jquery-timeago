@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Thai
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["th"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "ที่แล้ว",

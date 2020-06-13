@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Kinyarwanda
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["rw"] = {
     prefixAgo: "hashize",
     prefixFromNow: "mu",
     suffixAgo: null,

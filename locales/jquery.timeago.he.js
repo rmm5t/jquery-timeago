@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Hebrew
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["he"] = {
     prefixAgo: "לפני",
     prefixFromNow: "עוד",
     seconds: "פחות מדקה",
