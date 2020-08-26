@@ -65,7 +65,17 @@
         years: "%d years",
         wordSeparator: " ",
         numbers: []
-      }
+      },
+      /**
+       * Secondary Fuzzing routine for post-processing.
+       * Should take in the element in question, the originally intended TimeAgo text and the distanceMillis between
+       * now and the given date.
+       * 
+       * function(el, originalText, distanceMillis) {
+       *  return originalText;
+       * }
+       */
+      secondaryFuzzing: false
     },
 
     inWords: function(distanceMillis) {
@@ -194,7 +204,12 @@
 
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff === 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
-        $(this).text(inWords(data.datetime));
+        if ($.timeago.settings.secondaryFuzzing) {
+          var datetime = data.datetime;
+          $(this).text($.timeago.settings.secondaryFuzzing(this, inWords(datetime), distance(datetime)));
+        } else {
+          $(this).text(inWords(data.datetime));
+        }
       } else {
         if ($(this).attr('title').length > 0) {
             $(this).text($(this).attr('title'));
