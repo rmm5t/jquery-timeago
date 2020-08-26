@@ -1,8 +1,8 @@
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['jquery'], factory);
+    define(['jquery', 'jquery-timeago'], factory);
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
-    factory(require('jquery'));
+    factory(require('jquery'), require('jquery-timeago'));
   } else {
     factory(jQuery);
   }
