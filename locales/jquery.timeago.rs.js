@@ -20,7 +20,7 @@
       }
   };
 
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["rs"] = {
       prefixAgo: "pre",
       prefixFromNow: "za",
       suffixAgo: null,

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Portuguese Brasil shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["pt-br-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",

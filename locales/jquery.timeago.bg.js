@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Bulgarian
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["bg"] = {
     prefixAgo: "преди",
     prefixFromNow: "след",
     suffixAgo: null,

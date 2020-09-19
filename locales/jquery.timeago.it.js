@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Italian
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["it"] = {
     prefixAgo: null,
     prefixFromNow: "fra",
     suffixAgo: "fa",

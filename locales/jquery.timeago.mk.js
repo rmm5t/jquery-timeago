@@ -9,7 +9,7 @@
 }(function (jQuery) {
   // Macedonian
   (function() {
-   jQuery.timeago.settings.strings={
+   jQuery.timeago.settings.strings["mk"]={
       prefixAgo: "пред",
       prefixFromNow: "за",
       suffixAgo: null,

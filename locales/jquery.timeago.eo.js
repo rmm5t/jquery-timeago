@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // English (Template) -> Esperanto
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["eo"] = {
     prefixAgo: "antaŭ",
     prefixFromNow: null,
     suffixAgo: null,

@@ -10,7 +10,7 @@
   /** 
    * Dhivehi time in Thaana for timeago.js
    **/
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["dv"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "ކުރިން",

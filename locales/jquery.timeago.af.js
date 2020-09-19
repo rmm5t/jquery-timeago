@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Afrikaans
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["af"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "gelede",
