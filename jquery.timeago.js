@@ -141,7 +141,7 @@
   var functions = {
     init: function() {
       functions.dispose.call(this);
-      var refresh_el = $.proxy(refresh, this);
+      var refresh_el = refresh.bind(this);
       refresh_el();
       var $s = $t.settings;
       if ($s.refreshMillis > 0) {
