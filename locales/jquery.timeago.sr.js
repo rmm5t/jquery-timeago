@@ -20,7 +20,7 @@
       }
   };
 
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["sr"] = {
       prefixAgo: "пре",
       prefixFromNow: "за",
       suffixAgo: null,

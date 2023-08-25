@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Galician
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["gl"] = {
      prefixAgo: "hai",
      prefixFromNow: "dentro de",
      suffixAgo: "",

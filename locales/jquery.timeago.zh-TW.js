@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Traditional Chinese, zh-tw
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["zh-TW"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "之前",

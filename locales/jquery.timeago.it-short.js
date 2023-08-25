@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Italian shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["it-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",

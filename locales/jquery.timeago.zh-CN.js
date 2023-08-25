@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Simplified Chinese
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["zh-CN"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "之前",

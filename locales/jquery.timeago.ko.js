@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Korean
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["ko"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "전",

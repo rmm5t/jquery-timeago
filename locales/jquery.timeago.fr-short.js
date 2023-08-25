@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // French shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["fr-short"] = {
      prefixAgo: "il y a",
      prefixFromNow: "d'ici",
      seconds: "moins d'une minute",

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Swedish
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["sv"] = {
     prefixAgo: "för",
     prefixFromNow: "om",
     suffixAgo: "sedan",

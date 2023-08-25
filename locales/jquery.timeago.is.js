@@ -7,7 +7,7 @@
     factory(jQuery);
   }
 }(function (jQuery) {
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["is"] = {
     prefixAgo: "fyrir",
     prefixFromNow: "eftir",
     suffixAgo: "síðan",

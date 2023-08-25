@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Romanian
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["ro"] = {
     prefixAgo: "acum",
     prefixFromNow: "peste",
     suffixAgo: "",

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Brazilian Portuguese 
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["pt-br"] = {
      prefixAgo: "há",
      prefixFromNow: "em",
      suffixAgo: null,

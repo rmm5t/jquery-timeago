@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // German shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["de-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",
