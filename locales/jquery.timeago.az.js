@@ -24,7 +24,6 @@
     months: '%d ay',
     year: '1 il',
     years: '%d il',
-    wordSeparator: '',
     numbers: []
   };
 }));
