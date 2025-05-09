@@ -9,8 +9,8 @@
 }(function (jQuery) {
   // Nepali
   jQuery.timeago.settings.strings = {
-    prefixAgo: null,
-    prefixFromNow: null,
+    suffixAgo: "पहिले",
+    suffixFromNow: "अब देखि",
     suffixAgo: "पहिले",
     suffixFromNow: "पछि",
     seconds: "एक मिनेट भन्दा कम",
