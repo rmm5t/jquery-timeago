@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Dutch
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["nl"] = {
     prefixAgo: null,
     prefixFromNow: "over",
     suffixAgo: "geleden",

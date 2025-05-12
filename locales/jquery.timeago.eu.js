@@ -7,7 +7,7 @@
     factory(jQuery);
   }
 }(function (jQuery) {
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["eu"] = {
      prefixAgo: "duela",
      prefixFromNow: "hemendik",
      suffixAgo: "",

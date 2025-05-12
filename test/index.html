@@ -251,6 +251,14 @@
       <li><abbr id="testAllowPastAndFutureFalse" title="2008-01-01T09:24:17Z"></abbr></li>
     </ul>
 
+    <h2>Lang</h2>
+
+    <ul>
+      <li><abbr id="testLang" class="lang" title="2008-01-01T09:24:17Z">(you shouldn't see this)</abbr></li>
+      <li><abbr id="testLangTag" class="timeago" title="2008-01-01T09:24:17Z" lang="zxx">(you shouldn't see this)</abbr></li>
+      <li><abbr id="testLangPlain" class="langPlain" title="2008-01-01T09:24:17Z">(you shouldn't see this)</abbr></li>
+    </ul>
+
     <h2>Disposal</h2>
     <p><abbr id="testDisposed" class="disposal"></abbr></p>
   </div>
@@ -286,9 +294,14 @@
       $.timeago.settings.allowFuture = true;
 
       prepareDynamicDates();
+      loadStrings();
 
       $("abbr.timeago").not("abbr.cutoff").timeago();
       $("time.timeago").timeago();
+
+      loadLang();
+      $("abbr.lang").timeago();
+      unloadLang();
 
       loadCutoffSetting();
       $("abbr.cutoff").timeago();
@@ -340,6 +353,9 @@
 
       loadPolish();
       $("abbr.topolish").each(toWords);
+
+      loadPlainStrings();
+      $("abbr.langPlain").timeago();
 
       module("Valid date");
 
@@ -737,6 +753,20 @@
           $.timeago.settings.allowPast = origAllowPast;
         }
       });
+
+      module("Lang");
+
+      test("uses lang from settings", function() {
+        equal($("#testLang").html(), "und");
+      })
+
+      test("uses lang tag", function() {
+        equal($("#testLangTag").html(), "zxx");
+      })
+
+      test("works with direct assigned strings", function() {
+        equal($("#testLangPlain").html(), "plain");
+      })
 
       module("Disposal");
 

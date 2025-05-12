@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Japanese
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["ja"] = {
     prefixAgo: "",
     prefixFromNow: "今から",
     suffixAgo: "前",

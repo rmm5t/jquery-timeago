@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Albanian SQ
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["sq"] = {
     suffixAgo: "më parë",
     suffixFromNow: "tani",
     seconds: "më pak se një minutë",

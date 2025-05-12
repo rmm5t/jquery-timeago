@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Javanesse (Boso Jowo)
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["jv"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "kepungkur",

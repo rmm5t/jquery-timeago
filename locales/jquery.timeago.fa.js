@@ -10,7 +10,7 @@
   // Persian
   // Use DIR attribute for RTL text in Persian Language for ABBR tag .
   // By MB.seifollahi@gmail.com
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["fa"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "پیش",

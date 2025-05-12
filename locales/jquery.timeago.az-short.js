@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Azerbaijani shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["az-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",
