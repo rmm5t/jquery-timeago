@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Sinhalese (SI)
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["si"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "පෙර",

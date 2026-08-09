@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Estonian
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["et"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "tagasi",

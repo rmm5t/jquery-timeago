@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Welsh
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["cy"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "yn ôl",

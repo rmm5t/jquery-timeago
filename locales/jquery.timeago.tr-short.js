@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Turkish shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["tr-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   //Latvian
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["lv"] = {
     prefixAgo: "pirms",
     prefixFromNow: null,
     suffixAgo: null,

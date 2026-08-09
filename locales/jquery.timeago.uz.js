@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   //Uzbek
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["uz"] = {
     prefixAgo: null,
     prefixFromNow: "keyin",
     suffixAgo: "avval",

@@ -8,7 +8,7 @@
     }
   }(function (jQuery) {
     // English (Template)
-    jQuery.timeago.settings.strings = {
+    jQuery.timeago.settings.strings["ka"] = {
       prefixAgo: null,
       prefixFromNow: null,
       suffixAgo: "ის წინ",

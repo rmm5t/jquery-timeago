@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // English (Template)
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["en"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "ago",

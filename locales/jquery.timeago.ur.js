@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Urdu 
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["ur"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "پہلے",

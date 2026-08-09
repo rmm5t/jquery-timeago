@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // persian shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["fa-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",

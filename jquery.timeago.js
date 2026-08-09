@@ -46,34 +46,37 @@
       localeTitle: false,
       cutoff: 0,
       autoDispose: true,
+      lang: "en",
       strings: {
-        prefixAgo: null,
-        prefixFromNow: null,
-        suffixAgo: "ago",
-        suffixFromNow: "from now",
-        inPast: "any moment now",
-        seconds: "less than a minute",
-        minute: "about a minute",
-        minutes: "%d minutes",
-        hour: "about an hour",
-        hours: "about %d hours",
-        day: "a day",
-        days: "%d days",
-        month: "about a month",
-        months: "%d months",
-        year: "about a year",
-        years: "%d years",
-        wordSeparator: " ",
-        numbers: []
+        en: {
+          prefixAgo: null,
+          prefixFromNow: null,
+          suffixAgo: "ago",
+          suffixFromNow: "from now",
+          inPast: "any moment now",
+          seconds: "less than a minute",
+          minute: "about a minute",
+          minutes: "%d minutes",
+          hour: "about an hour",
+          hours: "about %d hours",
+          day: "a day",
+          days: "%d days",
+          month: "about a month",
+          months: "%d months",
+          year: "about a year",
+          years: "%d years",
+          wordSeparator: " ",
+          numbers: []
+        }
       }
     },
 
-    inWords: function(distanceMillis) {
+    inWords: function(distanceMillis, lang) {
       if (!this.settings.allowPast && ! this.settings.allowFuture) {
           throw 'timeago allowPast and allowFuture settings can not both be set to false.';
       }
 
-      var $l = this.settings.strings;
+      var $l = this.settings.strings[lang] || this.settings.strings[this.settings.lang] || this.settings.strings["en"] || this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
       if (this.settings.allowFuture) {
@@ -84,7 +87,7 @@
       }
 
       if (!this.settings.allowPast && distanceMillis >= 0) {
-        return this.settings.strings.inPast;
+        return $l.inPast;
       }
 
       var seconds = Math.abs(distanceMillis) / 1000;
@@ -194,7 +197,7 @@
 
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff === 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
-        $(this).text(inWords(data.datetime));
+        $(this).text(inWords(data.datetime, ($(this).attr('lang') ? $(this).attr('lang') : $t.settings.lang)));
       } else {
         if ($(this).attr('title').length > 0) {
             $(this).text($(this).attr('title'));
@@ -218,8 +221,8 @@
     return element.data("timeago");
   }
 
-  function inWords(date) {
-    return $t.inWords(distance(date));
+  function inWords(date, lang) {
+    return $t.inWords(distance(date), lang);
   }
 
   function distance(date) {

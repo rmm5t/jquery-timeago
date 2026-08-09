@@ -23,7 +23,7 @@
       }
     }
   
-    jQuery.timeago.settings.strings = {
+    jQuery.timeago.settings.strings["be"] = {
         prefixAgo: null,
         prefixFromNow: "праз",
         suffixAgo: "таму",

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // English shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["en-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",

@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Catalan
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["ca"] = {
     prefixAgo: "fa",
     prefixFromNow: "d'aquí",
     suffixAgo: null,

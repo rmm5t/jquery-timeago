@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Azerbaijani
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["az"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: 'əvvəl',

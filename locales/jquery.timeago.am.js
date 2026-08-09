@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Amharic
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["am"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "በፊት",

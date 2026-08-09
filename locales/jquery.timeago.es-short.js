@@ -8,7 +8,7 @@
   }
 }(function (jQuery) {
   // Spanish shortened
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings["es-short"] = {
     prefixAgo: null,
     prefixFromNow: null,
     suffixAgo: "",

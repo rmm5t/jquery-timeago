@@ -15,11 +15,70 @@ function prepareDynamicDates() {
   $('time.modified').attr("datetime", iso8601(new Date(document.lastModified)));
 }
 
+function loadStrings() {
+  jQuery.timeago.settings.strings.zxx = {
+    suffixAgo: "",
+    suffixFromNow: "",
+    seconds: "zxx",
+    minute: "zxx",
+    minutes: "zxx",
+    hour: "zxx",
+    hours: "zxx",
+    day: "zxx",
+    days: "zxx",
+    month: "zxx",
+    months: "zxx",
+    year: "zxx",
+    years: "zxx"
+  }
+
+  jQuery.timeago.settings.strings.und = {
+    suffixAgo: "",
+    suffixFromNow: "",
+    seconds: "und",
+    minute: "und",
+    minutes: "und",
+    hour: "und",
+    hours: "und",
+    day: "und",
+    days: "und",
+    month: "und",
+    months: "und",
+    year: "und",
+    years: "und"
+  }
+}
+
+function loadPlainStrings() {
+  jQuery.timeago.settings.strings = {
+    suffixAgo: "",
+    suffixFromNow: "",
+    seconds: "plain",
+    minute: "plain",
+    minutes: "plain",
+    hour: "plain",
+    hours: "plain",
+    day: "plain",
+    days: "plain",
+    month: "plain",
+    months: "plain",
+    year: "plain",
+    years: "plain"
+  }
+}
+
+function loadLang() {
+  jQuery.timeago.settings.lang = "und";
+}
+function unloadLang() {
+  jQuery.timeago.settings.lang = "en";
+}
+
 function loadNumbers() {
-  jQuery.timeago.settings.strings.numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+  jQuery.timeago.settings.strings.en.numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 }
 function unloadNumbers() {
-  jQuery.timeago.settings.strings.numbers = [];
+  jQuery.timeago.settings.strings.en.numbers = [];
 }
 
 function loadCutoffSetting() {
@@ -36,7 +95,7 @@ function setupDisposal() {
 }
 
 function loadPigLatin() {
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings.en = {
     suffixAgo: "ago-hay",
     suffixFromNow: "omNow-fray",
     seconds: "ess-lay an-thay a-hay inute-may",
@@ -67,7 +126,7 @@ function loadPolish() {
       }
     }
 
-    jQuery.timeago.settings.strings = {
+    jQuery.timeago.settings.strings.en = {
       prefixAgo: null,
       prefixFromNow: "za",
       suffixAgo: "temu",
@@ -103,7 +162,7 @@ function loadRussian() {
       }
     }
 
-    jQuery.timeago.settings.strings = {
+    jQuery.timeago.settings.strings.en = {
       prefixAgo: null,
       prefixFromNow: "через",
       suffixAgo: "назад",
@@ -139,13 +198,13 @@ function loadBelarusian() {
       }
     }
 
-    jQuery.timeago.settings.strings = {
-        prefixAgo: null,
-        prefixFromNow: "праз",
-        suffixAgo: "таму",
-        suffixFromNow: null,
-        seconds: "менш хвіліны",
-        minute: "хвіліну",
+    jQuery.timeago.settings.strings.en = {
+      prefixAgo: null,
+      prefixFromNow: "праз",
+      suffixAgo: "таму",
+      suffixFromNow: null,
+      seconds: "менш хвіліны",
+      minute: "хвіліну",
       minutes: function(value) { return numpf(value, "%d хвіліна", "%d хвіліны", "%d хвілін"); },
       hour: "гадзіну",
       hours: function(value) { return numpf(value, "%d гадзіна", "%d гадзіны", "%d гадзін"); },
@@ -165,7 +224,7 @@ function resetRefreshMillis() {
 
 function loadMillis() {
   var millisSubstitution = function(number, millis) { return millis + " milliseconds"; };
-  jQuery.timeago.settings.strings = {
+  jQuery.timeago.settings.strings.en = {
     suffixAgo: "ago",
     suffixFromNow: "from now",
     seconds: millisSubstitution,
@@ -183,21 +242,21 @@ function loadMillis() {
 }
 
 function loadNoSpaces() {
-  jQuery.extend(jQuery.timeago.settings.strings, {
+  jQuery.extend(jQuery.timeago.settings.strings.en, {
     minutes: "%dminutes",
     wordSeparator: ""
   });
 }
 
 function loadNullSpaces() {
-  jQuery.extend(jQuery.timeago.settings.strings, {
+  jQuery.extend(jQuery.timeago.settings.strings.en, {
     minutes: "%dminutes",
     wordSeparator: null
   });
 }
 
 function loadYoungOldYears() {
-  jQuery.extend(jQuery.timeago.settings.strings, {
+  jQuery.extend(jQuery.timeago.settings.strings.en, {
     years: function(value) { return (value < 21) ? "%d young years" : "%d old years"; }
   });
 }
@@ -217,7 +276,7 @@ function loadDoNotAllowPast() {
   var mockDateToUse = "2010-01-01";
   $.timeago.settings.allowFuture = true;
   $.timeago.settings.allowPast = false;
-  $.timeago.settings.strings.inPast = "in the past";
+  $.timeago.settings.strings.en.inPast = "in the past";
   enableMockedDate(mockDateToUse);
 }
 
